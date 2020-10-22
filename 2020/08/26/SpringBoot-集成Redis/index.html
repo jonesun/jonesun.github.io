@@ -29,7 +29,7 @@
 <meta property="og:description" content="Redis介绍 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.    C语言开发的、开源的、基于内存的数据结构存储器，可以用作数据库、缓存和消息中间件   一种 NoSQL（not-only sql，泛指非关系型">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-26T07:36:38.000Z">
-<meta property="article:modified_time" content="2020-10-12T12:16:17.412Z">
+<meta property="article:modified_time" content="2020-10-21T02:57:16.663Z">
 <meta property="article:author" content="Jone Sun">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="springboot">
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
+                <time title="修改时间：2020-10-21 10:57:16" itemprop="dateModified" datetime="2020-10-21T10:57:16+08:00">2020-10-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,8 @@
 <p>Redis 的应用场景包括：缓存系统（“热点”数据：高频读、低频写）、计数器、消息队列系统、排行榜、社交网络和实时系统。</p>
 <a id="more"></a>
 
-<h1 id="集成方式"><a href="#集成方式" class="headerlink" title="集成方式"></a>集成方式</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>在pom.xml中加入</p>
+<h1 id="集成方式"><a href="#集成方式" class="headerlink" title="集成方式"></a>集成方式</h1><p>要访问Redis，可以直接引入spring-boot-starter-data-redis依赖，它实际上是Spring Data的一个子项目——Spring Data Redis</p>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>在pom.xml中加入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;!-- lettuce pool 缓存连接池 如果不需要在yml中自定义pool配置, 则不需要引用--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;commons-pool2&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.5.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
