@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jonesun.github.io/2020/10/22/java-%E6%97%B6%E9%97%B4/</loc>
+    <lastmod>2020-10-23</lastmod>
+  </url>
+  <url>
+    <loc>https://jonesun.github.io/2020/10/14/java-%E9%9B%86%E5%90%88/</loc>
+    <lastmod>2020-10-22</lastmod>
+  </url>
+  <url>
     <loc>https://jonesun.github.io/2020/10/22/java-io/</loc>
     <lastmod>2020-10-22</lastmod>
   </url>
@@ -47,10 +55,6 @@
   <url>
     <loc>https://jonesun.github.io/2020/07/13/java%E9%9A%8F%E6%9C%BA%E6%95%B0/</loc>
     <lastmod>2020-10-16</lastmod>
-  </url>
-  <url>
-    <loc>https://jonesun.github.io/2020/10/14/java-%E9%9B%86%E5%90%88/</loc>
-    <lastmod>2020-10-14</lastmod>
   </url>
   <url>
     <loc>https://jonesun.github.io/2020/08/11/java%E5%A4%9A%E7%BA%BF%E7%A8%8B6-ConcurrentHashMap/</loc>

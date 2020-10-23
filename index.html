@@ -470,6 +470,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/10/22/java-%E6%97%B6%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/22/java-%E6%97%B6%E9%97%B4/" class="post-title-link" itemprop="url">java-时间</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-22 17:21:42" itemprop="dateCreated datePublished" datetime="2020-10-22T17:21:42+08:00">2020-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-23 16:57:29" itemprop="dateModified" datetime="2020-10-23T16:57:29+08:00">2020-10-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>日常开发中必不可少要与时间打交道，而关于时间的处理网上有很多文章，下面基于大神的文章和我自己的理解对时间做一个整理</p>
+<p>开始之前我们得先明确下一些概念，有助于后面程序代码得理解</p>
+<ul>
+<li><p>时间：类似于<strong>08:00</strong>和<strong>2020年10月1日12:00</strong>，这个叫做时间，时间是一个相对得概念。在国内我们说得时间和国外得时间表示得就不一样，比如现在是2020年10月1日10:00，在美国芝加哥得话现在就是2020年09月30日21:00，所以一般需要说当地时间(本地时间)</p>
+</li>
+<li><p>时刻：时刻就是一个准确得时间，如现在我们和国外同时做了一个事情，如果以上帝得视角来看，那这个时间点就是可以确定得哪个时刻(程序里就是时间戳)</p>
+</li>
+<li><p>时区: 但我们不是上帝，我们对应得如果要准确得表示一个事情得时间，就得加上时区了。全球一共分为24个时区，伦敦所在的时区称为标准时区，其他时区按东／西偏移的小时区分，北京所在的时区是东八区</p>
+</li>
+</ul>
+<blockquote>
+<p>总结一下，如果要表示准确得时间，得这样说: 北京时间(东八区) 2020年10月1日12:00</p>
+</blockquote>
+<p>下面我们就看下在Java中对于时间得处理</p>
+<p>我们都知道Java8加入了LocalDateTime等基础类，改进了时间得运算处理，所以如果是新项目想都不要想，直接上java8+，如果是旧项目或者有引用库还是java7及以下得也有方法可以解决，但不管怎样，放弃Date或者Calendar从现在开始</p>
+<blockquote>
+<p>新API的类型几乎全部是不变类型，可以在多线程情况下放心使用, 并且修正了旧API一些不合理的常量设计：</p>
+</blockquote>
+<ul>
+<li>Month的范围用1~12表示1月到12月(再也不用记要不要加1减1了)</li>
+<li>Week的范围用1~7表示周一到周日</li>
+<li>处理加减会自动调整日期，例如从2019-10-31减去1个月得到的结果是2019-09-30，因为9月没有31日</li>
+</ul>
+<h1 id="重要类"><a href="#重要类" class="headerlink" title="重要类"></a>重要类</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/22/java-%E6%97%B6%E9%97%B4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/10/22/java-io/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -564,10 +668,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-14 10:13:16 / 修改时间：14:14:40" itemprop="dateCreated datePublished" datetime="2020-10-14T10:13:16+08:00">2020-10-14</time>
+              <time title="创建时间：2020-10-14 10:13:16" itemprop="dateCreated datePublished" datetime="2020-10-14T10:13:16+08:00">2020-10-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-22 17:18:49" itemprop="dateModified" datetime="2020-10-22T17:18:49+08:00">2020-10-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -591,21 +701,13 @@
       
           <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Java的java.util包主要提供了以下四种类型的集合：</p>
 <ul>
-<li>List：一种有序列表的集合</li>
-<li>Set：一种保证没有重复元素的集合</li>
-<li>Map：一种通过键值（key-value）查找的映射表集合</li>
-<li>Queue: 先进先出（FIFO：First In First Out）的有序表</li>
-</ul>
-<p>Java访问集合总是通过统一的方式——迭代器（Iterator）来实现，它最明显的好处在于无需知道集合内部元素是按什么方式存储的</p>
-<p><img src="iterable.png" alt="iterable"></p>
-<h1 id="List"><a href="#List" class="headerlink" title="List"></a>List</h1><p><img src="list.png" alt="list"></p>
-<blockquote>
-<p>ArrayList</p>
-</blockquote>
-<p>ArrayList在内部使用了数组来存储所有元素。可以看作是能够自动增长容量的数组。例如，一个ArrayList拥有5个元素，实际数组大小为6（即有一个空位）</p>
-<blockquote>
-<p>LinkedList</p>
-</blockquote>
+<li><p>List：一种有序列表的集合</p>
+</li>
+<li><p>Set：一种保证没有重复元素的集合</p>
+</li>
+<li><p>Map：一种通过键值（key-value）查找的映射表集合</p>
+</li>
+<li><p>Queue: 先进先出（FIFO：First In First Out）的有序表</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/14/java-%E9%9B%86%E5%90%88/#more" rel="contents">
@@ -1015,109 +1117,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/08/31/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%8B%B7%E8%B4%9DBeanUtils-copyProperties/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/31/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%8B%B7%E8%B4%9DBeanUtils-copyProperties/" class="post-title-link" itemprop="url">SpringBoot开发小技巧-对象属性拷贝BeanUtils.copyProperties</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-31 13:11:32" itemprop="dateCreated datePublished" datetime="2020-08-31T13:11:32+08:00">2020-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>平常我们在开发过程中经常会遇到将某个对象的一些属性赋值给另一个对象，常见的是将前端传输的from或者DTO赋值给DO</p>
-<blockquote>
-<p>DO/DTO/VO/FORM的区别</p>
-</blockquote>
-<ul>
-<li>DO 就是entity ，对应表实体，和数据库的字段一一对应</li>
-<li>DTO 数据传输对象，DTO本身不是业务对象</li>
-<li>VO 用于封装传递到前端需要展示的字段，数据库表不需要展示的，不要包含</li>
-<li>form 用于封装前端传入的字段， 可以配合@Valid注解，对前端传入数据，进行验证，比如必填字段</li>
-</ul>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>一般我们会这么写:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">public class UserInputDTO &#123;</span><br><span class="line"></span><br><span class="line">    @NotNull</span><br><span class="line">    private String username;</span><br><span class="line"></span><br><span class="line">    @NotNull</span><br><span class="line">    private Integer age;</span><br><span class="line"></span><br><span class="line">    private Boolean sex;</span><br><span class="line"></span><br><span class="line">    @NotNull</span><br><span class="line">    private String desc;</span><br><span class="line"></span><br><span class="line">    private LocalDate birthday;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">    private String userId;</span><br><span class="line"></span><br><span class="line">    private String username;</span><br><span class="line"></span><br><span class="line">    private String password;</span><br><span class="line"></span><br><span class="line">    private Integer age;</span><br><span class="line"></span><br><span class="line">    private Boolean sex;</span><br><span class="line"></span><br><span class="line">    private String desc;</span><br><span class="line"></span><br><span class="line">    private LocalDate birthday;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line">UserInputDTO userInputDTO &#x3D; new UserInputDTO();</span><br><span class="line">userInputDTO.setUsername(&quot;username&quot;);</span><br><span class="line">userInputDTO.setAge(20);</span><br><span class="line">userInputDTO.setBirthday(LocalDate.of(2000, 1, 1));</span><br><span class="line">userInputDTO.setSex(Boolean.TRUE);</span><br><span class="line">userInputDTO.setDesc(&quot;this is my desc&quot;);</span><br><span class="line"></span><br><span class="line">User user &#x3D; new User();</span><br><span class="line">user.setUsername(userInputDTO.getUsername());</span><br><span class="line">user.setAge(userInputDTO.getAge());</span><br><span class="line">user.setBirthday(userInputDTO.getBirthday());</span><br><span class="line">user.setSex(userInputDTO.getSex());</span><br><span class="line">user.setDesc(userInputDTO.getDesc());</span><br></pre></td></tr></table></figure>
-
-<p>而实际上，Spring框架自带一个工具类，可以实现上面的功能，避免编写重复的样板代码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">UserInputDTO userInputDTO &#x3D; new UserInputDTO();</span><br><span class="line">userInputDTO.setUsername(&quot;username&quot;);</span><br><span class="line">userInputDTO.setAge(20);</span><br><span class="line">userInputDTO.setBirthday(LocalDate.of(2000, 1, 1));</span><br><span class="line">userInputDTO.setSex(Boolean.TRUE);</span><br><span class="line">userInputDTO.setDesc(&quot;this is my desc&quot;);</span><br><span class="line"></span><br><span class="line">User user &#x3D; new User();</span><br><span class="line">BeanUtils.copyProperties(userInputDTO, user);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>BeanUtils提供对Java反射和自省API的包装。其主要目的是利用反射机制对JavaBean的属性进行处理</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/31/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%8B%B7%E8%B4%9DBeanUtils-copyProperties/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1189,7 +1188,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
