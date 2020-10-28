@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jonesun.github.io/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2020-10-27</lastmod>
+    <loc>https://jonesun.github.io/2020/10/28/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-10-28</lastmod>
   </url>
   <url>
     <loc>https://jonesun.github.io/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2020-10-27</lastmod>
+    <lastmod>2020-10-28</lastmod>
   </url>
   <url>
     <loc>https://jonesun.github.io/2020/08/11/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-10-28</lastmod>
+  </url>
+  <url>
+    <loc>https://jonesun.github.io/2020/08/24/java%E5%A4%9A%E7%BA%BF%E7%A8%8B10-ThreadLocal/</loc>
+    <lastmod>2020-10-28</lastmod>
+  </url>
+  <url>
+    <loc>https://jonesun.github.io/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2020-10-27</lastmod>
   </url>
   <url>
@@ -55,10 +63,6 @@
   <url>
     <loc>https://jonesun.github.io/2020/09/04/SpringBoot-%E9%9B%86%E6%88%90websocket/</loc>
     <lastmod>2020-10-20</lastmod>
-  </url>
-  <url>
-    <loc>https://jonesun.github.io/2020/08/24/java%E5%A4%9A%E7%BA%BF%E7%A8%8B10-ThreadLocal/</loc>
-    <lastmod>2020-10-19</lastmod>
   </url>
   <url>
     <loc>https://jonesun.github.io/2020/07/28/java%E5%A4%9A%E7%BA%BF%E7%A8%8B3-fork-join%E6%A1%86%E6%9E%B6/</loc>
