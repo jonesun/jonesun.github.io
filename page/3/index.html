@@ -176,6 +176,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/08/12/java8%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%B7%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/12/java8%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%B7%AE/" class="post-title-link" itemprop="url">java8开发小技巧-获取两个时间的时间差</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-12 10:52:32" itemprop="dateCreated datePublished" datetime="2020-08-12T10:52:32+08:00">2020-08-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/java8/" itemprop="url" rel="index"><span itemprop="name">java8</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>日常开发中经常会需要计算一个方法执行了多久:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">long startTime &#x3D; System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;模拟方法执行，花费2s</span><br><span class="line">TimeUnit.SECONDS.sleep(2);</span><br><span class="line"></span><br><span class="line">long endTime &#x3D; System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;花费 &quot; + (endTime - startTime) + &quot; 毫秒&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>java8之后提供了新的时间日期处理类，那么Java8之后就可以使用ChronoUnit:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LocalDateTime startTime &#x3D; LocalDateTime.now();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;模拟方法执行，花费2s</span><br><span class="line">TimeUnit.SECONDS.sleep(2);</span><br><span class="line"></span><br><span class="line">LocalDateTime endTime &#x3D;  LocalDateTime.now();</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;花费 &quot; + ChronoUnit.MILLIS.between(startTime, LocalDateTime.now()) + &quot; 毫秒&quot;);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/12/java8%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%B7%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/08/11/java%E5%A4%9A%E7%BA%BF%E7%A8%8B7-atomic%E5%8E%9F%E5%AD%90%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -936,7 +1025,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
+                <time title="修改时间：2020-10-29 10:40:51" itemprop="dateModified" datetime="2020-10-29T10:40:51+08:00">2020-10-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -976,153 +1065,10 @@
 <blockquote>
 <p> Authentication继承自来自于java.security包的Principal类,而本身又是spring.security包中的接口。也就是说，Authentication是Spring Security中最高级别的认证</p>
 </blockquote>
-<h2 id="AuthenticationToken"><a href="#AuthenticationToken" class="headerlink" title="AuthenticationToken"></a>AuthenticationToken</h2><p>所有的认证请求都会被封装成一个Token的实现，比如最容易理解的UsernamePasswordAuthenticationToken，在Spring Security中提交的用户名和密码，会被封装成了UsernamePasswordAuthenticationToken</p>
-<h2 id="AuthenticationManager"><a href="#AuthenticationManager" class="headerlink" title="AuthenticationManager"></a>AuthenticationManager</h2><p>用户认证的管理类(权限验证控制器), 所有的认证请求(如login)都会通过生成一个Authentiction传给AuthenticationManager接口的唯一方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authentication authenticate(Authentication authentication) throws AuthenticationException)</span><br></pre></td></tr></table></figure>
-<p>进行认证处理。当然由于是接口，所以具体的校验动作会转发给具体的实现类。而AuthenticationManager默认实现类为ProviderManager，然后ProviderManager根据配置的AuthenticationProvider列表，按照顺序进行依次认证，每个provider都会尝试认证，或者通过简单地返回null来跳过验证。如果所有实现都返回null，那么ProviderManager将抛出一个ProviderNotFoundException</p>
-<h2 id="AuthenticationProvider"><a href="#AuthenticationProvider" class="headerlink" title="AuthenticationProvider"></a>AuthenticationProvider</h2><p>认证的具体实现类，当然这个类也是接口，而且只有两个方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public interface AuthenticationProvider &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">    * 真正的认证</span><br><span class="line">    **&#x2F;</span><br><span class="line">    Authentication authenticate(Authentication var1) throws AuthenticationException;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">    * 满足什么样的身份信息才进行如上认证</span><br><span class="line">    **&#x2F;</span><br><span class="line">    boolean supports(Class&lt;?&gt; var1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以一般实现一个AuthenticationProvider就相当于提供一种认证方式(比如提交的用户名密码通过和数据库内的内容进行比较，那就有一个DaoProvider)。而Spring对于主流的认证方式都已经提供了默认实现:</p>
-<ul>
-<li>DaoAuthenticationProvider 从数据库中读取用户信息验证身份</li>
-<li>AnonymousAuthenticationProvider 匿名用户身份认证</li>
-<li>RememberMeAuthenticationProvider 已存cookie中的用户信息身份认证</li>
-<li>AuthByAdapterProvider 使用容器的适配器验证身份</li>
-<li>CasAuthenticationProvider 使用cas实现单点登陆登录</li>
-<li>JaasAuthenticationProvider 从JASS登陆配置中获取用户信息验证身份</li>
-<li>RemoteAuthenticationProvider 根据远程服务验证用户身份</li>
-<li>RunAsImplAuthenticationProvider 对身份已被管理器替换的用户进行验证</li>
-<li>X509AuthenticationProvider 从X509认证中获取用户信息验证身份</li>
-<li>TestingAuthenticationProvider 单元测试时使用</li>
-<li>…</li>
-</ul>
-<blockquote>
-<p>当然也可以自己实现AuthenticationProvider接口来自定义认证</p>
-</blockquote>
-<h2 id="UserDetailService"><a href="#UserDetailService" class="headerlink" title="UserDetailService"></a>UserDetailService</h2><p>通过上面分析可以知道用户认证是通过各种Provider来实现的，所以需要拿到系统已经保存的用户认证相关信息(即根据用户名加载用户)的任务则是交给了UserDetailsService而这个就是由UserDetailService来实现的，当然这个类也是接口，并且只有唯一的方法(UserDetails loadUserByUsername(String username))，常用的实现类有JdbcDaoImpl和InMemoryUserDetailsManager，前者从数据库中加载用户，后者从内存中。还可以自己实现UserDetailsService</p>
-<blockquote>
-<p>在DaoAuthenticationProvider的实现中，对应的方法便是retrieveUser，返回一个UserDetails。然后再将UsernamePasswordAuthenticationToken和UserDetails密码的比对，这便是交给additionalAuthenticationChecks方法完成的，如果这个void方法没有抛异常，则认为比对成功</p>
-</blockquote>
-<h2 id="UserDetails"><a href="#UserDetails" class="headerlink" title="UserDetails"></a>UserDetails</h2><p>UserDetails接口，它代表了最详细的用户信息，这个接口涵盖了一些必要的用户信息字段，具体的实现类对它进行了扩展</p>
-<blockquote>
-<p>它和Authentication接口类似，都包含了用户名，密码以及权限信息，而区别就是Authentication中的getCredentials来源于用户提交的密码凭证，而UserDetails中的getPassword取到的则是用户正确的密码信息，认证的第一步就是比较两者是否相同，除此之外，Authentication中的getAuthorities是认证用户名和密码成功之后，由UserDetails中的getAuthorities传递而来。而Authentication中的getDetails信息是经过了AuthenticationProvider认证之后填充的</p>
-</blockquote>
-<h2 id="AbstractAuthenticationProcessingFilter"><a href="#AbstractAuthenticationProcessingFilter" class="headerlink" title="AbstractAuthenticationProcessingFilter"></a>AbstractAuthenticationProcessingFilter</h2><p>Provider认证成功后，AbstractAuthenticationProcessingFilter 在 successfulAuthentication 方法中对登录成功进行了处理，通过 SecurityContextHolder.getContext().setAuthentication() 方法将 Authentication 认证信息对象绑定到 SecurityContext<br>下次请求时，在过滤器链头的 SecurityContextPersistenceFilter 会从 Session 中取出用户信息并生成 Authentication（默认为 UsernamePasswordAuthenticationToken），并通过 SecurityContextHolder.getContext().setAuthentication() 方法将 Authentication 认证信息对象绑定到 SecurityContext<br>需要权限才能访问的请求会从 SecurityContext 中获取用户的权限进行验证</p>
-<blockquote>
-<p>UsernamePasswordAuthenticationFilter继承于AbstractAuthenticationProcessingFilter</p>
-</blockquote>
-<h2 id="SecurityContext"><a href="#SecurityContext" class="headerlink" title="SecurityContext"></a>SecurityContext</h2><p>当用户通过认证之后，就会为这个用户生成一个唯一的SecurityContext，里面包含用户的认证信息Authentication。通过SecurityContext我们可以获取到用户的标识Principle和授权信息GrantedAuthrity。在系统的任何地方只要通过SecurityHolder.getSecruityContext()就可以获取到SecurityContext。</p>
-<blockquote>
-<p>在Shiro中通过SecurityUtils.getSubject()到达同样的目的</p>
-</blockquote>
-<h2 id="SecurityContextHolder"><a href="#SecurityContextHolder" class="headerlink" title="SecurityContextHolder"></a>SecurityContextHolder</h2><p>负责存储当前安全上下文信息。即保存着当前用户是什么，是否已经通过认证，拥有哪些权限。。。等等。SecurityContextHolder默认使用ThreadLocal策略来存储认证信息，意味着这是一种与线程绑定的策略。在Web场景下的使用Spring Security，在用户登录时自动绑定认证信息到当前线程，在用户退出时，自动清除当前线程的认证信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object principal &#x3D; SecurityContextHolder.getContext().getAuthentication().getPrincipal();</span><br><span class="line">if (principal instanceof UserDetails) &#123;</span><br><span class="line">    String username &#x3D; ((UserDetails) principal).getUsername();</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    String username &#x3D; principal.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="AuthenticationSuccessHandler"><a href="#AuthenticationSuccessHandler" class="headerlink" title="AuthenticationSuccessHandler"></a>AuthenticationSuccessHandler</h2><p>登陆认证成功处理过滤器</p>
-<h2 id="AuthenticationFailureHandler"><a href="#AuthenticationFailureHandler" class="headerlink" title="AuthenticationFailureHandler"></a>AuthenticationFailureHandler</h2><p>登陆失败处理过滤器</p>
-<p>使用Spring Security为的就是写最少的代码，实现更多的功能，在定制化Spring Security，核心思路就是：重写某个功能，然后配置。</p>
-<ul>
-<li>比如你要查自己的用户表做登录，那就实现UserDetailsService接口；</li>
-<li>比如前后端分离项目，登录成功和失败后返回json，那就实现AuthenticationFailureHandler/- AuthenticationSuccessHandler接口；</li>
-<li>比如扩展token存放位置，那就实现HttpSessionIdResolver接口；</li>
-<li>等等…</li>
-</ul>
-<h1 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h1><p>Json Web Token （JWT） 近几年是前后端分离常用的 Token 技术，是目前最流行的跨域身份验证<br>解决方案。</p>
 <p>未整理完成……</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/22/SpringBoot-SpringSecurity%E6%95%B4%E5%90%88/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/07/21/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/21/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/" class="post-title-link" itemprop="url">SpringBoot应用整合ELK实现日志收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-21 10:59:39" itemprop="dateCreated datePublished" datetime="2020-07-21T10:59:39+08:00">2020-07-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>ELK：Elasticsearch、Logstash、Kibana,组合起来可以搭建线上日志系统</p>
-<h2 id="各服务作用"><a href="#各服务作用" class="headerlink" title="各服务作用"></a>各服务作用</h2><ul>
-<li>Elasticsearch:用于存储收集到的日志信息；</li>
-<li>Logstash:用于收集日志，SpringBoot应用整合了Logstash以后会把日志发送给Logstash,- Logstash再把日志转发给Elasticsearch；</li>
-<li>Kibana:通过Web端的可视化界面来查看日志</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/21/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1213,7 +1159,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
