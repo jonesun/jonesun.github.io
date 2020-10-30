@@ -176,6 +176,200 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/08/17/java%E5%A4%9A%E7%BA%BF%E7%A8%8B8-locks%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/17/java%E5%A4%9A%E7%BA%BF%E7%A8%8B8-locks%E9%94%81/" class="post-title-link" itemprop="url">java多线程8-locks锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-17 18:10:27" itemprop="dateCreated datePublished" datetime="2020-08-17T18:10:27+08:00">2020-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-26 09:36:41" itemprop="dateModified" datetime="2020-10-26T09:36:41+08:00">2020-10-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>任何一个新引入的知识都是为了<strong>解决以往系统中出现的问题</strong>，否则新引入的将变得毫无价值</p>
+</blockquote>
+<p>如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁。</p>
+<p>但当有多个线程读写文件时，读操作和写操作会发生冲突现象，写操作和写操作会发生冲突现象，但是<strong>读操作和读操作</strong>不会发生冲突现象，通过Lock就可以实现。</p>
+<p>Lock接口, 提供了与synchronized一样的锁功能。虽然它失去了像synchronize关键字隐式加锁解锁的便捷性，但是却拥有了锁获取和释放的可操作性，可中断的获取锁以及超时获取锁等多种synchronized关键字所不具备的同步特性</p>
+<blockquote>
+<p>Lock必须要用户去手动释放锁，如果没有主动释放锁，就有可能导致出现死锁现象</p>
+</blockquote>
+<p><img src="locks.png" alt="locks"></p>
+<blockquote>
+<p>一个线程获取多少次锁，就必须释放多少次锁。这对于内置锁也是适用的，每一次进入和离开synchornized方法(代码块)，就是一次完整的锁获取和释放。</p>
+</blockquote>
+<h1 id="锁的分类"><a href="#锁的分类" class="headerlink" title="锁的分类"></a>锁的分类</h1><ul>
+<li><strong>悲观锁</strong>：<br>悲观锁，每次去请求数据的时候，都认为数据会被抢占更新(悲观的想法)；所以每次操作数据时都要先加上锁，其他线程修改数据时就要等待获取锁。适用于写多读少的场景，synchronized就是一种悲观锁</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/17/java%E5%A4%9A%E7%BA%BF%E7%A8%8B8-locks%E9%94%81/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/08/17/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E6%89%93%E5%8D%B0Mybatis%E4%B8%AD%E7%9A%84sql%E8%AF%AD%E5%8F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/17/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E6%89%93%E5%8D%B0Mybatis%E4%B8%AD%E7%9A%84sql%E8%AF%AD%E5%8F%A5/" class="post-title-link" itemprop="url">SpringBoot开发小技巧-打印Mybatis中的sql语句</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-17 16:59:51" itemprop="dateCreated datePublished" datetime="2020-08-17T16:59:51+08:00">2020-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我们平常在开发SpringBoot+Mybatis项目时,有时会需要打印sql的执行语句</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h2><p>如果项目使用的时yml配置，则:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  configuration:</span><br><span class="line">    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line"></span><br><span class="line">logging:</span><br><span class="line">    level:</span><br><span class="line">        com:</span><br><span class="line">            xxxxx:</span><br><span class="line">                dao: debug</span><br></pre></td></tr></table></figure>
+
+<h2 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h2><p>如果项目使用的时properties配置，则:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line">logging.level.com.xxxxx.dao&#x3D;debug</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意包名路径应为mybatis对应的方法接口所在的包，而不是mapper.xml所在的包</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/17/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E6%89%93%E5%8D%B0Mybatis%E4%B8%AD%E7%9A%84sql%E8%AF%AD%E5%8F%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/08/12/java8%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%B7%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -894,200 +1088,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/07/23/java%E5%A4%9A%E7%BA%BF%E7%A8%8B2-%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/23/java%E5%A4%9A%E7%BA%BF%E7%A8%8B2-%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="post-title-link" itemprop="url">java多线程2-线程池</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-23 10:18:00" itemprop="dateCreated datePublished" datetime="2020-07-23T10:18:00+08:00">2020-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、使用线程池的好处"><a href="#一、使用线程池的好处" class="headerlink" title="一、使用线程池的好处"></a>一、使用线程池的好处</h1><ol>
-<li>降低系统资源消耗, 通过重用已存在的线程, 降低线程创建和销毁造成的消耗</li>
-<li>提高系统响应速度, 当有任务到达时, 通过复用已存在的线程, 无需等待新线程的创建便能立即执行</li>
-<li>方便线程并发数的管控。因为线程若是无限制的创建, 可能会导致内存占用过多而产生OOM, 并且会造成cpu过度切换（cpu切换线程是有时间成本的-需要保持当前执行线程的现场, 并恢复要执行线程的现场）。</li>
-<li>提供更强大的功能, 如延时定时线程池</li>
-<li>……</li>
-</ol>
-<blockquote>
-<p>JVM在可创建线程的数量上存在一个限制，这个限制值将随着平台的不同而不同，并且承受着多个因素制约，包括JVM的启动参数、Thread构造函数中请求栈的大小，以及底层操作系统对线程的限制等。如果破坏了这些限制，那么可能抛出OutOfMemoryError异常。</p>
-</blockquote>
-<h1 id="二、线程池实现"><a href="#二、线程池实现" class="headerlink" title="二、线程池实现"></a>二、线程池实现</h1><p>使用Executors中创建线程池的快捷方法, 实际上是调用了ThreadPoolExecutor的构造方法（定时任务使用的是ScheduledThreadPoolExecutor、CompletableFuture默认使用的是ForkJoinPool）</p>
-<h2 id="线程池设计"><a href="#线程池设计" class="headerlink" title="线程池设计"></a>线程池设计</h2><p><img src="excutorUML.png" alt="excutorUML"> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/23/java%E5%A4%9A%E7%BA%BF%E7%A8%8B2-%E7%BA%BF%E7%A8%8B%E6%B1%A0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/07/22/SpringBoot-SpringSecurity%E6%95%B4%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/22/SpringBoot-SpringSecurity%E6%95%B4%E5%90%88/" class="post-title-link" itemprop="url">SpringBoot-SpringSecurity整合</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-22 13:23:09" itemprop="dateCreated datePublished" datetime="2020-07-22T13:23:09+08:00">2020-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-29 10:40:51" itemprop="dateModified" datetime="2020-10-29T10:40:51+08:00">2020-10-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="SpringSecurity核心类"><a href="#SpringSecurity核心类" class="headerlink" title="SpringSecurity核心类"></a>SpringSecurity核心类</h1><blockquote>
-<p>以下源码来自SpringSecurity-5.3.3版本</p>
-</blockquote>
-<h2 id="Authentiction"><a href="#Authentiction" class="headerlink" title="Authentiction"></a>Authentiction</h2><p>包含了用户身份信息，密码，细节信息，认证信息，以及权限列表等:</p>
-<ul>
-<li>getAuthorities，权限列表,通常是代表权限的字符串列表；</li>
-<li>getCredentials，密码信息,由用户输入的密码凭证，<strong>认证之后会移出，来保证安全性</strong>；</li>
-<li>getDetails，细节信息，Web应用中一般是访问者的ip地址和sessionId；</li>
-<li>getPrincipal, 最重要的身份信息，一般返回UserDetails的实现类</li>
-</ul>
-<blockquote>
-<p> Authentication继承自来自于java.security包的Principal类,而本身又是spring.security包中的接口。也就是说，Authentication是Spring Security中最高级别的认证</p>
-</blockquote>
-<p>未整理完成……</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/22/SpringBoot-SpringSecurity%E6%95%B4%E5%90%88/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1159,7 +1159,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
