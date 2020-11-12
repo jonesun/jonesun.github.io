@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://jonesun.github.io/2020/07/23/java%E5%A4%9A%E7%BA%BF%E7%A8%8B2-%E7%BA%BF%E7%A8%8B%E6%B1%A0/executor-1.jpg">
 <meta property="og:image" content="https://jonesun.github.io/2020/07/23/java%E5%A4%9A%E7%BA%BF%E7%A8%8B2-%E7%BA%BF%E7%A8%8B%E6%B1%A0/excutor-size.png">
 <meta property="article:published_time" content="2020-07-23T02:18:00.000Z">
-<meta property="article:modified_time" content="2020-10-12T12:16:17.438Z">
+<meta property="article:modified_time" content="2020-11-10T02:09:57.546Z">
 <meta property="article:author" content="Jone Sun">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="多线程">
@@ -220,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
+                <time title="修改时间：2020-11-10 10:09:57" itemprop="dateModified" datetime="2020-11-10T10:09:57+08:00">2020-11-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -480,6 +480,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;创建方式</span><br><span class="line">ExecutorService scheduledThreadPool &#x3D; Executors.newScheduledThreadPool(int corePoolSize);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;源码</span><br><span class="line"></span><br><span class="line">public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) &#123;</span><br><span class="line">    return new ScheduledThreadPoolExecutor(corePoolSize);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;ScheduledThreadPoolExecutor():</span><br><span class="line">public ScheduledThreadPoolExecutor(int corePoolSize) &#123;</span><br><span class="line">    super(corePoolSize, Integer.MAX_VALUE,</span><br><span class="line">          DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS,</span><br><span class="line">          new DelayedWorkQueue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>适用：延时或者周期性执行任务的场景</p>
+<blockquote>
+<p>同样可以模拟心跳机制，如果用户希望取消心跳， scheduleAtFixedRate 调用将返回一个 ScheduledFuture 实例，它不仅封装了结果（如果有），还拥有一个 cancel 方法来关闭计划的操作</p>
+</blockquote>
 <h2 id="newWorkStealingPool"><a href="#newWorkStealingPool" class="headerlink" title="newWorkStealingPool"></a>newWorkStealingPool</h2><p>具有抢占式操作的线程池，任务的执行是无序的，哪个线程抢到任务，就由它执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;创建方式</span><br><span class="line">ExecutorService executorService &#x3D; Executors.newWorkStealingPool();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;源码</span><br><span class="line">public static ExecutorService newWorkStealingPool() &#123;</span><br><span class="line">        return new ForkJoinPool</span><br><span class="line">            (Runtime.getRuntime().availableProcessors(),</span><br><span class="line">             ForkJoinPool.defaultForkJoinWorkerThreadFactory,</span><br><span class="line">             null, true);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
