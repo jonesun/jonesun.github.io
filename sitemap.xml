@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jonesun.github.io/2020/11/19/javaFx-%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A/</loc>
+    
+    <lastmod>2020-11-19T12:20:46.533Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jonesun.github.io/2020/10/22/java-%E6%97%B6%E9%97%B4/</loc>
+    
+    <lastmod>2020-11-12T10:06:08.728Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jonesun.github.io/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis/</loc>
+    
+    <lastmod>2020-11-12T09:36:52.313Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jonesun.github.io/2020/08/01/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     
     <lastmod>2020-11-12T03:23:45.270Z</lastmod>
@@ -226,13 +247,6 @@
   </url>
   
   <url>
-    <loc>https://jonesun.github.io/2020/10/22/java-%E6%97%B6%E9%97%B4/</loc>
-    
-    <lastmod>2020-10-23T08:57:29.644Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jonesun.github.io/2020/10/22/java-io/</loc>
     
     <lastmod>2020-10-22T08:38:12.422Z</lastmod>
@@ -285,13 +299,6 @@
     <loc>https://jonesun.github.io/2020/07/13/java%E9%9A%8F%E6%9C%BA%E6%95%B0/</loc>
     
     <lastmod>2020-10-16T06:01:32.748Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jonesun.github.io/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis/</loc>
-    
-    <lastmod>2020-10-12T12:42:00.072Z</lastmod>
     
   </url>
   
