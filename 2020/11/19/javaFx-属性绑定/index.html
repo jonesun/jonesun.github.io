@@ -23,15 +23,15 @@
     var CONFIG = {"hostname":"jonesun.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="前言javafx.beans.property包提供了丰富的Property类用于对java对象中的属性和javaFX UI控件进行绑定，可达到：  在任意位置修改java对象的值时可实时更新绑定的UI控件的显示，无需手动编写更新方法 javaFX UI控件进行变化时(如用户输入内容)，实时写入对应的java对象中，无需手动设置  实现下面我们就来看看如何实现的  新建简单javaBean  12">
+  <meta name="description" content="前言javafx.beans.property包提供了丰富的Property类用于对java对象中的属性和javaFX UI控件进行绑定，可达到：  在任意位置修改java对象的值时可实时更新绑定的UI控件的显示，无需手动编写更新方法 javaFX UI控件进行变化时(如用户输入内容)，实时写入对应的java对象中，无需手动设置     java属性 javaFx对应Property 绑定构建类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javaFx-属性绑定">
 <meta property="og:url" content="https://jonesun.github.io/2020/11/19/javaFx-%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A/index.html">
 <meta property="og:site_name" content="Jone Sun&#39;s Blog">
-<meta property="og:description" content="前言javafx.beans.property包提供了丰富的Property类用于对java对象中的属性和javaFX UI控件进行绑定，可达到：  在任意位置修改java对象的值时可实时更新绑定的UI控件的显示，无需手动编写更新方法 javaFX UI控件进行变化时(如用户输入内容)，实时写入对应的java对象中，无需手动设置  实现下面我们就来看看如何实现的  新建简单javaBean  12">
+<meta property="og:description" content="前言javafx.beans.property包提供了丰富的Property类用于对java对象中的属性和javaFX UI控件进行绑定，可达到：  在任意位置修改java对象的值时可实时更新绑定的UI控件的显示，无需手动编写更新方法 javaFX UI控件进行变化时(如用户输入内容)，实时写入对应的java对象中，无需手动设置     java属性 javaFx对应Property 绑定构建类">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-19T10:12:43.000Z">
-<meta property="article:modified_time" content="2020-11-19T12:20:46.533Z">
+<meta property="article:modified_time" content="2020-11-20T03:51:21.716Z">
 <meta property="article:author" content="Jone Sun">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="javafx">
@@ -205,10 +205,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-11-19 18:12:43 / 修改时间：20:20:46" itemprop="dateCreated datePublished" datetime="2020-11-19T18:12:43+08:00">2020-11-19</time>
+              <time title="创建时间：2020-11-19 18:12:43" itemprop="dateCreated datePublished" datetime="2020-11-19T18:12:43+08:00">2020-11-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-20 11:51:21" itemprop="dateModified" datetime="2020-11-20T11:51:21+08:00">2020-11-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -246,6 +252,50 @@
 <li>在任意位置修改java对象的值时可实时更新绑定的UI控件的显示，无需手动编写更新方法</li>
 <li>javaFX UI控件进行变化时(如用户输入内容)，实时写入对应的java对象中，无需手动设置</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>java属性</th>
+<th>javaFx对应Property</th>
+<th>绑定构建类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int</td>
+<td>IntegerProperty</td>
+<td>JavaBeanIntegerPropertyBuilder</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>ObjectProperty&lt;Integer&gt;</td>
+<td>JavaBeanObjectPropertyBuilder</td>
+</tr>
+<tr>
+<td>long</td>
+<td>LongProperty</td>
+<td>JavaBeanLongPropertyBuilder</td>
+</tr>
+<tr>
+<td>Long</td>
+<td>ObjectProperty&lt;Long&gt;</td>
+<td>JavaBeanObjectPropertyBuilder</td>
+</tr>
+<tr>
+<td>String</td>
+<td>StringProperty</td>
+<td>JavaBeanStringPropertyBuilder</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>需要注意的是，如果java对象中的属性为基本数据类型的包装类，则不能直接使用对应的Property，需使用ObjectProperty<T>, 否则在属性值为null时会报空指针异常(原因是其内部都是使用基本数据类型转换的，感兴趣可以看看源码中的实现)</p>
+</blockquote>
+ <a id="more"></a>
+
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>下面我们就来看看如何实现的</p>
 <ul>
 <li>新建简单javaBean</li>
@@ -255,34 +305,43 @@
 <ul>
 <li>新建javaFxWrapper类，用于实现javaBean与javaFx UI控件的属性绑定</li>
 </ul>
+<p>重点在于<strong>JavaBeanObjectPropertyBuilder</strong>等的使用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">public class MyJavaBeanFxWrapper &#123;</span><br><span class="line"></span><br><span class="line">    private MyJavaBean myJavaBean;</span><br><span class="line"></span><br><span class="line">    private IntegerProperty myInt;</span><br><span class="line"></span><br><span class="line">    private ObjectProperty&lt;Integer&gt; myInteger;</span><br><span class="line"></span><br><span class="line">    private StringProperty myString;</span><br><span class="line"></span><br><span class="line">    public MyJavaBeanFxWrapper(MyJavaBean myJavaBean) throws NoSuchMethodException &#123;</span><br><span class="line">        this.myJavaBean &#x3D; myJavaBean;</span><br><span class="line">        intProperty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private MyJavaBeanFxWrapper() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(&#123;&quot;unchecked&quot;&#125;)</span><br><span class="line">    private void intProperty() throws NoSuchMethodException &#123;</span><br><span class="line"></span><br><span class="line">        myInt &#x3D; JavaBeanIntegerPropertyBuilder.create().bean(this.myJavaBean).name(&quot;myInt&quot;).build();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;IntegerProperty如果遇到bean中属性值为null时，初始化会报错(内部使用int，转换出错)，故需使用ObjectProperty&lt;Integer&gt;</span><br><span class="line">        myInteger &#x3D; JavaBeanObjectPropertyBuilder.create().bean(this.myJavaBean).name(&quot;myInteger&quot;).build();</span><br><span class="line"></span><br><span class="line">        myString &#x3D; JavaBeanStringPropertyBuilder.create().bean(this.myJavaBean).name(&quot;myString&quot;).build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MyJavaBean getMyJavaBean() &#123;</span><br><span class="line">        return myJavaBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setMyJavaBean(MyJavaBean myJavaBean) throws NoSuchMethodException &#123;</span><br><span class="line">        this.myJavaBean &#x3D; myJavaBean;</span><br><span class="line">        intProperty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getMyInt() &#123;</span><br><span class="line">        return myInt.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public IntegerProperty myIntProperty() &#123;</span><br><span class="line">        return myInt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getMyInteger() &#123;</span><br><span class="line">        return myInteger.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ObjectProperty&lt;Integer&gt; myIntegerProperty() &#123;</span><br><span class="line">        return myInteger;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public String getMyString() &#123;</span><br><span class="line">        return myString.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public StringProperty myStringProperty() &#123;</span><br><span class="line">        return myString;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>需要注意的是，如果java对象中的属性为基本数据类型的包装类，则不能直接使用对应的Property，需使用ObjectProperty<T>, 否则在属性值为null时会报空指针异常(原因是其内部都是使用基本数据类型转换的，感兴趣可以看看源码中的实现)</p>
+<p>一个比较好的习惯就是两个对象中的属性命名尽量保持一致，可以减少因属性名不一致造成的绑定失败的概率</p>
 </blockquote>
-<table>
-<thead>
-<tr>
-<th>java属性</th>
-<th>javaFx对应Property</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>int</td>
-<td>IntegerProperty</td>
-</tr>
-<tr>
-<td>Integer</td>
-<td>ObjectProperty&lt;Integer&gt;</td>
-</tr>
-</tbody></table>
 <ul>
 <li>Controller中进行绑定</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public class Controller implements Initializable &#123;</span><br><span class="line"></span><br><span class="line">    public Label intLabel, integerLabel, stringLabel;</span><br><span class="line"></span><br><span class="line">    public TextField intTextField, integerTextField, stringTextField;</span><br><span class="line"></span><br><span class="line">    private MyJavaBeanFxWrapper myJavaBeanFxWrapper;</span><br><span class="line">    private MyJavaBean myJavaBean;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void initialize(URL location, ResourceBundle resources) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;定义java对象</span><br><span class="line">            myJavaBean &#x3D; new MyJavaBean();</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;将java对象设置到javafx包装类中，以支持属性绑定</span><br><span class="line">            myJavaBeanFxWrapper &#x3D; new MyJavaBeanFxWrapper(myJavaBean);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;控件只做显示, 单向绑定即可</span><br><span class="line">            intLabel.textProperty().bind(myJavaBeanFxWrapper.myIntProperty().asString());</span><br><span class="line">            integerLabel.textProperty().bind(myJavaBeanFxWrapper.myIntegerProperty().asString());</span><br><span class="line">            stringLabel.textProperty().bind(myJavaBeanFxWrapper.myStringProperty());</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;控件可编辑，双向绑定</span><br><span class="line">            intTextField.textProperty().bindBidirectional(myJavaBeanFxWrapper.myIntProperty(), new StringConverter&lt;&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String toString(Number object) &#123;</span><br><span class="line">                    return String.valueOf(object);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                @Override</span><br><span class="line">                public Number fromString(String string) &#123;</span><br><span class="line">                    return Integer.valueOf(string);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            integerTextField.textProperty().bindBidirectional(myJavaBeanFxWrapper.myIntegerProperty(), new StringConverter&lt;&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String toString(Integer object) &#123;</span><br><span class="line">                    return String.valueOf(object);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                @Override</span><br><span class="line">                public Integer fromString(String string) &#123;</span><br><span class="line">                    if(&quot;&quot;.equals(string)) &#123;</span><br><span class="line">                        return null;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return Integer.valueOf(string);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            stringTextField.textProperty().bindBidirectional(myJavaBeanFxWrapper.myStringProperty());</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public class Controller implements Initializable &#123;</span><br><span class="line"></span><br><span class="line">    public Label intLabel, integerLabel, stringLabel;</span><br><span class="line"></span><br><span class="line">    public TextField intTextField, integerTextField, stringTextField;</span><br><span class="line"></span><br><span class="line">    private MyJavaBeanFxWrapper myJavaBeanFxWrapper;</span><br><span class="line">    private MyJavaBean myJavaBean;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void initialize(URL location, ResourceBundle resources) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;定义java对象</span><br><span class="line">            myJavaBean &#x3D; new MyJavaBean();</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;将java对象设置到javafx辅助类中，以支持属性绑定</span><br><span class="line">            myJavaBeanFxWrapper &#x3D; new MyJavaBeanFxWrapper(myJavaBean);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;控件只做显示, 单向绑定即可</span><br><span class="line">            intLabel.textProperty().bind(myJavaBeanFxWrapper.myIntProperty().asString());</span><br><span class="line">            integerLabel.textProperty().bind(myJavaBeanFxWrapper.myIntegerProperty().asString());</span><br><span class="line">            stringLabel.textProperty().bind(myJavaBeanFxWrapper.myStringProperty());</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;控件可编辑，双向绑定</span><br><span class="line">            intTextField.textProperty().bindBidirectional(myJavaBeanFxWrapper.myIntProperty(), new StringConverter&lt;&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String toString(Number object) &#123;</span><br><span class="line">                    return String.valueOf(object);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                @Override</span><br><span class="line">                public Number fromString(String string) &#123;</span><br><span class="line">                    return Integer.valueOf(string);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            integerTextField.textProperty().bindBidirectional(myJavaBeanFxWrapper.myIntegerProperty(), new StringConverter&lt;&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String toString(Integer object) &#123;</span><br><span class="line">                    return String.valueOf(object);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                @Override</span><br><span class="line">                public Integer fromString(String string) &#123;</span><br><span class="line">                    if(&quot;&quot;.equals(string)) &#123;</span><br><span class="line">                        return null;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return Integer.valueOf(string);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            stringTextField.textProperty().bindBidirectional(myJavaBeanFxWrapper.myStringProperty());</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>以上就达到了在不破坏原有javabean的基础上通过新建一个javaFx的辅助类，即可实现UI与数据对象的绑定，大大方便了javaFx的的日常开发</p>
-<p>完整代码见<a target="_blank" rel="noopener" href="https://github.com/jonesun/javafx-property-test">github-javafx-property-test</a></p>
+<blockquote>
+<p>日常开发时建议将java对象设置到javaFx辅助类中后，就直接使用javaFx的辅助类进行操作，只有最后需要保存或者传递时才获取java原始对象</p>
+</blockquote>
+<h2 id="list的绑定"><a href="#list的绑定" class="headerlink" title="list的绑定"></a>list的绑定</h2><p>javaFx中承载list数据的控件一般为listView，下面我们就演示下如何进行list的绑定</p>
+<ul>
+<li>javabean中新增list属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MyJavaBean implements Serializable &#123; </span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    private List&lt;String&gt; myStringList;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;省略getter&#x2F;setter</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>javaFxWrapper类中新增对应绑定</li>
+</ul>
+<p>javaFx提供了<strong>ObservableList</strong>以实现list数据的动态监听，而UI控件也直接与这个ObservableList进行交互</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class MyJavaBeanFxWrapper &#123; </span><br><span class="line">    ...</span><br><span class="line">    private ListProperty&lt;String&gt; myStringList;</span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(&#123;&quot;unchecked&quot;&#125;)</span><br><span class="line">    private void intProperty() throws NoSuchMethodException &#123;</span><br><span class="line">        ...</span><br><span class="line">        myStringList &#x3D; new SimpleListProperty&lt;&gt;(FXCollections.observableArrayList());</span><br><span class="line">        if(myJavaBean.getMyStringList() !&#x3D; null) &#123;</span><br><span class="line">            myStringList.addAll(myJavaBean.getMyStringList());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;这里需手动设置到原始对象中(暂时没找到自动绑定的方法)</span><br><span class="line">        &#x2F;&#x2F;除非原始javabean中的list属性为ObservableList类型，才可以直接使用</span><br><span class="line">        &#x2F;&#x2F;myStringList &#x3D; new SimpleListProperty&lt;&gt;(this.myJavaBean, &quot;myStringList&quot;, myJavaBean.getMyStringList());</span><br><span class="line">        &#x2F;&#x2F;但如此javabean中就会引入javafx相关包，当然不介意这个的就可以改写使用</span><br><span class="line">        myStringList.addListener((observable, oldValue, newValue) -&gt; myJavaBean.setMyStringList(newValue));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ObservableList&lt;String&gt; getMyStringList() &#123;</span><br><span class="line">        return myStringList.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ListProperty&lt;String&gt; myStringListProperty() &#123;</span><br><span class="line">        return myStringList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Controller中进行绑定</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Controller implements Initializable &#123; </span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    public ListView&lt;String&gt; listView;</span><br><span class="line"></span><br><span class="line">     @Override</span><br><span class="line">    public void initialize(URL location, ResourceBundle resources) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">           &#x2F;&#x2F;有关UI上的操作尽量都使用myJavaBeanFxWrapper来修改数据</span><br><span class="line">            myJavaBeanFxWrapper.myStringListProperty().addAll(&quot;123&quot;, &quot;456&quot;, &quot;789&quot;);</span><br><span class="line">            myJavaBeanFxWrapper.getMyStringList().addAll(&quot;www&quot;, &quot;eee&quot;, &quot;rrr&quot;);</span><br><span class="line">            listView.itemsProperty().bind(myJavaBeanFxWrapper.myStringListProperty());</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当然以上做法有一个注意要点，即javabean在初始化后就不能自己通过setMyStringList来同步UI了(除非直接使用的ObservableList)，尽量都使用myJavaBeanFxWrapper或listView的getItems()进行操作，当javabean因为外在因素，如从网络上重新加载了，需重新设置到myJavaBeanFxWrapper</p>
+</blockquote>
+<h2 id="自定义对象绑定"><a href="#自定义对象绑定" class="headerlink" title="自定义对象绑定"></a>自定义对象绑定</h2><p>javabean中除了基本数据类型及其包装类、String、list(集合)外，还可能会有自定义的对象属性，使用ObjectProperty即可, 但这种做法的颗粒度不太细，推荐还是新增对应自定义子任务的Fxwrapper，并在javabean变化时进行绑定初始化</p>
+<p>示例代码使用的是java14+javafx14，<a target="_blank" rel="noopener" href="https://github.com/jonesun/javafx-property-test">github-javafx-property-test</a>, 如果还是使用的javafx8则不需要pom.xml中对于openjfx的引用</p>
 
     </div>
 
@@ -380,7 +439,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#list%E7%9A%84%E7%BB%91%E5%AE%9A"><span class="nav-number">2.1.</span> <span class="nav-text">list的绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E7%BB%91%E5%AE%9A"><span class="nav-number">2.2.</span> <span class="nav-text">自定义对象绑定</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
