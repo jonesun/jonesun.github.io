@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jonesun.github.io/2020/08/11/java%E5%A4%9A%E7%BA%BF%E7%A8%8B6-ConcurrentHashMap/</loc>
+    <lastmod>2020-11-27</lastmod>
+  </url>
+  <url>
+    <loc>https://jonesun.github.io/2020/11/19/javaFx-%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A/</loc>
+    <lastmod>2020-11-27</lastmod>
+  </url>
+  <url>
     <loc>https://jonesun.github.io/2020/05/20/javaFx%E5%8F%91%E5%B1%95/</loc>
     <lastmod>2020-11-26</lastmod>
   </url>
@@ -19,10 +27,6 @@
   <url>
     <loc>https://jonesun.github.io/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2020-11-25</lastmod>
-  </url>
-  <url>
-    <loc>https://jonesun.github.io/2020/11/19/javaFx-%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A/</loc>
-    <lastmod>2020-11-20</lastmod>
   </url>
   <url>
     <loc>https://jonesun.github.io/2020/10/22/java-%E6%97%B6%E9%97%B4/</loc>
@@ -51,10 +55,6 @@
   <url>
     <loc>https://jonesun.github.io/2020/08/26/SpringBoot-%E9%9B%86%E6%88%90Redis/</loc>
     <lastmod>2020-11-08</lastmod>
-  </url>
-  <url>
-    <loc>https://jonesun.github.io/2020/08/11/java%E5%A4%9A%E7%BA%BF%E7%A8%8B6-ConcurrentHashMap/</loc>
-    <lastmod>2020-11-06</lastmod>
   </url>
   <url>
     <loc>https://jonesun.github.io/2020/08/11/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
