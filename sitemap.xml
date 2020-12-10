@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jonesun.github.io/2020/12/09/SpringBoot-%E9%9B%86%E6%88%90flyway%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</loc>
+    
+    <lastmod>2020-12-10T05:27:55.793Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jonesun.github.io/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2020-12-09T09:40:33.999Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jonesun.github.io/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis/</loc>
+    
+    <lastmod>2020-12-09T07:26:45.288Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jonesun.github.io/2020/12/07/SpringBoot-SpringInitializr%E8%AF%B4%E6%98%8E/</loc>
     
     <lastmod>2020-12-09T05:17:06.851Z</lastmod>
@@ -65,23 +86,9 @@
   </url>
   
   <url>
-    <loc>https://jonesun.github.io/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/</loc>
-    
-    <lastmod>2020-11-25T03:38:54.626Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jonesun.github.io/2020/10/22/java-%E6%97%B6%E9%97%B4/</loc>
     
     <lastmod>2020-11-12T10:06:08.728Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jonesun.github.io/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis/</loc>
-    
-    <lastmod>2020-11-12T09:36:52.313Z</lastmod>
     
   </url>
   
