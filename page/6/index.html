@@ -589,7 +589,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-19 17:34:38" itemprop="dateModified" datetime="2020-10-19T17:34:38+08:00">2020-10-19</time>
+                <time title="修改时间：2020-12-11 11:16:10" itemprop="dateModified" datetime="2020-12-11T11:16:10+08:00">2020-12-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -625,8 +625,8 @@
 <li>防止阻塞</li>
 </ul>
 <p>从程序运行效率的角度来看，单核CPU不但不会发挥出多线程的优势，反而会因为在单核CPU上运行多线程导致线程上下文的切换，而降低程序整体的效率。但是单核CPU我们还是要应用多线程，就是为了防止阻塞。试想，如果单核CPU使用单线程，那么只要这个线程阻塞了，比方说远程读取某个数据吧，对端迟迟未返回又没有设置超时时间，那么你的整个程序在数据返回回来之前就停止运行了。多线程可以防止这个问题，多条线程同时运行，哪怕一条线程的代码执行读取数据阻塞，也不会影响其它任务的执行。</p>
-<h1 id="一、Thread-amp-Runable"><a href="#一、Thread-amp-Runable" class="headerlink" title="一、Thread&amp;Runable"></a>一、Thread&amp;Runable</h1><p>java1开始，常见的两种创建线程的方式。一种是直接继承Thread，另外一种就是实现Runnable接口。</p>
-<p>从源码中可以看到，Thread也是实现Runable接口的：</p>
+<h1 id="一、Thread-amp-Runnable"><a href="#一、Thread-amp-Runnable" class="headerlink" title="一、Thread&amp;Runnable"></a>一、Thread&amp;Runnable</h1><p>java1开始，常见的两种创建线程的方式。一种是直接继承Thread，另外一种就是实现Runnable接口。</p>
+<p>从源码中可以看到，Thread也是实现Runnable接口的：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/14/java%E5%A4%9A%E7%BA%BF%E7%A8%8B1-%E4%BB%8EThread%E5%88%B0Future%E5%86%8D%E5%88%B0CompletableFuture/#more" rel="contents">
@@ -1145,9 +1145,22 @@
       <span class="links-of-author-item">
         <a href="https://github.com/jonesun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jonesun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sunjoner7@gmail.com" title="E-Mail → mailto:sunjoner7@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fas fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://miqingwang.github.io/" title="https:&#x2F;&#x2F;miqingwang.github.io&#x2F;" rel="noopener" target="_blank">MiQing Blog</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
 
