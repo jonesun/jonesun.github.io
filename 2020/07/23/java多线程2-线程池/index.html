@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://jonesun.github.io/2020/07/23/java%E5%A4%9A%E7%BA%BF%E7%A8%8B2-%E7%BA%BF%E7%A8%8B%E6%B1%A0/executor-1.jpg">
 <meta property="og:image" content="https://jonesun.github.io/2020/07/23/java%E5%A4%9A%E7%BA%BF%E7%A8%8B2-%E7%BA%BF%E7%A8%8B%E6%B1%A0/excutor-size.png">
 <meta property="article:published_time" content="2020-07-23T02:18:00.000Z">
-<meta property="article:modified_time" content="2020-12-11T03:39:53.296Z">
+<meta property="article:modified_time" content="2020-12-18T05:10:31.363Z">
 <meta property="article:author" content="Jone Sun">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="多线程">
@@ -220,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-11 11:39:53" itemprop="dateModified" datetime="2020-12-11T11:39:53+08:00">2020-12-11</time>
+                <time title="修改时间：2020-12-18 13:10:31" itemprop="dateModified" datetime="2020-12-18T13:10:31+08:00">2020-12-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -485,6 +485,11 @@
 </blockquote>
 <h2 id="newWorkStealingPool"><a href="#newWorkStealingPool" class="headerlink" title="newWorkStealingPool"></a>newWorkStealingPool</h2><p>Java 8新增的具有抢占式操作的线程池，其内部会构建ForkJoinPool，利用Work-Stealing算法，并行地处理任务，不保证处理顺序，哪个线程抢到任务，就由它执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;创建方式</span><br><span class="line">ExecutorService executorService &#x3D; Executors.newWorkStealingPool();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;源码</span><br><span class="line">public static ExecutorService newWorkStealingPool() &#123;</span><br><span class="line">        return new ForkJoinPool</span><br><span class="line">            (Runtime.getRuntime().availableProcessors(),</span><br><span class="line">             ForkJoinPool.defaultForkJoinWorkerThreadFactory,</span><br><span class="line">             null, true);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Executors有一个静态方法,该方法可以对现有的ExecutorService进行包装,使其只暴露出ExecutorService的方法,因此不能对其进行配置,如果我们需要创建不可更改的线程池,可以使用这个方法:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Executors.unconfigurableExecutorService(executorService);&#x2F;&#x2F;不可配置的线程池</span><br><span class="line">Executors.unconfigurableScheduledExecutorService(scheduledExecutorService);&#x2F;&#x2F;不可配置的调度线程池</span><br></pre></td></tr></table></figure>
 
 <h1 id="四、配置线程池"><a href="#四、配置线程池" class="headerlink" title="四、配置线程池"></a>四、配置线程池</h1><h2 id="为何不推荐java提供的几种线程池"><a href="#为何不推荐java提供的几种线程池" class="headerlink" title="为何不推荐java提供的几种线程池"></a>为何不推荐java提供的几种线程池</h2><p>客户端程序使用这些快捷方法没什么问题, 对于服务端需要长期运行的程序, 创建线程池应该直接使用ThreadPoolExecutor的构造方法, 避免无界队列(比如线程获取一个任务后，任务的执行时间比较长，会导致队列的任务越积越多，导致机器内存使用不停飙升，最终导致OOM)可能导致的OOM以及线程个数限制不当导致的线程数耗尽等问题</p>
 <p>所以阿里巴巴java开发手册中明确指出,线程池不允许使用Executors去创建：</p>
