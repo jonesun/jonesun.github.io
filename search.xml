@@ -508,7 +508,7 @@
 </blockquote>
 <h4 id="xxx-spring-boot-starter"><a href="#xxx-spring-boot-starter" class="headerlink" title="xxx-spring-boot-starter"></a>xxx-spring-boot-starter</h4><p>starter是一个空jar。它的唯一目的是提供使用库所必需的依赖项。删除掉src文件夹，在pom文件中加入xxx-spring-boot-autoconfigure依赖(普通maven项目即可)</p>
 <h4 id="xxx-spring-boot-samples"><a href="#xxx-spring-boot-samples" class="headerlink" title="xxx-spring-boot-samples"></a>xxx-spring-boot-samples</h4><p>用于示例</p>
-<h4 id="mybatis-spring-boot-starter-test"><a href="#mybatis-spring-boot-starter-test" class="headerlink" title="mybatis-spring-boot-starter-test"></a>mybatis-spring-boot-starter-test</h4><p>测试</p>
+<h4 id="xxx-spring-boot-starter-test"><a href="#xxx-spring-boot-starter-test" class="headerlink" title="xxx-spring-boot-starter-test"></a>xxx-spring-boot-starter-test</h4><p>测试</p>
 <blockquote>
 <p>可以参考市场上较流行的非官方starter的编写，如<a href="https://github.com/mybatis/spring-boot-starter">mybatis-spring-boot-starter</a></p>
 </blockquote>
