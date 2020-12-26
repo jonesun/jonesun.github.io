@@ -23,21 +23,21 @@
     var CONFIG = {"hostname":"jonesun.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="前言建造者模式(Builder): 将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象">
+  <meta name="description" content="前言使用Spring Boot Starters可以快速集成相关组件，无需编写复杂的配置，在引入某项技术框架时，一个比较好的习惯就是看有没有xxx-starter 一、官方提供的starts 以下基于Spring Boot 2.4.0版本，后续版本可能会有新增和删除，有兴趣可以到spring-boot-autoconfigure中查看最新版本  application starters 应用程序级">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java设计模式-建造者模式">
-<meta property="og:url" content="https://jonesun.github.io/2020/11/05/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="SpringBoot-Starters">
+<meta property="og:url" content="https://jonesun.github.io/2020/12/26/SpringBoot-Starters/index.html">
 <meta property="og:site_name" content="Jone Sun&#39;s Blog">
-<meta property="og:description" content="前言建造者模式(Builder): 将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象">
+<meta property="og:description" content="前言使用Spring Boot Starters可以快速集成相关组件，无需编写复杂的配置，在引入某项技术框架时，一个比较好的习惯就是看有没有xxx-starter 一、官方提供的starts 以下基于Spring Boot 2.4.0版本，后续版本可能会有新增和删除，有兴趣可以到spring-boot-autoconfigure中查看最新版本  application starters 应用程序级">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-05T07:44:34.000Z">
-<meta property="article:modified_time" content="2020-11-12T03:10:38.982Z">
+<meta property="article:published_time" content="2020-12-26T02:15:25.000Z">
+<meta property="article:modified_time" content="2020-12-26T06:17:48.422Z">
 <meta property="article:author" content="Jone Sun">
 <meta property="article:tag" content="java">
-<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="springboot">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jonesun.github.io/2020/11/05/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+<link rel="canonical" href="https://jonesun.github.io/2020/12/26/SpringBoot-Starters/">
 
 
 <script id="page-configurations">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>java设计模式-建造者模式 | Jone Sun's Blog</title>
+  <title>SpringBoot-Starters | Jone Sun's Blog</title>
   
 
 
@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/11/05/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/12/26/SpringBoot-Starters/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/image/avatar.png">
@@ -196,7 +196,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          java设计模式-建造者模式
+          SpringBoot-Starters
         </h1>
 
         <div class="post-meta">
@@ -205,16 +205,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-11-05 15:44:34" itemprop="dateCreated datePublished" datetime="2020-11-05T15:44:34+08:00">2020-11-05</time>
+              <time title="创建时间：2020-12-26 10:15:25 / 修改时间：14:17:48" itemprop="dateCreated datePublished" datetime="2020-12-26T10:15:25+08:00">2020-12-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-12 11:10:38" itemprop="dateModified" datetime="2020-11-12T11:10:38+08:00">2020-11-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -225,7 +219,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
                 </span>
             </span>
 
@@ -242,14 +236,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -261,14 +255,154 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>建造者模式(Builder): 将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象</p>
- <a id="more"></a>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>我们借助于Lombok的@Builder反编译出来的代码来看如何自己编写</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;原始</span><br><span class="line">@Builder</span><br><span class="line">public class User &#123;</span><br><span class="line">    private String username;</span><br><span class="line">    private String password;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;反编译后</span><br><span class="line">public class User &#123;</span><br><span class="line">    private String username;</span><br><span class="line">    private String password;</span><br><span class="line">    User(String username, String password) &#123;</span><br><span class="line">        this.username &#x3D; username; this.password &#x3D; password;</span><br><span class="line">    &#125;</span><br><span class="line">    public static User.UserBuilder builder() &#123;</span><br><span class="line">        return new User.UserBuilder();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public static class UserBuilder &#123;</span><br><span class="line">        private String username;</span><br><span class="line">        private String password;</span><br><span class="line">        UserBuilder() &#123;&#125;</span><br><span class="line"> </span><br><span class="line">        public User.UserBuilder username(String username) &#123;</span><br><span class="line">            this.username &#x3D; username;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line">        public User.UserBuilder password(String password) &#123;</span><br><span class="line">            this.password &#x3D; password;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line">        public User build() &#123;</span><br><span class="line">            return new User(this.username, this.password);</span><br><span class="line">        &#125;</span><br><span class="line">        public String toString() &#123;</span><br><span class="line">            return &quot;User.UserBuilder(username&#x3D;&quot; + this.username + &quot;, password&#x3D;&quot; + this.password + &quot;)&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line">User user &#x3D; User.builder().username(&quot;admin&quot;).password(&quot;123456&quot;).build();</span><br></pre></td></tr></table></figure>
-
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用Spring Boot Starters可以快速集成相关组件，无需编写复杂的配置，在引入某项技术框架时，一个比较好的习惯就是看有没有xxx-starter</p>
+<h2 id="一、官方提供的starts"><a href="#一、官方提供的starts" class="headerlink" title="一、官方提供的starts"></a>一、官方提供的starts</h2><blockquote>
+<p>以下基于Spring Boot 2.4.0版本，后续版本可能会有新增和删除，有兴趣可以到spring-boot-autoconfigure中查看最新版本</p>
+</blockquote>
+<h3 id="application-starters-应用程序级"><a href="#application-starters-应用程序级" class="headerlink" title="application starters 应用程序级"></a>application starters 应用程序级</h3><ul>
+<li><p>spring-boot-starter: 核心Starter, 包含自动配置、日志及yaml支持等</p>
+</li>
+<li><p>spring-boot-starter-aop: 集成Spring AOP和Aspectj, 用于支持面向切面编程</p>
+</li>
+<li><p>spring-boot-starter-batch: 集成Spring Batch, 用于批处理相关</p>
+</li>
+<li><p>spring-boot-starter-cache: 集成Spring Cache, 用于缓存相关</p>
+</li>
+<li><p>spring-boot-starter-hateoas: 集成Spring MVC和Spring HATEOAS构建超媒体RESTFul Web应用</p>
+</li>
+<li><p>spring-boot-starter-integration: 集成Spring Integration</p>
+</li>
+<li><p>spring-boot-starter-jdbc: 集成JDBC结合Hikari连接池</p>
+</li>
+<li><p>spring-boot-starter-jersey: 集成JAX-RS和Jersey构建RESTful Web应用，是spring-boot-starter-web的一个替代品</p>
+</li>
+<li><p>spring-boot-starter-jooq: 集成JOOQ访问数据库，是spring-boot-starter-data-jpa或者spring-boot-starter-jdbc的替换品</p>
+</li>
+<li><p>spring-boot-starter-json: 集成Jackson用于读写JSON</p>
+</li>
+<li><p>spring-boot-starter-jta-atomikos: 集成Atomikos实现JTA事务</p>
+</li>
+<li><p>spring-boot-starter-jta-bitronix: 集成Bitronix实现JTA事务，不过2.3.0开始被标识为Deprecated</p>
+</li>
+<li><p>spring-boot-starter-mail: 集成Java Mail和Spring架构的邮件发送功能</p>
+</li>
+<li><p>spring-boot-starter-security: 集成Spring Security用于权限认证</p>
+</li>
+<li><p>spring-boot-starter-oauth2-client: 集成Spring Security’s OAuth2/OpenID连接客户端功能</p>
+</li>
+<li><p>spring-boot-starter-oauth2-resource-server: 集成Spring Security’s OAuth2资源服务器功能</p>
+</li>
+<li><p>spring-boot-starter-quartz: 集成Quartz任务调度</p>
+</li>
+<li><p>spring-boot-starter-rsocket: 构建RSocket客户端和服务端</p>
+</li>
+<li><p>spring-boot-starter-test: 集成JUint Jupiter, Hamcrest和Mockito测试Spring Boot应用和类库</p>
+</li>
+<li><p>spring-boot-starter-validation: 集成Java Bean Validation结合Hibernate Validator</p>
+</li>
+<li><p>spring-boot-starter-web: 集成Spring MVC构建RESTful Web应用，使用Tomcat作为默认内嵌容器</p>
+</li>
+<li><p>spring-boot-starter-web-services: 集成Spring Web Services</p>
+</li>
+<li><p>spring-boot-starter-webflux: 集成Spring Reactive Web构建WebFlux应用</p>
+</li>
+<li><p>spring-boot-starter-websocket: 集成Spring WebSocket构建WebSocket应用</p>
+</li>
+</ul>
+<h4 id="Spring-Data"><a href="#Spring-Data" class="headerlink" title="Spring Data"></a>Spring Data</h4><p>所有Spring Data项目都是为了简化Spring应用的数据访问开发</p>
+<ul>
+<li><p>spring-boot-starter-data-cassandra: 集成Spring Data Cassandra和分布式数据库Cassandra</p>
+</li>
+<li><p>spring-boot-starter-data-cassandra-reactive: 集成Spring Data Cassandra Reactive和分布式数据库Cassandra</p>
+</li>
+<li><p>spring-boot-starter-data-couchbase: 集成Spring Data Couchbase和文档型数据库Couchbase</p>
+</li>
+<li><p>spring-boot-starter-data-couchbase-reactive: 集成Spring Data Couchbase Reactive和文档型数据库Couchbase</p>
+</li>
+<li><p>spring-boot-starter-data-elasticsearch: 集成Spring Data和搜索引擎Elasticsearch</p>
+</li>
+<li><p>spring-boot-starter-data-solr: 集成Spring Data Solr和搜索引擎Apache Solr</p>
+</li>
+<li><p>spring-boot-starter-data-jdbc: 集成Spring Data JDBC, 给基于JDBC的数据库应用提供Repository封装, 类似于Spring Data JPA中JpaRepository的功能，但是不引入任何ORM框架</p>
+</li>
+<li><p>spring-boot-starter-data-jpa: 集成Spring Data Jpa结合Hibernate</p>
+</li>
+<li><p>spring-boot-starter-data-ldap: 集成Spring Data LDAP</p>
+</li>
+<li><p>spring-boot-starter-data-mongodb: 集成Spring Data MongoDB和文档型数据库MongoDB</p>
+</li>
+<li><p>spring-boot-starter-data-mongodb-reactive: 集成Spring Data MongoDB Reactive和文档型数据库MongoDB</p>
+</li>
+<li><p>spring-boot-starter-data-neo4j: 集成Spring Data Neo4j和图形数据库Neo4j</p>
+</li>
+<li><p>spring-boot-starter-data-r2dbc: 集成Spring Data R2DBC</p>
+</li>
+<li><p>spring-boot-starter-data-redis: 集成Spring Data Redis和内存数据库Redis并使用Lettuce客户端</p>
+</li>
+<li><p>spring-boot-starter-data-redis-reactive: 集成Spring Data Redis Reactive和内存数据库Redis并使用Lettuce客户端</p>
+</li>
+<li><p>spring-boot-starter-data-rest: 集成Spring Data REST暴露Spring Data Repositories输出REST资源</p>
+</li>
+</ul>
+<h4 id="视图渲染"><a href="#视图渲染" class="headerlink" title="视图渲染"></a>视图渲染</h4><ul>
+<li><p>spring-boot-starter-thymeleaf: 集成Thymeleaf视图构建MVC Web应用</p>
+</li>
+<li><p>spring-boot-starter-freemarker: 集成Freemarker视图构建MVC Web应用</p>
+</li>
+<li><p>spring-boot-starter-mustache: 集成Mustache视图构建Web应用</p>
+</li>
+<li><p>spring-boot-starter-groovy-templates: 集成Groovy模板视图构建MVC Web应用</p>
+</li>
+</ul>
+<h4 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h4><ul>
+<li><p>spring-boot-starter-activemq: 集成Apache ActiveMQ，基于JMS(Java Message Service 消息服务)的消息队列</p>
+</li>
+<li><p>spring-boot-starter-artemis: 集成Apache Artemis，基于JMS的消息队列</p>
+</li>
+<li><p>spring-boot-starter-amqp: 集成Spring AMQP和Rabbit MQ的消息队列</p>
+</li>
+</ul>
+<h3 id="production-starters-生产级"><a href="#production-starters-生产级" class="headerlink" title="production starters 生产级"></a>production starters 生产级</h3><ul>
+<li>spring-boot-starter-actuator: 集成Spring Boot Actuator, 提供生产功能以帮助监控和管理应用程序</li>
+</ul>
+<h3 id="technical-starters-技术类"><a href="#technical-starters-技术类" class="headerlink" title="technical starters 技术类"></a>technical starters 技术类</h3><ul>
+<li><p>spring-boot-starter-log4j2: 集成Log4j2日志框架，注意需排除默认的logback引用</p>
+</li>
+<li><p>spring-boot-starter-logging: 集成Logback日志框架，引入Spring Boot时默认已集成</p>
+</li>
+<li><p>spring-boot-starter-tomcat: 集成Tomcat作为内嵌的servlet容器，引入web starter时默认已集成</p>
+</li>
+<li><p>spring-boot-starter-jetty: 集成Jetty作为内嵌的servlet容器，注意需排除掉web starter原有tomcat引用</p>
+</li>
+<li><p>spring-boot-starter-undertow: 集成Undertow作为内嵌的servlet容器，注意需排除掉web starter原有tomcat引用</p>
+</li>
+<li><p>spring-boot-starter-reactor-netty: 集成Netty作为内嵌的响应式Http服务器</p>
+</li>
+</ul>
 <blockquote>
-<p>使用构建器模式，可以比较优雅地解决构建复杂对象的麻烦，这里的“复杂”是指类似需要输入的参数组合较多，如果用构造函数，我们往往需要为每一种可能的输入参数组合实现相应的构造函数，一系列复杂的构造函数会让代码阅读性和可维护性变得很差。</p>
+<p>以上所有官方提供的starter，如果你项目pom文件中的parent是spring-boot-starter-parent，则引入时无需指定version，Spring Boot会自动引用相关依赖(感兴趣可以idea安装Maven Helper这个插件看下自己使用的starts各自引用的库的版本)<br>如果发现starter自身引入的库版本较低，或者想体验该库的新版本，需先排除原有库引用再单独引入该库(可从<a target="_blank" rel="noopener" href="https://search.maven.org/">Maven Central Repository</a>中查看)</p>
+</blockquote>
+<h2 id="二、第三方starts"><a href="#二、第三方starts" class="headerlink" title="二、第三方starts"></a>二、第三方starts</h2><p>一般第三方的框架会提供自制的 Spring Boot Starter，如：mybatis-spring-boot-starter，只要几个依赖，几行配置参数就能轻松实现集成</p>
+<h2 id="三、自己编写Starter"><a href="#三、自己编写Starter" class="headerlink" title="三、自己编写Starter"></a>三、自己编写Starter</h2><p>除了第三方的 Starter，也可以私有定制Starter，方便在公司内部各业务部门快速集成使用，而不用各自造轮子</p>
+<h3 id="命名风格"><a href="#命名风格" class="headerlink" title="命名风格"></a>命名风格</h3><ul>
+<li>groupId: 不要用官方的org.springframework.boot, 而要用你自己独特的。</li>
+<li>artifactId: Spring Boot官方建议非官方的Starter命名格式遵循 xxx-spring-boot-starter ，例如 mybatis-spring-boot-starter。<br>官方starter会遵循spring-boot-starter-xxx ,例如的spring-boot-starter-web。</li>
+</ul>
+<h3 id="编写要点"><a href="#编写要点" class="headerlink" title="编写要点"></a>编写要点</h3><p>starter集成入应用有两种方式：</p>
+<ul>
+<li>主动生效，使用@Import注解，集成后在Spring Boot中加入自定义的@Enablexxx就会生效</li>
+<li>被动生效, 在autoconfigure资源包下新建META-INF/spring.factories写入XXXAutoConfiguration全限定名, 这样在starter组件集成入Spring Boot应用后就会生效</li>
+</ul>
+<p>比较好的习惯，编写自定义starter时最好包含以下模块</p>
+<h4 id="xxx-spring-boot-autoconfigure"><a href="#xxx-spring-boot-autoconfigure" class="headerlink" title="xxx-spring-boot-autoconfigure"></a>xxx-spring-boot-autoconfigure</h4><p>普通maven项目即可， 需要引用spring-boot-autoconfigure和spring-boot-configuration-processor(以便在IDE中配置参数时可以进行提示)，主要用来定义配置参数、以及自动配置对外暴露的功能（一般是抽象的接口Spring Bean）</p>
+<blockquote>
+<p>注意一定要显式声明你配置的前缀标识（prefix）</p>
+</blockquote>
+<h4 id="xxx-spring-boot-starter"><a href="#xxx-spring-boot-starter" class="headerlink" title="xxx-spring-boot-starter"></a>xxx-spring-boot-starter</h4><p>starter是一个空jar。它的唯一目的是提供使用库所必需的依赖项。删除掉src文件夹，在pom文件中加入xxx-spring-boot-autoconfigure依赖(普通maven项目即可)</p>
+<h4 id="xxx-spring-boot-samples"><a href="#xxx-spring-boot-samples" class="headerlink" title="xxx-spring-boot-samples"></a>xxx-spring-boot-samples</h4><p>用于示例</p>
+<h4 id="mybatis-spring-boot-starter-test"><a href="#mybatis-spring-boot-starter-test" class="headerlink" title="mybatis-spring-boot-starter-test"></a>mybatis-spring-boot-starter-test</h4><p>测试</p>
+<blockquote>
+<p>可以参考市场上较流行的非官方starter的编写，如<a target="_blank" rel="noopener" href="https://github.com/mybatis/spring-boot-starter">mybatis-spring-boot-starter</a></p>
 </blockquote>
 
     </div>
@@ -295,7 +429,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/java/" rel="tag"># java</a>
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+              <a href="/tags/springboot/" rel="tag"># springboot</a>
           </div>
 
         
@@ -304,13 +438,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/11/05/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="prev" title="java设计模式-解释器模式">
-      <i class="fa fa-chevron-left"></i> java设计模式-解释器模式
+    <a href="/2020/12/09/SpringBoot-%E9%9B%86%E6%88%90flyway%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" rel="prev" title="SpringBoot-集成flyway实现数据库版本控制">
+      <i class="fa fa-chevron-left"></i> SpringBoot-集成flyway实现数据库版本控制
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/11/05/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="next" title="java设计模式-单例模式">
-      java设计模式-单例模式 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -370,7 +501,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%98%E6%96%B9%E6%8F%90%E4%BE%9B%E7%9A%84starts"><span class="nav-number">1.1.</span> <span class="nav-text">一、官方提供的starts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#application-starters-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%BA%A7"><span class="nav-number">1.1.1.</span> <span class="nav-text">application starters 应用程序级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-Data"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Spring Data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E6%B8%B2%E6%9F%93"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">视图渲染</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">消息队列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#production-starters-%E7%94%9F%E4%BA%A7%E7%BA%A7"><span class="nav-number">1.1.2.</span> <span class="nav-text">production starters 生产级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#technical-starters-%E6%8A%80%E6%9C%AF%E7%B1%BB"><span class="nav-number">1.1.3.</span> <span class="nav-text">technical starters 技术类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%AC%AC%E4%B8%89%E6%96%B9starts"><span class="nav-number">1.2.</span> <span class="nav-text">二、第三方starts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99Starter"><span class="nav-number">1.3.</span> <span class="nav-text">三、自己编写Starter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E9%A3%8E%E6%A0%BC"><span class="nav-number">1.3.1.</span> <span class="nav-text">命名风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%A6%81%E7%82%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">编写要点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#xxx-spring-boot-autoconfigure"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">xxx-spring-boot-autoconfigure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xxx-spring-boot-starter"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">xxx-spring-boot-starter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xxx-spring-boot-samples"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">xxx-spring-boot-samples</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mybatis-spring-boot-starter-test"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">mybatis-spring-boot-starter-test</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -572,7 +703,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'MyBlogGitalk',
       owner       : 'jonesun',
       admin       : ['jonesun'],
-      id          : '944a07554d5d01e76b33a8372d362ae3',
+      id          : 'f25974f334d8dd24235131025085cc78',
         language: 'zh-CN',
       distractionFreeMode: true
     });
