@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jonesun.github.io/2020/07/22/SpringBoot-SpringSecurity%E6%95%B4%E5%90%88/</loc>
+    <lastmod>2021-01-09</lastmod>
+  </url>
+  <url>
     <loc>https://jonesun.github.io/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis/</loc>
     <lastmod>2021-01-09</lastmod>
   </url>
@@ -11,10 +15,6 @@
   <url>
     <loc>https://jonesun.github.io/2020/05/20/javaFx%E5%8F%91%E5%B1%95/</loc>
     <lastmod>2021-01-08</lastmod>
-  </url>
-  <url>
-    <loc>https://jonesun.github.io/2020/07/22/SpringBoot-SpringSecurity%E6%95%B4%E5%90%88/</loc>
-    <lastmod>2021-01-06</lastmod>
   </url>
   <url>
     <loc>https://jonesun.github.io/2020/08/26/SpringBoot-%E9%9B%86%E6%88%90Redis/</loc>
