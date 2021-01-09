@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jonesun.github.io/2020/12/26/SpringBoot-Starters/</loc>
+    <lastmod>2021-01-09</lastmod>
+  </url>
+  <url>
     <loc>https://jonesun.github.io/2020/05/20/javaFx%E5%8F%91%E5%B1%95/</loc>
     <lastmod>2021-01-08</lastmod>
   </url>
@@ -19,10 +23,6 @@
   <url>
     <loc>https://jonesun.github.io/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2021-01-06</lastmod>
-  </url>
-  <url>
-    <loc>https://jonesun.github.io/2020/12/26/SpringBoot-Starters/</loc>
-    <lastmod>2020-12-26</lastmod>
   </url>
   <url>
     <loc>https://jonesun.github.io/2020/11/03/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</loc>
