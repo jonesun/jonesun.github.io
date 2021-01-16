@@ -993,7 +993,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-06 17:03:22" itemprop="dateModified" datetime="2021-01-06T17:03:22+08:00">2021-01-06</time>
+                <time title="修改时间：2021-01-16 11:05:33" itemprop="dateModified" datetime="2021-01-16T11:05:33+08:00">2021-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1044,6 +1044,17 @@
 <p>一种 NoSQL（not-only sql，泛指非关系型数据库）的数据库，性能优秀，数据在内存中，读写速度非常快，支持并发 10W QPS</p>
 </blockquote>
 <p>Redis 的应用场景包括：缓存系统（“热点”数据：高频读、低频写）、计数器、消息队列系统、排行榜、社交网络和实时系统。</p>
+<h2 id="为什么要使用redis"><a href="#为什么要使用redis" class="headerlink" title="为什么要使用redis"></a>为什么要使用redis</h2><blockquote>
+<p>性能</p>
+</blockquote>
+<p>由于MySql数据存储在磁盘中，对于一些需要执行耗时非常长的，但结果不会频繁改动的SQL操作(经常是查询，如每日排行榜或者高频业务热数据)，就适合将运行结果放到到redis中。<br>后面的请求优先去redis中获取，加快访问速度、提高性能</p>
+<blockquote>
+<p>并发</p>
+</blockquote>
+<p>mysql支持并发访问的能力有限(当然现在一般会使用一些数据库连接池的来加强并发能力)，当有大量的并发请求，直接访问数据库的话，mysql会挂掉。所以可以使用redis作为缓冲，让请求先访问到redis，而不是直接访问数据库，提高系统的并发能力。</p>
+<blockquote>
+<p>当然redis是基于内存的，存储容量肯定要比磁盘少很多，要存储大量数据，需升级内存，造成在一些不需要高性能的地方是相对比较浪费的，所以建议在需要性能的地方使用redis，在不需要高性能的地方使用mysql。不要一味的什么数据都丢到redis中。</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/08/26/SpringBoot-%E9%9B%86%E6%88%90Redis/#more" rel="contents">
@@ -1423,7 +1434,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">446k</span>
+    <span title="站点总字数">447k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
