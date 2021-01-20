@@ -631,8 +631,9 @@
 <blockquote>
 <p>注意logging.file.name不支持表达式，所以项目中无论是使用默认logback还是log4j2，都需要匹配好日志路径及名称</p>
 </blockquote>
-<p>这样就可以在admin-server中查看日志,无需登录到服务器上查看了，甚至可以利用日志配置，在线实时调整日志的显示级别，方便在出现异常情况下查看详细的日志打印</p>
+<p>这样就可以在admin-server中查看日志,无需登录到服务器上查看了，甚至可以利用日志配置，在线实时调整日志的显示级别(内部原理也是actuator)，方便在出现异常情况下查看详细的日志打印</p>
 <p><img src="spring-boot-admin-log.png" alt="spring-boot-admin-log"></p>
+<p><img src="spring-boot-admin-log-config.png" alt="spring-boot-admin-log-config"></p>
 <h2 id="告警-1"><a href="#告警-1" class="headerlink" title="告警"></a>告警</h2><p>结合spring-boot-starter-mail(admin-server中配置)进行告警，主要是Spring Boot Actuator的使用，这里举个例子：</p>
 <p>当服务器中的磁盘容量不足5GB时，进行邮件告警</p>
 <p>修改client-server中的application.yml</p>
@@ -664,7 +665,21 @@
 
 <p>分别重启两个项目，浏览器访问admin-server，可以发现需要登录才可以查看</p>
 <p><img src="spring-boot-admin-login.png" alt="spring-boot-admin-login"></p>
+<blockquote>
+<p>如果client-server也使用了security</p>
+</blockquote>
+<p>则首先需支持HTTP BASIC 方式访问端点(默认是支持的)，然后将元数据提供给admin-server</p>
+<p>client-server中application.yml加入:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">   <span class="attr">boot:</span></span><br><span class="line">     <span class="attr">admin:</span></span><br><span class="line">       <span class="attr">client:</span></span><br><span class="line">         <span class="attr">instance:</span></span><br><span class="line">           <span class="attr">metadata:</span></span><br><span class="line">             <span class="attr">user.name:</span> <span class="string">$&#123;spring.security.user.name&#125;</span></span><br><span class="line">             <span class="attr">user.password:</span> <span class="string">$&#123;spring.security.user.password&#125;</span> </span><br></pre></td></tr></table></figure>
+
+<p>如果不支持的话，则可以定制 HttpHeadersProvider来达到效果</p>
 <p><a href="https://github.com/jonesun/spring-admin-demo">示例源码</a></p>
+<h2 id="Spring-cloud下的应用"><a href="#Spring-cloud下的应用" class="headerlink" title="Spring cloud下的应用"></a>Spring cloud下的应用</h2><p>集成了Spring Cloud Discovery (eureka、consul等)到应用程序后，则不需要 Spring Boot Admin 客户端。<br>只需将 DiscoveryClient 添加到 Spring Boot Admin Server即可，其余的事情通过自动配置完成</p>
+<p>与Spring Boot Admin类似的还有<a href="https://skywalking.apache.org/">skywalking</a> 利用的java agent， 可以监控任意的java应用，感兴趣可以了解下</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ul>
+<li>监控页面对应信息一栏显示: 未提供任何信息，需要使用spring-boot的插件，运行spring-boot:build-info，生成Actuator使用的构建信息文件build-info.properties, 再次运行就可以看到了</li>
+</ul>
+<p><img src="spring-boot-admin-info.png" alt="spring-boot-admin-info"></p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1329,7 +1344,19 @@
 <p>Conditional: Spring还可以根据@Conditional决定是否创建某个Bean</p>
 <p>FactoryBean可以⽣成某⼀个类型的Bean实例，也就是说我们可以借助于它⾃定义Bean的创建过程，实现FactoryBean接口即可(获取FactoryBean，需要在id之前添加“&amp;”)。</p>
 <p>如果你想要将第三方库中的组件装配到你的应用中，在这种情况下，是没有办法在它的类上添加@Component注解的，因此就不能使用自动化装配的方案了，但是我们可以使用@Bean。</p>
-<h1 id="pom中使用阿里云镜像"><a href="#pom中使用阿里云镜像" class="headerlink" title="pom中使用阿里云镜像"></a>pom中使用阿里云镜像</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+<h1 id="pom中使用阿里云镜像"><a href="#pom中使用阿里云镜像" class="headerlink" title="pom中使用阿里云镜像"></a>pom中使用阿里云镜像</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="中文乱码解决"><a href="#中文乱码解决" class="headerlink" title="中文乱码解决"></a>中文乱码解决</h1><blockquote>
+<p>spring boot 2.4.2 如果控制台存在中文乱码问题，需修改application.yml:</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">charset:</span></span><br><span class="line">    <span class="attr">console:</span> <span class="string">gbk</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/spring-projects/spring-boot/issues/24894">use 2.4.2 print log garbled</a></p>
+<ul>
+<li>使用spring-boot:run时控制台输出乱码</li>
+</ul>
+<p>pom.xml中修改</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- spring-boot:run 中文乱码解决 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--增加jvm参数--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jvmArguments</span>&gt;</span>-Dfile.encoding=UTF-8<span class="tag">&lt;/<span class="name">jvmArguments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>java</category>
         <category>springboot</category>
@@ -3897,7 +3924,8 @@ limitations under the License.</code></pre>
   <entry>
     <title>杂言</title>
     <url>/2017/11/09/%E6%9D%82%E8%A8%80/</url>
-    <content><![CDATA[<h4 id="世界上只有一种英雄主义-就是看清生活的真相之后依然热爱生活。"><a href="#世界上只有一种英雄主义-就是看清生活的真相之后依然热爱生活。" class="headerlink" title="世界上只有一种英雄主义,就是看清生活的真相之后依然热爱生活。####"></a>世界上只有一种英雄主义,就是看清生活的真相之后依然热爱生活。####</h4><h4 id="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。"><a href="#心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。" class="headerlink" title="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。####"></a>心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。####</h4>]]></content>
+    <content><![CDATA[<h4 id="世界上只有一种英雄主义-就是看清生活的真相之后依然热爱生活。"><a href="#世界上只有一种英雄主义-就是看清生活的真相之后依然热爱生活。" class="headerlink" title="世界上只有一种英雄主义,就是看清生活的真相之后依然热爱生活。####"></a>世界上只有一种英雄主义,就是看清生活的真相之后依然热爱生活。####</h4><h4 id="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。"><a href="#心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。" class="headerlink" title="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。####"></a>心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。####</h4><p>第一次为idea 提出<a href="https://youtrack.jetbrains.com/issue/IDEA-246570">issus</a>，并很快得到解决，赞！</p>
+]]></content>
   </entry>
   <entry>
     <title>SpringBoot-集成Mybatis</title>
