@@ -690,6 +690,8 @@
 <li>监控页面对应信息一栏显示: 未提供任何信息，需要使用spring-boot的插件，运行spring-boot:build-info，生成Actuator使用的构建信息文件build-info.properties, 再次运行就可以看到了</li>
 </ul>
 <p><img src="spring-boot-admin-info.png" alt="spring-boot-admin-info"></p>
+<p>或者在application.yml中加入:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">info:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="string">@project.version@</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">@project.artifactId@</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">@project.groupId@</span></span><br><span class="line">  <span class="attr">description:</span> <span class="string">@project.description@</span></span><br><span class="line">  <span class="comment">#还可以自定义信息</span></span><br><span class="line">  <span class="attr">author:</span> <span class="string">jone</span> <span class="string">sun</span></span><br><span class="line">  <span class="attr">blog:</span> <span class="string">https://jonesun.github.io/</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>java</category>
