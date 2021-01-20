@@ -631,7 +631,7 @@
 <blockquote>
 <p>注意logging.file.name不支持表达式，所以项目中无论是使用默认logback还是log4j2，都需要匹配好日志路径及名称</p>
 </blockquote>
-<p>这样就可以在admin-server中查看日志,无需登录到服务器上查看了</p>
+<p>这样就可以在admin-server中查看日志,无需登录到服务器上查看了，甚至可以利用日志配置，在线实时调整日志的显示级别，方便在出现异常情况下查看详细的日志打印</p>
 <p><img src="spring-boot-admin-log.png" alt="spring-boot-admin-log"></p>
 <h2 id="告警-1"><a href="#告警-1" class="headerlink" title="告警"></a>告警</h2><p>结合spring-boot-starter-mail(admin-server中配置)进行告警，主要是Spring Boot Actuator的使用，这里举个例子：</p>
 <p>当服务器中的磁盘容量不足5GB时，进行邮件告警</p>
