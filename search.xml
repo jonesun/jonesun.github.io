@@ -1250,7 +1250,7 @@
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
 <p>springboot2.x的版本, 默认使用的是junit5版本, junit4和junit5两个版本差别比较大，需要注意下用法</p>
 </blockquote>
-<p><img src="junit5vsjunit4.png" alt="junit5vsjunit4"></p>
+<p><img src="junit5vsjunit4.png" alt="junit5 vs junit4"></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySpringTestBeanTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    XXX xxx;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">xxxTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        xxx.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>测试样例可以参考<a href="https://docs.spring.io/spring-framework/docs/current/reference/html/testing.html#spring-mvc-test-framework">官方教程</a></p>
@@ -1341,10 +1341,23 @@
 </blockquote>
 <p>如果是idea使用gradle编译的话，如果出现中文乱码则打开Help&gt;Edit Custom VM Options，在最后一行加上:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-Dfile.encoding&#x3D;UTF-8</span><br></pre></td></tr></table></figure>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>推荐使用@Autowired(@Qualifier告诉Spring具体去装配哪个对象), @Resource(javax.annotation.Resource) 在 Jdk 11中已经移除，如果要使⽤，需要单独引⼊jar包：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.annotation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.annotation-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>@Component注解默认实例化的对象是单例，如果想声明成多例对象可以使用@Scope(“prototype”), Scope的全部可选项</p>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="关于-Autowired与-Resource"><a href="#关于-Autowired与-Resource" class="headerlink" title="关于@Autowired与@Resource"></a>关于@Autowired与@Resource</h3><p>如果在idea中使用类似:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowire</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>基于字段的依赖注入方式时会有黄色警告(不建议使用字段注入)：</p>
+<ul>
+<li>对于必需的依赖项，建议使用基于构造函数的注入，以使它们成为不可变的，并防止它们为null。</li>
+<li>对于可选的依赖项，建议使用基于Setter的注入</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//基于构造函数的依赖注入</span></span><br><span class="line">    <span class="meta">@Autowire</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserServiceImpl</span><span class="params">(UserDao userDao)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userDao = userDao;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="comment">//setter方式</span></span><br><span class="line">     <span class="meta">@Autowire</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">serUserDao</span><span class="params">(UserDao userDao)</span></span>&#123;</span><br><span class="line">         <span class="keyword">this</span>.userDao = userDao;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>@Autowired通过类型装配，若注入类型一样的对象就无法选择具体注入哪一个，则要配合@Qualifiler结合使用；@Resource默认通过类型名注入</p>
+</blockquote>
+<p>一般模块间的依赖推荐使用：</p>
+<ul>
+<li>存在多态，推荐使用@Resource</li>
+<li>允许不存在，推荐@Autowired并设置required属性为false</li>
+</ul>
+<h3 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h3><p>@Component注解默认实例化的对象是单例，如果想声明成多例对象可以使用@Scope(“prototype”), Scope的全部可选项</p>
 <ul>
 <li>singleton 全局只有一个实例，即单例模式</li>
 <li>prototype 每次注入Bean都是一个新的实例</li>
@@ -1359,9 +1372,9 @@
 <p>Conditional: Spring还可以根据@Conditional决定是否创建某个Bean</p>
 <p>FactoryBean可以⽣成某⼀个类型的Bean实例，也就是说我们可以借助于它⾃定义Bean的创建过程，实现FactoryBean接口即可(获取FactoryBean，需要在id之前添加“&amp;”)。</p>
 <p>如果你想要将第三方库中的组件装配到你的应用中，在这种情况下，是没有办法在它的类上添加@Component注解的，因此就不能使用自动化装配的方案了，但是我们可以使用@Bean。</p>
-<h1 id="pom中使用阿里云镜像"><a href="#pom中使用阿里云镜像" class="headerlink" title="pom中使用阿里云镜像"></a>pom中使用阿里云镜像</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="pom中使用阿里云镜像"><a href="#pom中使用阿里云镜像" class="headerlink" title="pom中使用阿里云镜像"></a>pom中使用阿里云镜像</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="中文乱码解决"><a href="#中文乱码解决" class="headerlink" title="中文乱码解决"></a>中文乱码解决</h1><blockquote>
+<h3 id="中文乱码解决"><a href="#中文乱码解决" class="headerlink" title="中文乱码解决"></a>中文乱码解决</h3><blockquote>
 <p>spring boot 2.4.2 如果控制台存在中文乱码问题，需修改application.yml:</p>
 </blockquote>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">charset:</span></span><br><span class="line">    <span class="attr">console:</span> <span class="string">gbk</span></span><br></pre></td></tr></table></figure>
@@ -2448,8 +2461,8 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        long[] numbers &#x3D; LongStream.rangeClosed(1, 1000).toArray();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;        Calculator calculator &#x3D; new ForLoopCalculator();</span><br><span class="line">&#x2F;&#x2F;        System.out.println(calculator.sumUp(numbers)); </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;        Calculator executorCalculator &#x3D; new ExecutorServiceCalculator();</span><br><span class="line">&#x2F;&#x2F;        System.out.println(executorCalculator.sumUp(numbers));</span><br><span class="line"></span><br><span class="line">        Calculator forkJoinCalculator &#x3D; new ExecutorServiceCalculator();</span><br><span class="line">        System.out.println(forkJoinCalculator.sumUp(numbers)); </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="注意要点"><a href="#注意要点" class="headerlink" title="注意要点"></a>注意要点</h2><ul>
-<li>需使用合理的阈值将ForkJoingTask拆分为子任务</li>
-<li>避免在 ForkJoingTasks中出现任何阻塞</li>
+<li>需使用合理的阈值将ForkJoinTask拆分为子任务</li>
+<li>避免在 ForkJoinTask中出现任何阻塞</li>
 </ul>
 <p>ForkJoinTask在执行的时候可能会抛出异常，在主线程中是无法直接获取的，但是可以通过ForkJoinTask提供的isCompletedAbnormally()方法来检查任务是否已经抛出异常或已经被取消了</p>
 <p>Fork/Join线程池在Java标准库中就有应用。Java标准库提供的java.util.Arrays.parallelSort(array)可以进行并行排序，它的原理就是内部通过Fork/Join对大数组分拆进行并行排序，在多核CPU上就可以大大提高排序的速度。</p>
@@ -2560,7 +2573,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">transient Node&lt;k,v&gt;[] table</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>transient: 在实现Serilizable接口的对象中，将不需要序列化的属性前添加关键字transient，序列化对象的时候，这个属性就被忽略</p>
+<p>transient: 在实现Serializable接口的对象中，将不需要序列化的属性前添加关键字transient，序列化对象的时候，这个属性就被忽略</p>
 </blockquote>
 <h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>当一个值需要存储到HashMap中时，HashMap会根据key值计算出他的hash，再将hash值通过计算转换为索引(数组下标)，将key和value存放对应位置: </p>
 <ul>
@@ -4379,7 +4392,7 @@ limitations under the License.</code></pre>
 </ul>
 <p><strong>缺点</strong></p>
 <p>master节点挂了以后，redis就不能对外提供写服务了，因为剩下的slave不能成为master</p>
-<h2 id="sentinel-哨兵-模式"><a href="#sentinel-哨兵-模式" class="headerlink" title="sentinel(哨兵)模式"></a>sentinel(哨兵)模式</h2><p>部署在多台服务器中, 心跳机制+投票裁决，是建立在主从模式的基础上，这也是目前的<strong>主流方案</strong></p>
+<h2 id="sentinel-哨兵-模式"><a href="#sentinel-哨兵-模式" class="headerlink" title="sentinel(哨兵)模式"></a>sentinel(哨兵)模式</h2><p>部署在多台服务器中, 心跳机制+投票裁决，是建立在主从模式的基础上，这也是目前的<strong>主流方案</strong>, 可参考<a href="https://redis.io/topics/sentinel">官方文章-Redis Sentinel文档</a></p>
 <p><strong>优点</strong></p>
 <p>有效解决主从模式主库异常手动主从切换的问题</p>
 <p><strong>缺点</strong></p>
