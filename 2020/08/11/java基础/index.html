@@ -23,29 +23,20 @@
     var CONFIG = {"hostname":"jonesun.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="next高版本的已经默认集成gitalk插件, 如果你本地没找到配置，尽快升级。目前我使用的是next 7.x版本，故只需要在_config.yml中打开gitalk配置即可   在GitHub新建Application  用于用户评论文章时登录授权">
+  <meta name="description" content="目录java-引用 java-集合 java-时间 java-io java-随机数 JMH-Java微基准测试套件 高级java多线程 java设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客集成Gitalk评论">
-<meta property="og:url" content="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/index.html">
+<meta property="og:title" content="java基础">
+<meta property="og:url" content="https://jonesun.github.io/2020/08/11/java%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Jone Sun&#39;s Blog">
-<meta property="og:description" content="next高版本的已经默认集成gitalk插件, 如果你本地没找到配置，尽快升级。目前我使用的是next 7.x版本，故只需要在_config.yml中打开gitalk配置即可   在GitHub新建Application  用于用户评论文章时登录授权">
+<meta property="og:description" content="目录java-引用 java-集合 java-时间 java-io java-随机数 JMH-Java微基准测试套件 高级java多线程 java设计模式">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/register-a-new-oauth-application.png">
-<meta property="og:image" content="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/client-id-secret.png">
-<meta property="og:image" content="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/blog-comment.png">
-<meta property="og:image" content="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/gitalk-comment-data.png">
-<meta property="og:image" content="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/no-comment.png">
-<meta property="article:published_time" content="2020-07-29T06:27:46.000Z">
-<meta property="article:modified_time" content="2020-10-12T12:16:17.397Z">
+<meta property="article:published_time" content="2020-08-11T05:44:00.000Z">
+<meta property="article:modified_time" content="2021-01-25T09:52:21.390Z">
 <meta property="article:author" content="Jone Sun">
-<meta property="article:tag" content="nodejs">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="NexT">
-<meta property="article:tag" content="gitalk">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/register-a-new-oauth-application.png">
 
-<link rel="canonical" href="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/">
+<link rel="canonical" href="https://jonesun.github.io/2020/08/11/java%E5%9F%BA%E7%A1%80/">
 
 
 <script id="page-configurations">
@@ -58,7 +49,7 @@
   };
 </script>
 
-  <title>Hexo博客集成Gitalk评论 | Jone Sun's Blog</title>
+  <title>java基础 | Jone Sun's Blog</title>
   
 
 
@@ -219,7 +210,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/07/29/Hexo%E5%8D%9A%E5%AE%A2%E9%9B%86%E6%88%90Gitalk%E8%AF%84%E8%AE%BA/">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/08/11/java%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/image/avatar.png">
@@ -232,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo博客集成Gitalk评论
+          java基础
         </h1>
 
         <div class="post-meta">
@@ -242,14 +233,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-07-29 14:27:46" itemprop="dateCreated datePublished" datetime="2020-07-29T14:27:46+08:00">2020-07-29</time>
+              <time title="创建时间：2020-08-11 13:44:00" itemprop="dateCreated datePublished" datetime="2020-08-11T13:44:00+08:00">2020-08-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
+                <time title="修改时间：2021-01-25 17:52:21" itemprop="dateModified" datetime="2021-01-25T17:52:21+08:00">2021-01-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +248,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
                 </span>
             </span>
 
@@ -274,7 +265,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>900</span>
+              <span>164</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -293,51 +284,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>next高版本的已经默认集成gitalk插件, 如果你本地没找到配置，尽快升级。目前我使用的是next 7.x版本，故只需要在_config.yml中打开gitalk配置即可</p>
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a href="/2020/11/30/java-%E5%BC%95%E7%94%A8">java-引用</a></p>
+<p><a href="/2020/10/14/java-%E9%9B%86%E5%90%88">java-集合</a></p>
+<p><a href="/2020/10/22/java-%E6%97%B6%E9%97%B4">java-时间</a></p>
+<p><a href="/2020/10/22/java-io">java-io</a></p>
+<p><a href="/2020/07/13/java%E9%9A%8F%E6%9C%BA%E6%95%B0">java-随机数</a></p>
+<p><a href="/2020/07/20/JMH-Java%E5%BE%AE%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E5%A5%97%E4%BB%B6">JMH-Java微基准测试套件</a></p>
+<h2 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h2><p><a href="/2020/08/01/java%E5%A4%9A%E7%BA%BF%E7%A8%8B">java多线程</a></p>
+<p><a href="/2020/08/11/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">java设计模式</a></p>
+<p><a href="/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8">SpringBoot集成使用</a></p>
+<h1 id="开发小技巧"><a href="#开发小技巧" class="headerlink" title="开发小技巧"></a>开发小技巧</h1><p><a href="/2020/08/12/java8%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%B7%AE">java8开发小技巧-获取两个时间的时间差</a></p>
+<blockquote>
+<p>使用<code>System.getProperties().list(System.out);</code>可输出可用的环境信息列表</p>
 </blockquote>
-<ol>
-<li>在GitHub新建Application</li>
-</ol>
-<p>用于用户评论文章时登录授权</p>
- <a id="more"></a>
-
-<p><a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">新建</a></p>
-<p><img src="register-a-new-oauth-application.png" alt="image"> </p>
-<ul>
-<li><p>Application name： 应用名称</p>
-</li>
-<li><p>Homepage URL：主页地址，直接写博客地址就行</p>
-</li>
-<li><p>Application description： 描述</p>
-</li>
-<li><p>Authorization callback URL：回调地址，也写博客地址就行</p>
-</li>
-</ul>
-<ol start="2">
-<li>拷贝Client ID和Client Secret</li>
-</ol>
-<p><img src="client-id-secret.png" alt="image"> </p>
-<ol start="3">
-<li>在Github中新建仓库</li>
-</ol>
-<p>用于存放评论数据</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/new">新建</a></p>
-<p><img src="blog-comment.png" alt="image"> </p>
-<ol start="4">
-<li>修改next主题配置</li>
-</ol>
-<p>打开next主题配置文件_config.yml(路径为blog\themes\xxx-主题名称)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">gitalk:</span><br><span class="line">  enable: true #改为 true </span><br><span class="line">  github_id: jonesun # 填写自己的github的用户名</span><br><span class="line">  repo: MyBlogGitalk # 存放评论的仓库名</span><br><span class="line">  client_id: xxxxxx # 填写上一步拷贝的Client ID</span><br><span class="line">  client_secret: xxxxxxxxx # 填写上一步拷贝的Client Secret</span><br><span class="line">  admin_user: jonesun # 也填写自己的github的用户名</span><br><span class="line">  distraction_free_mode: true # Facebook-like distraction free mode</span><br><span class="line">  # Gitalk&#39;s display language depends on user&#39;s browser or system environment</span><br><span class="line">  # If you want everyone visiting your site to see a uniform language, you can set a force language value</span><br><span class="line">  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>部署上传</li>
-</ol>
-<p>使用 hexo g 和hexo d上传到博客保存的git上(一般是github)</p>
-<p><img src="gitalk-comment-data.png" alt="image"> </p>
-<p>用户在看到文章后，即可进行评论(需要GitHub账户才行)</p>
-<p>如果有出现这个，登录一下就行了</p>
-<p><img src="no-comment.png" alt="image"> </p>
 
     </div>
 
@@ -362,10 +321,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/nodejs/" rel="tag"># nodejs</a>
-              <a href="/tags/hexo/" rel="tag"># hexo</a>
-              <a href="/tags/NexT/" rel="tag"># NexT</a>
-              <a href="/tags/gitalk/" rel="tag"># gitalk</a>
+              <a href="/tags/java/" rel="tag"># java</a>
           </div>
 
         
@@ -374,12 +330,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/28/java%E5%A4%9A%E7%BA%BF%E7%A8%8B3-fork-join%E6%A1%86%E6%9E%B6/" rel="prev" title="java多线程3-fork/join框架">
-      <i class="fa fa-chevron-left"></i> java多线程3-fork/join框架
+    <a href="/2020/08/01/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="prev" title="java多线程">
+      <i class="fa fa-chevron-left"></i> java多线程
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/30/java%E5%A4%9A%E7%BA%BF%E7%A8%8B4-volatile&synchronized/" rel="next" title="java多线程4-volatile&synchronized">
-      java多线程4-volatile&synchronized <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/11/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="java设计模式">
+      java设计模式 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -440,6 +396,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7"><span class="nav-number">1.1.</span> <span class="nav-text">高级</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">2.</span> <span class="nav-text">开发小技巧</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -645,7 +602,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'MyBlogGitalk',
       owner       : 'jonesun',
       admin       : ['jonesun'],
-      id          : '99a4dd5b1e3427bdf5369d68323e5ecd',
+      id          : '88dc90e2786fa1d26fcf46bce9b3fb57',
         language: 'zh-CN',
       distractionFreeMode: true
     });
