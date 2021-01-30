@@ -1387,7 +1387,40 @@
 <li>使用spring-boot:run时控制台输出乱码</li>
 </ul>
 <p>pom.xml中修改</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- spring-boot:run 中文乱码解决 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--增加jvm参数--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jvmArguments</span>&gt;</span>-Dfile.encoding=UTF-8<span class="tag">&lt;/<span class="name">jvmArguments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- spring-boot:run 中文乱码解决 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--增加jvm参数--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jvmArguments</span>&gt;</span>-Dfile.encoding=UTF-8<span class="tag">&lt;/<span class="name">jvmArguments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Aware"><a href="#Aware" class="headerlink" title="Aware"></a>Aware</h1><p>Spring框架中提供了许多实现了Aware接口的类，这些类主要是为了辅助Spring访问容器中的数据:</p>
+<ul>
+<li>BeanNameAware：能够获取bean的名称</li>
+<li>BeanFactoryAware：获取当前BeanFactory，这样可以调用容器的服务</li>
+<li>ApplicationContextAware：获取ApplicationContext</li>
+<li>MessageSourceAware：获取MessageSource相关文本信息</li>
+<li>ApplicationEventPublisherAware: 获取ApplicationEventPublisher，用于发布事件</li>
+<li>ResourceLoaderAware: 获取资源加载器，可以获取外部资源文件</li>
+<li>……</li>
+</ul>
+<p>使用时直接实现对应接口即可:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationContextAwareImpl</span> <span class="keyword">implements</span> <span class="title">ApplicationContextAware</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        <span class="comment">//这里就可以获取到ApplicationContext</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Spring-Retry"><a href="#Spring-Retry" class="headerlink" title="Spring Retry"></a>Spring Retry</h1><p><a href="https://github.com/spring-projects/spring-retry">spring-retry</a> 优雅引入重试机制：只需要在需要重试的方法上加上@Retryable注解并配置重试策略属性就好，不需要太多侵入代码：</p>
+<ul>
+<li>delay：默认1秒</li>
+<li>maxDelay：最大重试等待时间</li>
+<li>multiplier：用于计算下一个延迟时间的乘数(延迟大于0时生效)</li>
+<li>random：随机重试等待时间</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencys</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-aspects<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.retry<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-retry<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencys</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>一定不要忘了在启动类上加上**@EnableRetry**</p>
+<p>使用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Retryable(maxAttempts=5,backoff = @Backoff(delay = 100))</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">retrySomething</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;printSomething is called&quot;</span>);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> SQLException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>不过需要注意的是如果被 @Retryable 注解的方法的调用方和被调用方处于同一个类中，那么重试将会失效</p>
+</blockquote>
+<blockquote>
+<p>另外Spring的重试机制只支持对异常进行捕获，而无法对返回值进行校验判断重试。如果想要更灵活的重试策略可以使用<strong>Guava Retry</strong></p>
+</blockquote>
+]]></content>
       <categories>
         <category>java</category>
         <category>springboot</category>
