@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jonesun.github.io/2020/08/26/SpringBoot-%E9%9B%86%E6%88%90Redis/</loc>
+    
+    <lastmod>2021-02-03T09:49:42.993Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jonesun.github.io/2020/07/16/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2021-02-01T09:11:28.118Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>https://jonesun.github.io/2020/08/01/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     
     <lastmod>2021-02-01T06:58:39.524Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jonesun.github.io/2020/08/26/SpringBoot-%E9%9B%86%E6%88%90Redis/</loc>
-    
-    <lastmod>2021-02-01T06:38:11.200Z</lastmod>
     
   </url>
   
