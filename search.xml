@@ -6583,17 +6583,20 @@ limitations under the License.</code></pre>
   <entry>
     <title>java基础</title>
     <url>/2020/08/11/java%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a href="/2020/11/30/java-%E5%BC%95%E7%94%A8">java-引用</a></p>
+    <content><![CDATA[<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p><a href="/2020/11/30/java-%E5%BC%95%E7%94%A8">java-引用</a></p>
 <p><a href="/2020/10/14/java-%E9%9B%86%E5%90%88">java-集合</a></p>
 <p><a href="/2020/10/22/java-%E6%97%B6%E9%97%B4">java-时间</a></p>
 <p><a href="/2020/10/22/java-io">java-io</a></p>
- <a id="more"></a>
-
 <p><a href="/2020/07/13/java%E9%9A%8F%E6%9C%BA%E6%95%B0">java-随机数</a></p>
 <p><a href="/2020/07/20/JMH-Java%E5%BE%AE%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E5%A5%97%E4%BB%B6">JMH-Java微基准测试套件</a></p>
 <h2 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h2><p><a href="/2020/08/01/java%E5%A4%9A%E7%BA%BF%E7%A8%8B">java多线程</a></p>
 <p><a href="/2020/08/11/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">java设计模式</a></p>
 <p><a href="/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8">SpringBoot集成使用</a></p>
+<h2 id="资料整理"><a href="#资料整理" class="headerlink" title="资料整理"></a>资料整理</h2><p><a href="http://sunr7.gitee.io/java-new-features/">Java新特性</a> Java9之后到Java14</p>
+<p><a href="http://sunr7.gitee.io/java8-learning/">Java8特性介绍</a> </p>
+<p><a href="http://sunr7.gitee.io/rxjava_learning/">RxJava学习</a> </p>
+ <a id="more"></a>
+
 <h1 id="开发小技巧"><a href="#开发小技巧" class="headerlink" title="开发小技巧"></a>开发小技巧</h1><p><a href="/2020/08/12/java8%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E7%9A%84%E6%97%B6%E9%97%B4%E5%B7%AE">java8开发小技巧-获取两个时间的时间差</a></p>
 <blockquote>
 <p>使用<code>System.getProperties().list(System.out);</code>可输出可用的环境信息列表, 或者使用System.getenv()获取map</p>
