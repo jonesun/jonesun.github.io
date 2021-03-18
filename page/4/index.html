@@ -206,6 +206,429 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/10/30/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/30/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">java设计模式-外观模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-30 09:51:37" itemprop="dateCreated datePublished" datetime="2020-10-30T09:51:37+08:00">2020-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-07 11:26:08" itemprop="dateModified" datetime="2021-02-07T11:26:08+08:00">2021-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>外观模式(Facade)，又叫门面模式，是为了解决类与类之家的依赖关系的，给客户端提供一个统一入口，并对外屏蔽内部子系统的调用细节。像spring一样，可以将类和类之间的关系配置到配置文件中，而外观模式就是将他们的关系放在一个Facade类中，降低了类类之间的耦合度</p>
+<p>很多Web程序，内部有多个子系统提供服务，经常使用一个统一的Facade入口，例如一个RestApiController，使得外部用户调用的时候，只关心Facade提供的接口，不用管内部到底是哪个子系统处理的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/30/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/10/29/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/29/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">java设计模式-装饰器模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-29 10:37:43" itemprop="dateCreated datePublished" datetime="2020-10-29T10:37:43+08:00">2020-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-07 11:26:08" itemprop="dateModified" datetime="2021-02-07T11:26:08+08:00">2021-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>装饰器模式(Decorator)，是一种在运行期动态给某个对象的实例增加功能的方法。</p>
+</blockquote>
+<p>Decorator模式的目的就是把一个一个的附加功能，用Decorator的方式给一层一层地累加到原始数据源上，最终，通过组合获得我们想要的功能。</p>
+<p>实际上Java标准库中对于IO流的处理就应用了装饰器模式: 通过FileInputStream获取原始文件流，如果需要增加缓冲功能就用BufferedInputStream包装下，如果还需要解压缩功能就再用GZIPInputStream包装下…, 无论包装多少次，得到的对象始终是InputStream。</p>
+<p>使用Decorator模式<strong>实际上把核心功能和附加功能给分开了</strong>。核心功能指FileInputStream这些真正读数据的源头，附加功能指加缓冲、压缩、解密这些功能。</p>
+<ul>
+<li>如果我们要新增核心功能，就增加Component的子类，例如ByteInputStream。</li>
+<li>如果我们要增加附加功能，就增加Decorator的子类，例如CipherInputStream。</li>
+</ul>
+<p>两部分都可以独立地扩展，而具体如何附加功能，由调用方自由组合，从而极大地增强了灵活性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">             ┌───────────┐</span><br><span class="line">             │ Component │</span><br><span class="line">             └───────────┘</span><br><span class="line">                   ▲</span><br><span class="line">      ┌────────────┼─────────────────┐</span><br><span class="line">      │            │                 │</span><br><span class="line">┌───────────┐┌───────────┐     ┌───────────┐</span><br><span class="line">│ComponentA ││ComponentB │...  │ Decorator │</span><br><span class="line">└───────────┘└───────────┘     └───────────┘</span><br><span class="line">                                     ▲</span><br><span class="line">                              ┌──────┴──────┐</span><br><span class="line">                              │             │</span><br><span class="line">                        ┌───────────┐ ┌───────────┐</span><br><span class="line">                        │DecoratorA │ │DecoratorB │...</span><br><span class="line">                        └───────────┘ └───────────┘</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/29/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/10/28/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/28/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">java设计模式-适配器模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-28 10:08:05" itemprop="dateCreated datePublished" datetime="2020-10-28T10:08:05+08:00">2020-10-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-07 11:26:08" itemprop="dateModified" datetime="2021-02-07T11:26:08+08:00">2021-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+</blockquote>
+<p>适配器模式是Adapter，也称Wrapper(所以如果看到源码中有以这两个结尾的类，那么大概率使用了适配器模式), java中实现适配器模式共有三种：</p>
+<ul>
+<li><p>类适配器: 当希望将一个类转换成满足另一个新接口的类时，可以使用类的适配器模式，创建一个新类，继承原有的类，实现新的接口即可</p>
+</li>
+<li><p>对象适配器: 当希望将一个对象转换成满足另一个新接口的对象时，可以创建一个Wrapper类，持有原类的一个实例，在Wrapper类的方法中，调用实例的方法就行。使用组合替代继承，故相比较类适配器，<strong>对象适配器更加常用</strong>。</p>
+</li>
+<li><p>接口适配器: 当不希望实现一个接口中所有的方法时，可以创建一个抽象类Wrapper，实现所有方法，我们写别的类的时候，继承抽象类即可</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/28/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">java设计模式-抽象工厂模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-27 11:39:27" itemprop="dateCreated datePublished" datetime="2020-10-27T11:39:27+08:00">2020-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-07 11:26:08" itemprop="dateModified" datetime="2021-02-07T11:26:08+08:00">2021-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>抽象工厂模式(Abstract Factory)是为了让创建工厂和一组产品与使用相分离，并可以随时切换到另一个工厂以及另一组产品；</p>
+<p>抽象工厂模式实现的关键点是定义工厂接口和产品接口，但如何实现工厂与产品本身需要留给具体的子类实现，客户端只和抽象工厂与抽象产品打交道。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">                                ┌────────┐</span><br><span class="line">                             ─ &gt;│ProductA│</span><br><span class="line">┌────────┐    ┌─────────┐   │   └────────┘</span><br><span class="line">│ Client │─ ─&gt;│ Factory │─ ─</span><br><span class="line">└────────┘    └─────────┘   │   ┌────────┐</span><br><span class="line">                   ▲         ─ &gt;│ProductB│</span><br><span class="line">           ┌───────┴───────┐    └────────┘</span><br><span class="line">           │               │</span><br><span class="line">      ┌─────────┐     ┌─────────┐</span><br><span class="line">      │Factory1 │     │Factory2 │</span><br><span class="line">      └─────────┘     └─────────┘</span><br><span class="line">           │   ┌─────────┐ │   ┌─────────┐</span><br><span class="line">            ─ &gt;│ProductA1│  ─ &gt;│ProductA2│</span><br><span class="line">           │   └─────────┘ │   └─────────┘</span><br><span class="line">               ┌─────────┐     ┌─────────┐</span><br><span class="line">           └ ─&gt;│ProductB1│ └ ─&gt;│ProductB2│</span><br><span class="line">               └─────────┘     └─────────┘</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这种模式有点类似于多个供应商负责提供一系列类型的产品</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -723,123 +1146,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">SpringBoot集成使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-09 10:16:56" itemprop="dateCreated datePublished" datetime="2020-10-09T10:16:56+08:00">2020-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-05 18:34:47" itemprop="dateModified" datetime="2021-03-05T18:34:47+08:00">2021-03-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
-<p>SpringBoot版本为2.x, 2.4.0开始版本号没有.RELEASE后缀</p>
-</blockquote>
-<p><a href="/2020/12/26/SpringBoot-Starters">SpringBoot-Starters</a></p>
-<h2 id="第三方组件"><a href="#第三方组件" class="headerlink" title="第三方组件"></a>第三方组件</h2><p><a href="/2020/07/24/SpringBoot-%E9%9B%86%E6%88%90log%E6%97%A5%E5%BF%97">SpringBoot-集成Log日志</a></p>
-<p><a href="/2021/03/05/SpringBoot-Test%E7%94%A8%E6%B3%95">SpringBoot-Test用法</a></p>
-<p><a href="/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis">SpringBoot-集成Mybatis</a></p>
-<p><a href="/2020/10/10/SpringBoot-%E9%9B%86%E6%88%90swagger">SpringBoot-集成Swagger3</a></p>
-<p><a href="/2020/08/26/SpringBoot-%E9%9B%86%E6%88%90Redis">SpringBoot-集成Redis</a></p>
-<p><a href="/2020/07/22/SpringBoot-SpringSecurity%E6%95%B4%E5%90%88">SpringBoot-SpringSecurity5整合</a></p>
-<p><a href="/2020/09/04/SpringBoot-%E9%9B%86%E6%88%90websocket">SpringBoot-集成Websocket</a></p>
-<p><a href="/2020/07/21/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86">SpringBoot应用整合ELK实现日志收集</a></p>
-<p><a href="/2020/11/20/SpringBoot-%E7%9B%91%E6%8E%A7">SpringBoot-监控</a></p>
-<p><a href="/2020/12/09/SpringBoot-%E9%9B%86%E6%88%90flyway%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6">SpringBoot-集成Flyway实现数据库版本控制</a></p>
-<p><a href="/2020/12/07/SpringBoot-SpringInitializr%E8%AF%B4%E6%98%8E">SpringBoot-SpringInitializr说明</a></p>
-<p><a href="/2021/02/26/SpringBoot-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97MQ">SpringBoot-消息队列MQ</a></p>
-<h2 id="开发小技巧"><a href="#开发小技巧" class="headerlink" title="开发小技巧"></a>开发小技巧</h2><p><a href="/2020/08/31/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%8B%B7%E8%B4%9DBeanUtils.copyProperties">SpringBoot开发小技巧-对象属性拷贝BeanUtils.copyProperties</a></p>
-<p><a href="/2020/08/17/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E6%89%93%E5%8D%B0Mybatis%E4%B8%AD%E7%9A%84sql%E8%AF%AD%E5%8F%A5">SpringBoot开发小技巧-打印Mybatis中的sql语句</a></p>
-<p><a target="_blank" rel="noopener" href="https://toscode.gitee.com/leshalv/screw/tree/master">screw-简洁好用的数据库表结构文档生成工具</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -916,363 +1222,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/09/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">java设计模式-责任链模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-27 10:33:05" itemprop="dateCreated datePublished" datetime="2020-09-27T10:33:05+08:00">2020-09-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-07 11:26:08" itemprop="dateModified" datetime="2021-02-07T11:26:08+08:00">2021-02-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>16k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>设计模式是为了可扩展性，不要为了使用设计模式而使用</p>
-</blockquote>
-<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><blockquote>
-<p>责任链模式(Chain of Responsibility): 使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止</p>
-</blockquote>
-<p>像我们日常使用的spring框架中的拦截器和过滤器都是使用了该模式，每次请求都会经过一系列的拦截，只有当前面的拦截通过后才会进入下一步</p>
-<p>责任链模式包含如下角色:</p>
-<ul>
-<li>Handler: 抽象处理者，处理请求的接口类包含抽象处理方法和一个后继连接</li>
-<li>Concrete Handler: 实现抽象处理者的处理类，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者</li>
-<li>Client: 创建处理链，并向链头的具体处理者对象提交请求，它不关心处理细节和请求的传递过程</li>
-</ul>
-<p>抽象的处理者实现三个职责：</p>
-<ul>
-<li>一是定义一个请求的处理方法handleMessage，唯一对外开放的方法；</li>
-<li>二是定义一个链的编排方法setNext，设置下一个处理者；</li>
-<li>三是定义了具体的请求者必须实现的两个方法：定义自己能够处理的级别getHandlerLevel和具体的处理任务echo。</li>
-</ul>
-<p>注意事项：</p>
-<p>链中节点数量需要控制，避免出现超长链的情况，一般的做法是在Handler中设置一个最大节点数量，在setNext方法中判断是否已经是超过其阈值，超过则不允许该链建立，避免无意识地破坏系统性能</p>
-<p>JavaEE的Servlet规范定义的Filter就是一种责任链模式，它不但允许每个Filter都有机会处理请求，还允许每个Filter决定是否将请求“放行”给下一个Filter，这种模式不但允许一个Filter自行决定处理ServletRequest和ServletResponse，还可以“伪造”ServletRequest和ServletResponse以便让下一个Filter处理，能实现非常复杂的功能</p>
-<h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>审批流程、多轮面试等需要多级处理的场景都适合使用责任链模式来实现，可解决大量的分支判断造成难维护、灵活性差的问题</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/09/04/SpringBoot-%E9%9B%86%E6%88%90websocket/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/04/SpringBoot-%E9%9B%86%E6%88%90websocket/" class="post-title-link" itemprop="url">SpringBoot-集成websocket</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-04 15:42:37" itemprop="dateCreated datePublished" datetime="2020-09-04T15:42:37+08:00">2020-09-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 18:10:11" itemprop="dateModified" datetime="2020-10-20T18:10:11+08:00">2020-10-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>HTTP 协议有一个缺陷：通信只能由客户端发起</p>
-</blockquote>
-<p>HTML5定义了WebSocket协议，能更好的节省服务器资源和带宽，并且能够更实时地进行通讯。服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。可以替代长轮询，用于对实时性要求比较高的场景:</p>
-<ul>
-<li><p>聊天室</p>
-</li>
-<li><p>服务端消息实时推送</p>
-</li>
-<li><p>……</p>
-</li>
-</ul>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>SpringBoot中使用WebSocket非常简单:</p>
-<ol>
-<li>pom.xml中加入引用</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-websocket&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>新建WebSocketConfig配置类</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/04/SpringBoot-%E9%9B%86%E6%88%90websocket/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/08/31/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%8B%B7%E8%B4%9DBeanUtils-copyProperties/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/31/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%8B%B7%E8%B4%9DBeanUtils-copyProperties/" class="post-title-link" itemprop="url">SpringBoot开发小技巧-对象属性拷贝BeanUtils.copyProperties</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-31 13:11:32" itemprop="dateCreated datePublished" datetime="2020-08-31T13:11:32+08:00">2020-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 20:16:17" itemprop="dateModified" datetime="2020-10-12T20:16:17+08:00">2020-10-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>平常我们在开发过程中经常会遇到将某个对象的一些属性赋值给另一个对象，常见的是将前端传输的from或者DTO赋值给DO</p>
-<blockquote>
-<p>DO/DTO/VO/FORM的区别</p>
-</blockquote>
-<ul>
-<li>DO 就是entity ，对应表实体，和数据库的字段一一对应</li>
-<li>DTO 数据传输对象，DTO本身不是业务对象</li>
-<li>VO 用于封装传递到前端需要展示的字段，数据库表不需要展示的，不要包含</li>
-<li>form 用于封装前端传入的字段， 可以配合@Valid注解，对前端传入数据，进行验证，比如必填字段</li>
-</ul>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>一般我们会这么写:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">public class UserInputDTO &#123;</span><br><span class="line"></span><br><span class="line">    @NotNull</span><br><span class="line">    private String username;</span><br><span class="line"></span><br><span class="line">    @NotNull</span><br><span class="line">    private Integer age;</span><br><span class="line"></span><br><span class="line">    private Boolean sex;</span><br><span class="line"></span><br><span class="line">    @NotNull</span><br><span class="line">    private String desc;</span><br><span class="line"></span><br><span class="line">    private LocalDate birthday;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">    private String userId;</span><br><span class="line"></span><br><span class="line">    private String username;</span><br><span class="line"></span><br><span class="line">    private String password;</span><br><span class="line"></span><br><span class="line">    private Integer age;</span><br><span class="line"></span><br><span class="line">    private Boolean sex;</span><br><span class="line"></span><br><span class="line">    private String desc;</span><br><span class="line"></span><br><span class="line">    private LocalDate birthday;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line">UserInputDTO userInputDTO &#x3D; new UserInputDTO();</span><br><span class="line">userInputDTO.setUsername(&quot;username&quot;);</span><br><span class="line">userInputDTO.setAge(20);</span><br><span class="line">userInputDTO.setBirthday(LocalDate.of(2000, 1, 1));</span><br><span class="line">userInputDTO.setSex(Boolean.TRUE);</span><br><span class="line">userInputDTO.setDesc(&quot;this is my desc&quot;);</span><br><span class="line"></span><br><span class="line">User user &#x3D; new User();</span><br><span class="line">user.setUsername(userInputDTO.getUsername());</span><br><span class="line">user.setAge(userInputDTO.getAge());</span><br><span class="line">user.setBirthday(userInputDTO.getBirthday());</span><br><span class="line">user.setSex(userInputDTO.getSex());</span><br><span class="line">user.setDesc(userInputDTO.getDesc());</span><br></pre></td></tr></table></figure>
-
-<p>而实际上，Spring框架自带一个工具类，可以实现上面的功能，避免编写重复的样板代码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">UserInputDTO userInputDTO &#x3D; new UserInputDTO();</span><br><span class="line">userInputDTO.setUsername(&quot;username&quot;);</span><br><span class="line">userInputDTO.setAge(20);</span><br><span class="line">userInputDTO.setBirthday(LocalDate.of(2000, 1, 1));</span><br><span class="line">userInputDTO.setSex(Boolean.TRUE);</span><br><span class="line">userInputDTO.setDesc(&quot;this is my desc&quot;);</span><br><span class="line"></span><br><span class="line">User user &#x3D; new User();</span><br><span class="line">BeanUtils.copyProperties(userInputDTO, user);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>BeanUtils提供对Java反射和自省API的包装。其主要目的是利用反射机制对JavaBean的属性进行处理</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/31/SpringBoot%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%8B%B7%E8%B4%9DBeanUtils-copyProperties/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

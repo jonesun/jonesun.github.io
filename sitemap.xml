@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jonesun.github.io/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2021-03-18T08:15:28.304Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jonesun.github.io/2021/03/05/SpringBoot-Test%E7%94%A8%E6%B3%95/</loc>
     
     <lastmod>2021-03-18T08:12:40.940Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>https://jonesun.github.io/2020/09/29/SpringBoot-%E9%9B%86%E6%88%90Mybatis/</loc>
     
     <lastmod>2021-03-16T03:43:25.692Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jonesun.github.io/2020/10/09/SpringBoot%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8/</loc>
-    
-    <lastmod>2021-03-05T10:34:47.194Z</lastmod>
     
   </url>
   
