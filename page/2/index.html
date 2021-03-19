@@ -206,6 +206,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/12/17/SpringBoot-Docker%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/17/SpringBoot-Docker%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">SpringBoot-Docker使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-17 10:03:02" itemprop="dateCreated datePublished" datetime="2020-12-17T10:03:02+08:00">2020-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-18 15:12:06" itemprop="dateModified" datetime="2021-03-18T15:12:06+08:00">2021-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>SpringBoot 2.4.0开始官方插件增加了对docker的支持</p>
+<h1 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a>阿里云</h1><p>登录阿里云<a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/cn-shanghai/instances/repositories">容器镜像服务</a></p>
+<p>创建命名空间</p>
+<p>获取访问凭证(这里为了演示方便,采用固定密码方式，企业项目需根据实际情况设置密码或子账号访问等)</p>
+<p>pom.xml检查是否为:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>插件中加入docker配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">image</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">name</span>&gt;</span>registry.cn-shanghai.aliyuncs.com/jonesun/$&#123;project.artifactId&#125;:$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 执行完build 自动push --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">publish</span>&gt;</span>true<span class="tag">&lt;/<span class="name">publish</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 默认build访问的是docker.io/paketobuildpacks/builder:base 这个在国内访问较慢，可从阿里云镜像中心搜索用户公开的镜像代替 --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">builder</span>&gt;</span>registry.cn-shanghai.aliyuncs.com/sannmizu/builder:base<span class="tag">&lt;/<span class="name">builder</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 默认runImage访问的是docker.io/paketobuildpacks/run:base-cnb 如果在国内访问较慢，可从阿里云镜像中心搜索用户公开的镜像代替 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                        &lt;runImage&gt;registry.cn-hangzhou.aliyuncs.com/paketo-buildpacks/run:base-cnb&lt;/runImage&gt;--&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--配置构建远程机信息，本机不用配置--&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">docker</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                        &amp;lt;!&amp;ndash;远程docker daemon的连接地址和端口(如果本地未安装docker的话)&amp;ndash;&amp;gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                        &lt;host&gt;tcp://192.168.99.100:2375&lt;/host&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                        &amp;lt;!&amp;ndash;如果使用https协议需要设置为true&amp;ndash;&amp;gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                        &lt;tlsVerify&gt;false&lt;/tlsVerify&gt;--&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">publishRegistry</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">username</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">password</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">url</span>&gt;</span>registry.cn-shanghai.aliyuncs.com<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">publishRegistry</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">docker</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>maven插件有两种方式构建镜像:</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/12/17/SpringBoot-Docker%E4%BD%BF%E7%94%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/12/09/SpringBoot-%E9%9B%86%E6%88%90flyway%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1165,116 +1274,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/2020/11/05/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/05/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">java设计模式-中介者模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-05 13:58:34" itemprop="dateCreated datePublished" datetime="2020-11-05T13:58:34+08:00">2020-11-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-07 11:26:08" itemprop="dateModified" datetime="2021-02-07T11:26:08+08:00">2021-02-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>中介者模式(Mediator): 用一个中介对象来封装一系列的对象交互。中介者使各个对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。</p>
-<p>中介模式是通过引入一个中介对象，把多边关系变成多个双边关系，从而简化系统组件的交互耦合度。</p>
-<p>中介者模式也是用来降低类类之间的耦合的，因为如果类类之间有依赖关系的话，不利于功能的拓展和维护，因为只要修改一个对象，其它关联的对象都得进行修改。如果使用中介者模式，只需关心和Mediator类的关系，具体类类之间的关系及调度交给Mediator就行，这有点像spring容器的作用。</p>
-<blockquote>
-<p>Mediator模式经常用在有众多交互组件的UI上。为了简化UI程序，MVC模式以及MVVM模式都可以看作是Mediator模式的扩展。</p>
-</blockquote>
-<ul>
-<li><p>各个UI组件互不引用，这样就减少了组件之间的耦合关系；</p>
-</li>
-<li><p>Mediator用于当一个组件发生状态变化时，根据当前所有组件的状态决定更新某些组件；</p>
-</li>
-<li><p>如果新增一个UI组件，我们只需要修改Mediator更新状态的逻辑，现有的其他UI组件代码不变。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/05/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1346,20 +1345,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1413,12 +1412,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">501k</span>
+    <span title="站点总字数">505k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:35</span>
+    <span title="站点阅读时长">7:40</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
