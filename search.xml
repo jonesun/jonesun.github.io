@@ -7433,6 +7433,7 @@ limitations under the License.</code></pre>
 <p>不过以上是Spring Cloud的建议，在国内的话因为Spring Cloud Alibaba的发展还是不错的，可以结合起来挑选合适的组件</p>
 <h2 id="Spring-Cloud-Alibaba"><a href="#Spring-Cloud-Alibaba" class="headerlink" title="Spring Cloud Alibaba"></a>Spring Cloud Alibaba</h2><p><a href="https://spring.io/projects/spring-cloud-alibaba">Spring Cloud Alibaba</a> <a href="https://developer.aliyun.com/article/718349">官网学习</a> 是阿里巴巴结合自身微服务实践,开源的微服务全家桶。也是SpringCloud的子项目，也遵循Spring Cloud Common的抽象实现</p>
 <p><img src="spring-cloud-alibaba.png" alt="spring-cloud-alibaba"></p>
+<p><strong>需要注意的是如果想Spring Cloud 2020 结合 Spring Cloud Alibaba使用的话，Spring Cloud Alibaba最好也使用2020.x版本，避免一些奇怪的问题</strong></p>
 <p>从官网上的介绍和一些资料显示，Spring Cloud Alibaba主要的变化是：</p>
 <ol>
 <li>阿里开源了<a href="https://nacos.io/zh-cn/docs/quick-start.html">Nacos</a> 这个组件可以用来代替 Spring Cloud Config和Spring Cloud Eureka:</li>
