@@ -774,7 +774,7 @@
 <li>……</li>
 </ul>
 <p>日常开发中有些童鞋在跟进bug时会习惯性的使用**System.out.println()**来打印log日志，然后再删除掉，下次再出现问题再打印，可以自己考虑哪个更好</p>
-<p><a href="https://www.baeldung.com/spring-boot-logging">springboot官网配置</a></p>
+<p><a href="https://www.baeldung.com/spring-boot-logging">springboot推荐配置</a></p>
 <h2 id="异步日志"><a href="#异步日志" class="headerlink" title="异步日志"></a>异步日志</h2><blockquote>
 <p>官方建议一般程序员查看的日志改成异步方式，一些运营日志改成同步。日志异步输出的好处在于，使用单独的进程来执行日志打印的功能，可以提高日志执行效率，减少日志功能对正常业务的影响。</p>
 </blockquote>
@@ -7538,7 +7538,7 @@ limitations under the License.</code></pre>
 <li>分隔容忍(Partition tolerance) (系统中任意信息的丢失或失败不会影响系统的继续运作)</li>
 </ul>
 <h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><ul>
-<li>spring-cloud 2020.0.0以上版本无法连接nacos解决办法</li>
+<li>spring-cloud 2020.0.0以上版本无法连接nacos config解决办法</li>
 </ul>
 <p>加入spring-cloud-starter-bootstrap:</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bootstrap<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
