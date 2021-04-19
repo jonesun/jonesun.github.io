@@ -695,7 +695,12 @@
 <p><img src="spring-boot-admin-info.png" alt="spring-boot-admin-info"></p>
 <p>或者在application.yml中加入:</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">info:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="string">@project.version@</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">@project.artifactId@</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">@project.groupId@</span></span><br><span class="line">  <span class="attr">description:</span> <span class="string">@project.description@</span></span><br><span class="line">  <span class="comment">#还可以自定义信息</span></span><br><span class="line">  <span class="attr">author:</span> <span class="string">jone</span> <span class="string">sun</span></span><br><span class="line">  <span class="attr">blog:</span> <span class="string">https://jonesun.github.io/</span></span><br></pre></td></tr></table></figure>
-]]></content>
+
+<p>如果运行后出现类似:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">org.yaml.snakeyaml.scanner.ScannerException: while scanning for the next token</span><br><span class="line">found character &#39;@&#39; that cannot start any token. (Do not use @ for indentation)</span><br><span class="line"> in &#39;reader&#39;, line 39, column 12:</span><br><span class="line">      version: @project.version@</span><br></pre></td></tr></table></figure>
+
+<p>错误，先检查下pom.xml中是否存在对应值，尤其有些项目没有写description，再在build标签下新增:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--开启过滤，用指定的参数替换directory下的文件中的参数--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>java</category>
         <category>springboot</category>
@@ -7549,6 +7554,7 @@ limitations under the License.</code></pre>
 <blockquote>
 <p>在spring cloud config client中，启动时不在使用spring-cloud-context来加载bootstrap.yml来启动了。而是改为spring-cloud-starter-bootstrap作为引导。所以需要把boot-starter-bootstrap加入代码中.<br>但是nacos中的依赖引入了spring-cloud-context。导致bootstrap和context两个包冲突。因此需要在spring-cloud-starter-alibaba-nacos-discovery和spring-cloud-starter-alibaba-nacos-config两个包中把context包去除</p>
 </blockquote>
+<p>最后附上自己研究并搭建的基于Spring Cloud 2020和Spring Cloud Alibaba 2020 简易版 <a href="https://github.com/jonesun/spring-cloud-jonesun">spring-cloud-jonesun</a></p>
 ]]></content>
       <categories>
         <category>java</category>
