@@ -658,7 +658,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-07 11:26:08" itemprop="dateModified" datetime="2021-02-07T11:26:08+08:00">2021-02-07</time>
+                <time title="修改时间：2021-04-27 17:02:32" itemprop="dateModified" datetime="2021-04-27T17:02:32+08:00">2021-04-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -680,7 +680,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -700,6 +700,9 @@
 
       
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>抽象工厂模式(Abstract Factory)是为了让创建工厂和一组产品与使用相分离，并可以随时切换到另一个工厂以及另一组产品；</p>
+<blockquote>
+<p>工厂方法模式通过引入工厂等级结构，解决了简单工厂模式中工厂类职责太重的问题，但由于工厂方法模式中的每个工厂只生产一类产品，可能会导致系统中存在大量的工厂类，势必会增加系统的开销。<br>此时，我们可以考虑将一些相关的产品组成一个”产品族”，由同一个工厂来统一生产，这就是抽象工厂模式的基本思想</p>
+</blockquote>
 <p>抽象工厂模式实现的关键点是定义工厂接口和产品接口，但如何实现工厂与产品本身需要留给具体的子类实现，客户端只和抽象工厂与抽象产品打交道。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">                                ┌────────┐</span><br><span class="line">                             ─ &gt;│ProductA│</span><br><span class="line">┌────────┐    ┌─────────┐   │   └────────┘</span><br><span class="line">│ Client │─ ─&gt;│ Factory │─ ─</span><br><span class="line">└────────┘    └─────────┘   │   ┌────────┐</span><br><span class="line">                   ▲         ─ &gt;│ProductB│</span><br><span class="line">           ┌───────┴───────┐    └────────┘</span><br><span class="line">           │               │</span><br><span class="line">      ┌─────────┐     ┌─────────┐</span><br><span class="line">      │Factory1 │     │Factory2 │</span><br><span class="line">      └─────────┘     └─────────┘</span><br><span class="line">           │   ┌─────────┐ │   ┌─────────┐</span><br><span class="line">            ─ &gt;│ProductA1│  ─ &gt;│ProductA2│</span><br><span class="line">           │   └─────────┘ │   └─────────┘</span><br><span class="line">               ┌─────────┐     ┌─────────┐</span><br><span class="line">           └ ─&gt;│ProductB1│ └ ─&gt;│ProductB2│</span><br><span class="line">               └─────────┘     └─────────┘</span><br></pre></td></tr></table></figure>
 
@@ -763,7 +766,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-07 11:26:08" itemprop="dateModified" datetime="2021-02-07T11:26:08+08:00">2021-02-07</time>
+                <time title="修改时间：2021-04-27 17:01:46" itemprop="dateModified" datetime="2021-04-27T17:01:46+08:00">2021-04-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -785,14 +788,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.8k</span>
+              <span>5.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -1383,12 +1386,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">510k</span>
+    <span title="站点总字数">511k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:44</span>
+    <span title="站点阅读时长">7:45</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

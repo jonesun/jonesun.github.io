@@ -3359,7 +3359,20 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalDateFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LocalDate <span class="title">fromInt</span><span class="params">(<span class="keyword">int</span> yyyyMMdd)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//内部优化不是每次都创建对象</span></span><br><span class="line">        <span class="keyword">return</span> LocalDate.of(yyyyMMdd / <span class="number">10000</span>, yyyyMMdd / <span class="number">100</span> % <span class="number">100</span>, yyyyMMdd % <span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalDateFactoryTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LocalDate localDate = LocalDateFactory.fromInt(<span class="number">20201002</span>);</span><br><span class="line">        System.out.println(localDate.format(DateTimeFormatter.ISO_LOCAL_DATE));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>大多数情况下选用<strong>静态工厂方法模式</strong>，实际上静态工厂方法广泛地应用在Java标准库中(如List.of()、Integer.valueOf())</p>
-<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><p>工厂方法模式有一个问题就是，类的创建依赖工厂类，也就是说，如果想要拓展程序，必须对工厂类进行修改，这违背了<strong>闭包原则</strong>，所以，从设计角度考虑，有一定的问题。</p>
+<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><p><strong>工厂方法模式是简单工厂模式的进一步抽象和推广</strong></p>
+<p>在工厂方法模式中，核心的工厂类不再负责所有产品的创建，而是将具体创建工作交给子类去做。</p>
+<p>这个核心类仅仅负责给出具体工厂必须实现的接口，而不负责产品类被实例化这种细节，这使得工厂方法模式可以允许系统在不修改工厂角色的情况下引进新产品。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>一个调用者想创建一个对象，只要知道其名称就可以了。</li>
+<li>扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。</li>
+<li>屏蔽产品的具体实现，调用者只关心产品的接口。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</li>
+<li>类的创建依赖工厂类，也就是说，如果想要拓展程序，必须对工厂类进行修改，这违背了<strong>闭包原则</strong>，所以，从设计角度考虑，有一定的问题。</li>
+</ul>
 <p>这个时候就要用到<a href="/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">抽象工厂模式</a>，创建多个工厂类，这样一旦需要增加新的功能，直接增加新的工厂类就可以了，不需要修改之前的代码。</p>
 <blockquote>
 <p>需要注意得是，如果不是特别复杂得工厂产品创建，一般静态工厂方法就够了，只有像多个供应商负责提供一系列类型的产品时才需要用到抽象工厂模式</p>
@@ -3407,6 +3420,9 @@
     <title>java设计模式-抽象工厂模式</title>
     <url>/2020/10/27/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>抽象工厂模式(Abstract Factory)是为了让创建工厂和一组产品与使用相分离，并可以随时切换到另一个工厂以及另一组产品；</p>
+<blockquote>
+<p>工厂方法模式通过引入工厂等级结构，解决了简单工厂模式中工厂类职责太重的问题，但由于工厂方法模式中的每个工厂只生产一类产品，可能会导致系统中存在大量的工厂类，势必会增加系统的开销。<br>此时，我们可以考虑将一些相关的产品组成一个”产品族”，由同一个工厂来统一生产，这就是抽象工厂模式的基本思想</p>
+</blockquote>
 <p>抽象工厂模式实现的关键点是定义工厂接口和产品接口，但如何实现工厂与产品本身需要留给具体的子类实现，客户端只和抽象工厂与抽象产品打交道。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">                                ┌────────┐</span><br><span class="line">                             ─ &gt;│ProductA│</span><br><span class="line">┌────────┐    ┌─────────┐   │   └────────┘</span><br><span class="line">│ Client │─ ─&gt;│ Factory │─ ─</span><br><span class="line">└────────┘    └─────────┘   │   ┌────────┐</span><br><span class="line">                   ▲         ─ &gt;│ProductB│</span><br><span class="line">           ┌───────┴───────┐    └────────┘</span><br><span class="line">           │               │</span><br><span class="line">      ┌─────────┐     ┌─────────┐</span><br><span class="line">      │Factory1 │     │Factory2 │</span><br><span class="line">      └─────────┘     └─────────┘</span><br><span class="line">           │   ┌─────────┐ │   ┌─────────┐</span><br><span class="line">            ─ &gt;│ProductA1│  ─ &gt;│ProductA2│</span><br><span class="line">           │   └─────────┘ │   └─────────┘</span><br><span class="line">               ┌─────────┐     ┌─────────┐</span><br><span class="line">           └ ─&gt;│ProductB1│ └ ─&gt;│ProductB2│</span><br><span class="line">               └─────────┘     └─────────┘</span><br></pre></td></tr></table></figure>
 
@@ -4454,6 +4470,7 @@ limitations under the License.</code></pre>
 <th>可以存储的值</th>
 <th>操作</th>
 <th>应用场景</th>
+<th>Java对应</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -4461,36 +4478,41 @@ limitations under the License.</code></pre>
 <td>字符串、整数或者浮点数</td>
 <td>对整个字符串或者字符串的其中一部分执行操作;对整数和浮点数执行自增或者自减操作</td>
 <td>做简单的键值对缓存</td>
+<td>类似Java的String</td>
 </tr>
 <tr>
 <td>List</td>
 <td>列表</td>
 <td>从两端压入或者弹出元素;对单个或者多个元素进行修剪,只保留一个范围内的元素</td>
 <td>存储一些列表型的数据结构，类似粉丝列表、文章的评论列表之类的数据</td>
+<td>类似Java的LinkedList</td>
 </tr>
 <tr>
 <td>Set</td>
 <td>无序集合</td>
 <td>添加、获取、移除单个元素;检查一个元素是否存在于集合中;计算交集、并集、差集;从集合里面随机获取元素</td>
 <td>交集、并集、差集的操作，比如交集，可以把两个人的粉丝列表整一个交集</td>
+<td>类似Java中的HashSet</td>
 </tr>
 <tr>
 <td>ZSet(Sorted sets)</td>
 <td>有序集合</td>
 <td>添加、获取、删除元素;根据分值范围或者成员来获取元素;计算一个键的排名</td>
 <td>去重但可以排序，如获取排名前几名的用户</td>
+<td>类似Java的SortedSet和HashMap的结合体</td>
 </tr>
 <tr>
 <td>Hash</td>
 <td>包含键值对的无序散列表</td>
 <td>添加、获取、移除单个键值对;获取所有键值对;检查某个键是否存在</td>
 <td>结构化的数据，比如一个对象</td>
+<td>类似Java的HashMap</td>
 </tr>
 </tbody></table>
 <h1 id="集成方式"><a href="#集成方式" class="headerlink" title="集成方式"></a>集成方式</h1><h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>截至2021年1月，官方也没提供windows版本的下载，如果是为了学习需要，可以到<a href="https://github.com/MicrosoftArchive/redis/releases">MicrosoftArchive Github</a> 上下载(最后的更新时间为2016年)</p>
 <p>下载后像常用的软件类似：双击redis-server.exe即可启动redis服务器, 可参考<a href="https://www.cnblogs.com/xing-nb/p/12146449.html">Redis下载及安装(windows版)</a></p>
 <blockquote>
-<p>此版本对应的是redis的3.2.1版本，而目前redis已经发展到了6.x，故生产环境不建议使用，自己学习就好;<br>当然如果生产环境中的服务器恰好是windows的，小型项目使用也可以(毕竟没那么多并发量)，但还是建议使用下面的docker方式安装，使用较新的稳定版本</p>
+<p>此版本对应的是redis的3.2.1版本，而目前redis已经发展到了6.x，故生产环境不建议使用，自己学习就好;<br>当然如果生产环境中的服务器恰好是windows的，小型项目使用也可以(毕竟没那么多并发量)，但还是建议使用下面的docker方式安装，使用较新的稳定版本<br>另外还有一种方案就是到github上下载redis对应版本的源码自己编译(或者找找网络大神的编译好的版本)</p>
 </blockquote>
 <h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p>直接输入命令: </p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install redis-server</span><br></pre></td></tr></table></figure>
@@ -6900,6 +6922,14 @@ limitations under the License.</code></pre>
 <p>如何解决消息队列的延时以及过期失效问题？消息队列满了以后该怎么处理？有几百万消息持续积压几小时怎么解决？</p>
 <p><a href="https://blog.csdn.net/qq_36236890/article/details/81174504">消息队列常见问题和解决方案消息队列常见问题和解决方案</a> 这篇文章写的不错，暂且收藏了</p>
 <h1 id="Spring-Boot中的集成使用"><a href="#Spring-Boot中的集成使用" class="headerlink" title="Spring Boot中的集成使用"></a>Spring Boot中的集成使用</h1><p>– 未完，待整理 –</p>
+<h2 id="RabbitMQ-的三种类型的交换器"><a href="#RabbitMQ-的三种类型的交换器" class="headerlink" title="RabbitMQ 的三种类型的交换器"></a>RabbitMQ 的三种类型的交换器</h2><p><em>RabbitMQ 使用 Exchange(交换机)和 Queue(队列)来实现消息队列</em></p>
+<h3 id="广播式交换器类型-Fanout"><a href="#广播式交换器类型-Fanout" class="headerlink" title="广播式交换器类型(Fanout)"></a>广播式交换器类型(Fanout)</h3><p>该类交换器不分析所接收到消息中的 Routing Key，默认将消息转发到所有与该交换器绑定的队列中去</p>
+<p><img src="rabbitmq-fanout.jpg" alt="Fanout"></p>
+<h3 id="直接式交换器类型-Direct"><a href="#直接式交换器类型-Direct" class="headerlink" title="直接式交换器类型(Direct)"></a>直接式交换器类型(Direct)</h3><p>该类交换器需要精确匹配 Routing Key 与 Binding Key，如消息的 Routing Key = Cloud，那么该条消息只能被转发至 Binding Key = Cloud 的消息队列中去</p>
+<p><img src="rabbitmq-direct.jpg" alt="Direct"></p>
+<h3 id="主题式交换器-Topic-Exchange"><a href="#主题式交换器-Topic-Exchange" class="headerlink" title="主题式交换器(Topic Exchange)"></a>主题式交换器(Topic Exchange)</h3><p>该类交换器通过消息的 Routing Key 与 Binding Key 的模式匹配，将消息转发至所有符合绑定规则的队列中。</p>
+<p>Binding Key 支持通配符，其中“*”匹配一个词组，“#”匹配多个词组(包括零个)</p>
+<p><img src="rabbitmq-topic-exchange.jpg" alt="Topic Exchange"></p>
 ]]></content>
       <categories>
         <category>java</category>
