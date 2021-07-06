@@ -1223,6 +1223,7 @@
 <p>SpringBoot版本为2.x, 2.4.0开始版本号没有.RELEASE后缀</p>
 </blockquote>
 <p><a href="/20201226/java/springboot/c9c436f0">SpringBoot-Starters</a></p>
+<p><a href="/20210706/jenkins/9b38587/">使用Jenkins自动构建</a></p>
 <h2 id="第三方组件"><a href="#第三方组件" class="headerlink" title="第三方组件"></a>第三方组件</h2><p><a href="/20200724/java/springboot/33ed675a">SpringBoot-集成Log日志</a></p>
 <p><a href="/20210305/java/springboot/8dec456e">SpringBoot-Test用法</a></p>
 <p><a href="/20200929/java/springboot/c091a644">SpringBoot-集成Mybatis</a></p>
@@ -7693,6 +7694,242 @@ limitations under the License.</code></pre>
         <tag>java</tag>
         <tag>springboot</tag>
         <tag>springsecurity</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jenkins使用</title>
+    <url>/20210706/jenkins/9b38587/</url>
+    <content><![CDATA[<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>话说不会偷懒的程序员不是好的程序员，笔者就时常如果有一个软件能够帮我把日常的体力工作都给干了，这样就可以有时间做更多的脑力工作了。<br>逛博客的时候，经常看到DevOps和CI/CD的相关文章，抱着试试看的想法研究下如何实现。当然跟很多初次看到这几个单词都一脸懵的朋友一样，肯定搜索下都是什么意思:</p>
+<blockquote>
+<p>DevOps: DevOps是Development和Operations的组合，是一种重视软件开发人员（Dev）和运维人员（Ops）之间沟通合作的文化，运动和惯例，用于促进应用开发、应用运维和质量保障（QA）部门之间的沟通、协作与整合。以期打破传统开发和运营之间的壁垒和鸿沟。 通过自动化软件交付和架构变更的流程，使构建，测试，发布软件能够更快，频繁和可信。</p>
+</blockquote>
+<blockquote>
+<p>CI: 持续集成（Continuous Integration，简称 CI），开发人员各自编写自己负责部分的代码，然后上传到源代码库中合并，CI服务器负责构建软件并测试是否能正常运行，将测试结果反馈给开发人员。</p>
+</blockquote>
+<blockquote>
+<p>CD: 持续交付（Continuous Delivery，简称 CD）和持续部署(Continuous Deployment)，是在持续集成的基础上将集成后的代码部署到更贴近真实运行的环境中去进行进一步的测试，并可以在多种不同的配置上测试代码，运行额外的性能测试，并自动化每个步骤直到部署到生产环境。</p>
+</blockquote>
+<p>需要注意的是: 持续交付并不是指软件每一个改动都要尽快部署到产品环境中，它指的是<strong>任何的代码修改都可以在任何时候实施部署</strong>，持续部署是作为持续交付——自动将生产就绪型构建版本发布到代码存储库——的延伸，持续部署可以自动将应用发布到生产环境。</p>
+<p>好像有点意思了，按照笔者的理解：平常我们写完代码完成自测后提交代码后，就有工具可以帮我们自动编译和测试，如果没有问题就自动打包并部署到实际的生产环境中。看上去很不错的样子，那么怎么实现呢？</p>
+ <a id="more"></a>
+
+<p><img src="jenkins-logo.jpg" alt="jenkins-logo"></p>
+<p><a href="https://www.jenkins.io/zh//">Jenkins</a> 著名的可扩展的开源CI/CD工具，可以自动执行与软件的构建，测试，部署，集成和发布有关的任务。Jenkins完全用Java编写，可在Tomcat等流行的servlet容器中运行，也可独立运行。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>Jenkins可在macOS，Windows和各种UNIX版本（例如OpenSUSE，Ubuntu，Red Hat等）上使用。除了通过本机安装软件包进行安装外，它还可以独立安装或作为Docker在任何有Java Runtime Environment（JRE）的计算机上安装。</p>
+<h2 id="Windows上安装"><a href="#Windows上安装" class="headerlink" title="Windows上安装"></a>Windows上安装</h2><p>由于笔者平常工作使用的是Windows系统，下面就从Windows开始尝试一步一步安装，详细移步这篇文章：<a href="/20210706/jenkins/a15eda66/">windows上安装jenkins</a></p>
+<h2 id="Docker-Desktop上安装"><a href="#Docker-Desktop上安装" class="headerlink" title="Docker Desktop上安装"></a>Docker Desktop上安装</h2><p>现在Docker也比较火，Jenkins在Docker上的安装也是比较简单的，我们直接在Windows上使用Docker Desktop来进行安装</p>
+<p>拉取最新镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull jenkins/jenkins:latest //最新版</span><br></pre></td></tr></table></figure>
+
+<p>运行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d --name jenkins -p 8040:8080 -p 50000:50000 -v /d/env/docker/jenkins_home:/var/jenkins_home -v /d/env/Java/jdk1.8.0_231:/usr/local/jdk -v /d/env/apache-maven-3.8.1:/usr/local/maven jenkins/jenkins:latest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-d：后台运行容器</li>
+<li>–name：指定容器启动的名称</li>
+<li>-p：指定映射的端口，这里是将服务器的8040端口映射到容器的8080以及50000映射到容器的50000。</li>
+<li>-v：挂载本地的数据卷到docker容器中，注意： 需要将JDK和maven的所在的目录挂载。</li>
+</ul>
+<blockquote>
+<p>注意： 8040和50000一定要是开放的且未被占用，如果用的是云服务器，还需要在管理平台开放对应的规则。</p>
+</blockquote>
+<h2 id="Ubuntu上安装"><a href="#Ubuntu上安装" class="headerlink" title="Ubuntu上安装"></a>Ubuntu上安装</h2><p>macOS买不起相关设备，就再尝试下Ubuntu下的安装吧</p>
+<p>由于包含在默认Ubuntu软件包中的Jenkins版本往往落后于项目本身的最新版本。 为了利用最新的修复和功能，我们将使用项目维护的软件包来安装Jenkins</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 先安装jdk</span></span><br><span class="line">sudo apt-get install openjdk-8-jdk</span><br><span class="line"></span><br><span class="line">wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -</span><br><span class="line">sudo sh -c &#x27;echo deb https://pkg.jenkins.io/debian-stable binary/ &gt; \</span><br><span class="line">    /etc/apt/sources.list.d/jenkins.list&#x27;</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br><span class="line"></span><br><span class="line">sudo systemctl start jenkins</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">  设置开机自启动</span></span><br><span class="line">sudo systemctl enable jenkins</span><br></pre></td></tr></table></figure>
+
+<p>确认端口</p>
+<p>Jenkins 默认使用8080端口，如果你的8080端口被占用了，请修改配置文件/etc/sysconfig/jenkins，将JENKINS_PORT字段配置成你想要的端口：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">JENKINS_PORT=&quot;8040&quot;</span><br></pre></td></tr></table></figure>
+
+<p>修改用户</p>
+<p>Jenkins 默认以 jenkins 用户运行，在实际运行过程中会导致一些权限问题，所以要改成以root 用户运行，修改 /etc/sysconfig/jenkins 中 JENKINS_USER 字段：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">JENKINS_USER=&quot;root&quot;</span><br></pre></td></tr></table></figure>
+
+<p>修改好配置后重启Jenkins:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart jenkins</span><br></pre></td></tr></table></figure>
+
+<h1 id="构建部署"><a href="#构建部署" class="headerlink" title="构建部署"></a>构建部署</h1><p>我们以现在比较流行的SpringBoot项目来演示下从构建、打包到部署服务器，备份重启等一系列的工作的自动化。</p>
+<p>安装完成后我们需要模拟实际的生产环境</p>
+<p><a href="/20210706/jenkins/5b02ceab/">windows上使用jenkins构建并部署springboot项目</a></p>
+<p>当然很多公司是不止一台服务器的，并且很多项目使用了SpringCloud等微服务的做法，将业务拆分为了很多子项目分别部署到不同的服务器中，这个时候就需要部署到远程Linux服务器中</p>
+<p>个人建议，如果可以尽量给Jenkins一个相对独立的运行服务器，通过SSH的方式部署到不同的服务器中，没有必要每台服务器都安装Jenkins</p>
+<h1 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h1><p>Jenkins还可以完成其他有意思的事情，如构建流水线(有兴趣可以探究下)，另外Jenkins团队还有一个名为Jenkins X的子项目，专门和Kubernetes一起使用。Jenkins X是基于 Kubernetes 的CI&amp;CD平台，复用Jenkins自身的能力，以解决微服务架构下云原生应用的持续交付的问题，简化整个云原生应用的开发、运行和部署过程。</p>
+<p>后面有时间继续探究下Kubernetes</p>
+]]></content>
+      <categories>
+        <category>jenkins</category>
+      </categories>
+      <tags>
+        <tag>jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows上安装jenkins</title>
+    <url>/20210706/jenkins/a15eda66/</url>
+    <content><![CDATA[<h1 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h1><h2 id="下载配置jdk"><a href="#下载配置jdk" class="headerlink" title="下载配置jdk"></a>下载配置jdk</h2><p>从Jenkins的官网可以看到</p>
+<p><img src="jenkins-jdk.png" alt="jenkins-jdk"></p>
+<p>较新的Jenkins需要运行在Java 8 或者 Java 11上，我们安装java8版本，由于Oracle下载jdk需要注册账户，我们下载openjdk，这里推荐 <a href="https://bell-sw.com/pages/downloads/">Liberica OpenJDK</a></p>
+<p>直接下载zip版本，并在环境变量中配置JAVA_HOME，使用cmd执行java -version查看是否配置成功</p>
+<blockquote>
+<p>如果电脑里已经安装了Java环境，直接用java -version验证是否Java8+版本</p>
+</blockquote>
+<h2 id="下载安装Git"><a href="#下载安装Git" class="headerlink" title="下载安装Git"></a>下载安装Git</h2><p>我们需要使用Jenkins拉取项目源码，故需要先安装下git</p>
+<p>从<a href="http://git-scm.com/downloads">git</a> 官网下载安装即可</p>
+<p>命令行输入git –version验证安装是否成功</p>
+<h2 id="下载配置Maven"><a href="#下载配置Maven" class="headerlink" title="下载配置Maven"></a>下载配置Maven</h2><p>目前大多数SpringBoot项目都采用的是Maven的方式进行构建，故为了进行自动构建，需要安装</p>
+<p>可以<a href="http://maven.apache.org/download.cgi">官网</a> 直接下载zip，配置环境变量M2_HOME即可</p>
+<p><img src="maven_home.png" alt="maven_home"></p>
+<p>命令行输入mvn -v验证</p>
+<h1 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h1><p>windows版直接<a href="https://www.jenkins.io/download/">官网</a> 下载最新版本即可，如果是实际生产环境建议下载LTS(长期支持版本)</p>
+<p>按照提示直接安装即可</p>
+<p><img src="step1.png" alt="step1"></p>
+<p><img src="step2.png" alt="step2"></p>
+<p><img src="step3.png" alt="这里直接选择本地用户即可"></p>
+<p><img src="step4.png" alt="Jenkins默认端口为8080，可能会与其他软件冲突，可以修改为其他端口，点击【Test-Port】通过即可"></p>
+<p><img src="step5.png" alt="Java运行环境这里默认会显示JAVA_HOME所在的目录"></p>
+<p><img src="step6.png" alt="step6"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>如果前面安装的时候没有修改默认端口为，可以打开配置(Windows版的配置在安装目录的jenkins.xml中)进行配置, 修改–httpPort=8080为其他端口</p>
+<p>如果使用nginx代理的话需要加上 –prefix=/jenkins</p>
+<p>以下是笔者的配置，供参考(省略了其他配置，不要直接复制，重点在arguments中的修改)</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>jenkins<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>Jenkins<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>This service runs Jenkins automation server.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">env</span> <span class="attr">name</span>=<span class="string">&quot;JENKINS_HOME&quot;</span> <span class="attr">value</span>=<span class="string">&quot;%LocalAppData%\Jenkins\.jenkins&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">executable</span>&gt;</span>D:\env\Java\jdk1.8.0_231\bin\java.exe<span class="tag">&lt;/<span class="name">executable</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">arguments</span>&gt;</span>-Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar &quot;C:\Program Files\Jenkins\jenkins.war&quot; --prefix=/jenkins --httpPort=8080 --webroot=&quot;%LocalAppData%\Jenkins\war&quot;<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是Windows版的Jenkins的默认工作目录在C:\Windows\System32\config\systemprofile\AppData\Local\Jenkins.jenkins，如果需要修改，同样在jenkins.xml中搜索修改JENKINS_HOME即可(可修改为env name=”JENKINS_HOME” value=”%JENKINS_HOME%”，然后环境变量加入JENKINS_HOME)</p>
+<p>以上工作完成后，就可以运行jenkins了，需要注意的是Windows的安装版的Jenkins安装时会注册为Windows服务，需要从任务管理器-服务中找到Jenkins重启</p>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>浏览器打开<a href="http://localhost:8080/(%E5%A6%82%E6%9E%9C%E9%85%8D%E7%BD%AE%E4%BA%86prefix%EF%BC%8C%E5%88%99%E4%B8%BAhttp://localhost:8080/jenkins/)">http://localhost:8080/(如果配置了prefix，则为http://localhost:8080/jenkins/)</a></p>
+<p><img src="init1.png" alt="init1"></p>
+<p><img src="init2.png" alt="init2"></p>
+<p><img src="init3.png" alt="init3"></p>
+<p><img src="init4.png" alt="init4"></p>
+<p><img src="init5.png" alt="init5"></p>
+<p><img src="init6.png" alt="init6"></p>
+<p><img src="init7.png" alt="init7"></p>
+<p>按照步骤一步步配置即可，需要注意的插件安装推荐的插件如果有安装失败的，一般是网络原因，重试几次即可(如果还不行，可以后面到插件管理里再安装)</p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>除了初始化配置中安装的插件外，还需要安装：</p>
+<ul>
+<li>Maven Integration：便于新建maven任务</li>
+<li>Publish Over SSH: 用于远程连接服务器</li>
+<li><a href="https://gitee.com/help/articles/4193">Gitee</a>: 如果是使用码云作为托管网站的推荐安装</li>
+</ul>
+<p>打开系统管理(Manage Jenkins) -&gt; 插件管理(Manage Plugins)，选择可选插件，勾选中 Maven Integration 和 Publish Over SSH，点击直接安装</p>
+<p><img src="install-plugin.png" alt="install-plugin"></p>
+<p>在安装界面勾选上安装完成后重启 Jenkins</p>
+<p><img src="install-plugin-2.png" alt="install-plugin2"></p>
+<h2 id="配置JDK、Maven、Git环境"><a href="#配置JDK、Maven、Git环境" class="headerlink" title="配置JDK、Maven、Git环境"></a>配置JDK、Maven、Git环境</h2><p>Jenkins集成需要用到Maven、JDK、Git环境， 打开系统管理(Manage Jenkins) -&gt; 全局工具配置(Global Tool Configuration)</p>
+<p><img src="config.png" alt="config"></p>
+<p><strong>新增JDK时，需要去掉自动安装(Install automatically)勾选，才能配置本地Java环境，这里可以配置多个jdk，主要是为了构建项目时使用，与Jenkins运行时的jdk不是一个概念</strong></p>
+<h2 id="添加凭据"><a href="#添加凭据" class="headerlink" title="添加凭据"></a>添加凭据</h2><p>添加凭据用来从 Git 仓库拉取代码的，打开 凭据 -&gt; 系统 -&gt; 全局凭据 -&gt; 添加凭据, 直接使用用户名和密码，设置Github或者码云等git托管网站的账户信息</p>
+<p><img src="new-credentials.png" alt="new-credentials"></p>
+<h2 id="添加-SSH-Server"><a href="#添加-SSH-Server" class="headerlink" title="添加 SSH Server"></a>添加 SSH Server</h2><p>SSH Server 是用来连接部署服务器的，用于在项目构建完成后将你的应用推送到服务器中并执行相应的脚本。</p>
+<p>打开 (Manage Jenkins) -&gt; 系统配置，找到 Publish Over SSH 部分，选择新增</p>
+<p><img src="ssh-server.png" alt="ssh-server"></p>
+<p>这里需要远程服务器支持ssh连接</p>
+<h3 id="远程Windows-Server配置SSH"><a href="#远程Windows-Server配置SSH" class="headerlink" title="远程Windows Server配置SSH"></a>远程Windows Server配置SSH</h3><p>如果服务器是Windows的，可以下载并安装<a href="http://www.freesshd.com/?ctt=download">freeSSHD</a>，安装流程可以参考这篇文章 <a href="https://blog.csdn.net/yangdan1025/article/details/81985903">本机（Windows）通过SSH软件工具freeSSHD、puTTY远程连接虚拟机（Windows）</a></p>
+<blockquote>
+<p>这里推荐freeSSHD是因为远程执行bat比较稳定，之前使用openSSH时总会有些莫名的问题，可能时我配置的有问题，就不继续探究的。</p>
+</blockquote>
+<p>配置好后，点击【Test Configuration】出现 “Success”即可保存，如果出现的是异常日志，首先检查远程服务器是否支持ssh连接，再检查配置是否正确尤其用户名密码和端口号</p>
+<blockquote>
+<p>ssh客户端如果使用的是windows10推荐直接使用powershell</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh root@192.168.197.129 -p 22</span><br></pre></td></tr></table></figure>
+
+<h3 id="远程Linux配置SSH"><a href="#远程Linux配置SSH" class="headerlink" title="远程Linux配置SSH"></a>远程Linux配置SSH</h3><p>一般云服务都支持SSH连接，可以用SSH的客户端连接测试(注意可能有些云服务器的安全组未开放端口，配置下即可)。当然如果确实没有安装ssh server，可以打开Terminal：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件下载源</span></span><br><span class="line">sudo apt update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装ssh服务</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启防火墙ssh的服务端口</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启ssh服务</span></span><br><span class="line">systemctl start ssh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置开启自启</span></span><br><span class="line">sudo systemctl enable ssh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看ssh服务状态</span></span><br><span class="line">systemctl status ssh</span><br></pre></td></tr></table></figure>
+
+<p>修改sshd_config，主要是放开”PasswordAuthentication yes”和“PermitRootLogin yes”</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">    <span class="variable">$OpenBSD</span>: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> This is the sshd server system-wide configuration file.  See</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sshd_config(5) <span class="keyword">for</span> more information.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> This sshd was compiled with PATH=/usr/bin:/bin:/usr/sbin:/sbin</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The strategy used <span class="keyword">for</span> options <span class="keyword">in</span> the default sshd_config shipped with</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> OpenSSH is to specify options with their default value <span class="built_in">where</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> possible, but leave them commented.  Uncommented options override the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> default value.</span></span><br><span class="line"></span><br><span class="line">Include /etc/ssh/sshd_config.d/*.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">Port 22</span></span><br><span class="line"><span class="meta">#</span><span class="bash">AddressFamily any</span></span><br><span class="line"><span class="meta">#</span><span class="bash">ListenAddress 0.0.0.0</span></span><br><span class="line"><span class="meta">#</span><span class="bash">ListenAddress ::</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">HostKey /etc/ssh/ssh_host_rsa_key</span></span><br><span class="line"><span class="meta">#</span><span class="bash">HostKey /etc/ssh/ssh_host_ecdsa_key</span></span><br><span class="line"><span class="meta">#</span><span class="bash">HostKey /etc/ssh/ssh_host_ed25519_key</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Ciphers and keying</span></span><br><span class="line"><span class="meta">#</span><span class="bash">RekeyLimit default none</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Logging</span></span><br><span class="line"><span class="meta">#</span><span class="bash">SyslogFacility AUTH</span></span><br><span class="line"><span class="meta">#</span><span class="bash">LogLevel INFO</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Authentication:</span></span><br><span class="line"></span><br><span class="line">LoginGraceTime 2m</span><br><span class="line">PermitRootLogin yes </span><br><span class="line">StrictModes yes</span><br><span class="line"><span class="meta">#</span><span class="bash">MaxAuthTries 6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">MaxSessions 10</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">PubkeyAuthentication yes</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Expect .ssh/authorized_keys2 to be disregarded by default <span class="keyword">in</span> future.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">AuthorizedKeysFile    .ssh/authorized_keys .ssh/authorized_keys2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">AuthorizedPrincipalsFile none</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">AuthorizedKeysCommand none</span></span><br><span class="line"><span class="meta">#</span><span class="bash">AuthorizedKeysCommandUser nobody</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> For this to work you will also need host keys <span class="keyword">in</span> /etc/ssh/ssh_known_hosts</span></span><br><span class="line"><span class="meta">#</span><span class="bash">HostbasedAuthentication no</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Change to yes <span class="keyword">if</span> you don<span class="string">&#x27;t trust ~/.ssh/known_hosts for</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HostbasedAuthentication</span></span><br><span class="line"><span class="meta">#</span><span class="bash">IgnoreUserKnownHosts no</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Don<span class="string">&#x27;t read the user&#x27;</span>s ~/.rhosts and ~/.shosts files</span></span><br><span class="line"><span class="meta">#</span><span class="bash">IgnoreRhosts yes</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> To <span class="built_in">disable</span> tunneled clear text passwords, change to no here!</span></span><br><span class="line">PasswordAuthentication yes</span><br><span class="line"><span class="meta">#</span><span class="bash">PermitEmptyPasswords no</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Change to yes to <span class="built_in">enable</span> challenge-response passwords (beware issues with</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> some PAM modules and threads)</span></span><br><span class="line">ChallengeResponseAuthentication no</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Kerberos options</span></span><br><span class="line"><span class="meta">#</span><span class="bash">KerberosAuthentication no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">KerberosOrLocalPasswd yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">KerberosTicketCleanup yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">KerberosGetAFSToken no</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> GSSAPI options</span></span><br><span class="line"><span class="meta">#</span><span class="bash">GSSAPIAuthentication no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">GSSAPICleanupCredentials yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">GSSAPIStrictAcceptorCheck yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">GSSAPIKeyExchange no</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set this to <span class="string">&#x27;yes&#x27;</span> to <span class="built_in">enable</span> PAM authentication, account processing,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> and session processing. If this is enabled, PAM authentication will</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> be allowed through the ChallengeResponseAuthentication and</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> PasswordAuthentication.  Depending on your PAM configuration,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> PAM authentication via ChallengeResponseAuthentication may bypass</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the setting of <span class="string">&quot;PermitRootLogin without-password&quot;</span>.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> If you just want the PAM account and session checks to run without</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> PAM authentication, <span class="keyword">then</span> <span class="built_in">enable</span> this but <span class="built_in">set</span> PasswordAuthentication</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> and ChallengeResponseAuthentication to <span class="string">&#x27;no&#x27;</span>.</span></span><br><span class="line">UsePAM yes</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">AllowAgentForwarding yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">AllowTcpForwarding yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">GatewayPorts no</span></span><br><span class="line">X11Forwarding yes</span><br><span class="line"><span class="meta">#</span><span class="bash">X11DisplayOffset 10</span></span><br><span class="line"><span class="meta">#</span><span class="bash">X11UseLocalhost yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">PermitTTY yes</span></span><br><span class="line">PrintMotd no</span><br><span class="line"><span class="meta">#</span><span class="bash">PrintLastLog yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">TCPKeepAlive yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash">PermitUserEnvironment no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Compression delayed</span></span><br><span class="line"><span class="meta">#</span><span class="bash">ClientAliveInterval 0</span></span><br><span class="line"><span class="meta">#</span><span class="bash">ClientAliveCountMax 3</span></span><br><span class="line"><span class="meta">#</span><span class="bash">UseDNS no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">PidFile /var/run/sshd.pid</span></span><br><span class="line"><span class="meta">#</span><span class="bash">MaxStartups 10:30:100</span></span><br><span class="line"><span class="meta">#</span><span class="bash">PermitTunnel no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">ChrootDirectory none</span></span><br><span class="line"><span class="meta">#</span><span class="bash">VersionAddendum none</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> no default banner path</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Banner none</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Allow client to pass locale environment variables</span></span><br><span class="line">AcceptEnv LANG LC_*</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> override default of no subsystems</span></span><br><span class="line">Subsystem    sftp    /usr/lib/openssh/sftp-server</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Example of overriding settings on a per-user basis</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Match User anoncvs</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    X11Forwarding no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    AllowTcpForwarding no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    PermitTTY no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    ForceCommand cvs server</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="配置Nginx代理"><a href="#配置Nginx代理" class="headerlink" title="配置Nginx代理"></a>配置Nginx代理</h1><p><strong>如果需要配置了Nginx代理，必须设置Jenkins的配置中加入–prefix=/jenkins</strong></p>
+<p>nginx中server加入配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location &#x2F;jenkins&#x2F; &#123;</span><br><span class="line">  proxy_pass http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;jenkins&#x2F;;</span><br><span class="line">  proxy_set_header X-Forwarded-Host $host:$server_port;</span><br><span class="line">  proxy_set_header X-Forwarded-Server $host;</span><br><span class="line">  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">  proxy_set_header X-Forwarded-Proto $scheme;</span><br><span class="line">  proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>设置Jenkins Location中的Jenkins URL地址为<a href="http://xxx/jenkins/">http://xxx/jenkins/</a>, 如果有公网地址添加公网地址(没有可以用类似花生壳的内网穿透软件代理下)</p>
+<p>这里最好有公网地址，不然无法做到自动构建(自动构建需要结合webhook功能)。</p>
+<h1 id="配置镜像"><a href="#配置镜像" class="headerlink" title="配置镜像"></a>配置镜像</h1><p>使用官方默认地址安装插件的速度比较慢，可以配置国内的镜像地址</p>
+<p>Dashboard -&gt; Manage jenkins -&gt; 点击右下角的中文社区jenkins中文社区(如果没有则先安装首先安装 Localization: Chinese (Simplified)插件)</p>
+<p>点击【使用】按钮，再点击【设置更新中心地址】，在最底部填入镜像的代理地址 <a href="https://updates.jenkins-zh.cn/update-center.json">https://updates.jenkins-zh.cn/update-center.json</a></p>
+<p><img src="update-url.png" alt="update-url"></p>
+<p>下面我们看下如何在<a href="/20210706/jenkins/5b02ceab/">Windows上使用Jenkins构建并部署SpringBoot项目</a></p>
+]]></content>
+      <categories>
+        <category>jenkins</category>
+      </categories>
+      <tags>
+        <tag>jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows上使用jenkins构建并部署springboot项目</title>
+    <url>/20210706/jenkins/5b02ceab/</url>
+    <content><![CDATA[<h1 id="创建任务"><a href="#创建任务" class="headerlink" title="创建任务"></a>创建任务</h1><p>在<a href="/20210706/jenkins/a15eda66/">安装并配置好Jenkins</a>后，我们来构建并部署springboot项目</p>
+<p>创建任务首先准备一个SpringBoot项目上传到上面凭据所在的git托管网站中，以便Jenkins可以正常拉取源码</p>
+<p>新建Item-选择【构建一个Maven项目】(如果这里没有这个选项，回到上篇安装插件Maven Integration并重启Jenkins)</p>
+<p><img src="new-job.png" alt="new-job"></p>
+<h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><p>选择该项目构建时的Java版本(如果这里没有所需的版本，回到上篇配置配置JDK、Maven、Git环境，新增即可)</p>
+<h2 id="源码管理中"><a href="#源码管理中" class="headerlink" title="源码管理中"></a>源码管理中</h2><p>选择Git，填写仓库地址，选择之前添加的凭证</p>
+<h2 id="构建触发器"><a href="#构建触发器" class="headerlink" title="构建触发器"></a>构建触发器</h2><p>这里先选择Build whenever a SNAPSHOT dependency is built</p>
+<p>如果需要自动构建则勾选对应webhook，这里我们选择Gitee webhook(如果没有这个选项需要安装Gitee插件)，生成Gitee WebHook 密码</p>
+<p><img src="gitee-webhook.png" alt="gitee-webhook"></p>
+<p>使用浏览器打开码云对应的项目点开【管理】-【Webhook】,添加相关配置</p>
+<p><img src="add-webhook.png" alt="add-webhook"></p>
+<h2 id="构建环境"><a href="#构建环境" class="headerlink" title="构建环境"></a>构建环境</h2><p>勾选Add timestamps to the Console Output， 代码构建的过程中会将日志打印出来</p>
+<h2 id="Pre-Steps"><a href="#Pre-Steps" class="headerlink" title="Pre Steps"></a>Pre Steps</h2><h3 id="部署本地"><a href="#部署本地" class="headerlink" title="部署本地"></a>部署本地</h3><p>点击add-pre-build-step,选择【Execute Windows batch command】</p>
+<p><img src="add-pre-build-step.png" alt="add-pre-build-step"></p>
+<p>添加批处理所在路径xxx/stop.bat(先将批处理放置到对应目录中)</p>
+<p><img src="execute-windows-batch-command.png" alt="execute-windows-batch-command"></p>
+<h3 id="部署远程Windows-Server"><a href="#部署远程Windows-Server" class="headerlink" title="部署远程Windows Server"></a>部署远程Windows Server</h3><p>点击add-pre-build-step,选择【Send files or execute commands over SSH】</p>
+<p>选择之前配置的SSH Server的远程windows服务器，在Exec command中添加批处理所在路径xxx/stop.bat</p>
+<blockquote>
+<p>使用SSH Publishers时一定要勾选【高级】-【Verbose output in console】, 输出日志便于出错时查看具体原因</p>
+</blockquote>
+<p>这个批处理是在构建项目前执行的，一般是停止服务备份jar等，以下是笔者的stop.bat(供参考):</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo stop</span><br><span class="line">set str_time_first_bit=&quot;%time:~0,1%&quot;</span><br><span class="line">if %str_time_first_bit%==&quot; &quot; (    </span><br><span class="line">set str_date_time=%date:~0,4%%date:~5,2%%date:~8,2%0%time:~1,1%%time:~3,2%%time:~6,2%</span><br><span class="line">)else (     </span><br><span class="line">set str_date_time=%date:~0,4%%date:~5,2%%date:~8,2%%time:~0,2%%time:~3,2%%time:~6,2%</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">set port=8081</span><br><span class="line">for /f &quot;tokens=1-5&quot; %%i in (&#x27;netstat -ano^|findstr &quot;:%port%&quot;&#x27;) do (</span><br><span class="line">    echo kill the process %%m who use the port </span><br><span class="line">    taskkill /pid %%m -t -f</span><br><span class="line">    goto start</span><br><span class="line">)</span><br><span class="line">:start</span><br><span class="line"></span><br><span class="line">cd /d %~dp0</span><br><span class="line"></span><br><span class="line">if not exist backup md backup</span><br><span class="line"></span><br><span class="line">copy mybatis-sample-0.0.1-SNAPSHOT.jar backup\mybatis-sample-0.0.1-SNAPSHOT-%str_date_time%.jar.jar</span><br><span class="line"> </span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>port=8081是因为我的这个项目的运行端口是8081</p>
+<h2 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h2><p>在Build中，填写 Root POM 和 Goals and options，也就是构建项目的命令</p>
+<p><img src="build.png" alt="build"></p>
+<p>一般SpringBoot项目的命令为</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">clean package -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
+
+<h2 id="Post-Steps"><a href="#Post-Steps" class="headerlink" title="Post Steps"></a>Post Steps</h2><p>构建后可以做的事情，这里我们选择【Run only if build succeeds】，即构建成功后触发</p>
+<h3 id="部署本地-1"><a href="#部署本地-1" class="headerlink" title="部署本地"></a>部署本地</h3><p>点击add-post-build-step,选择【Execute Windows batch command】,添加批处理所在路径</p>
+<p>这个批处理一般是启动项目，以下是笔者的start.bat(供参考):</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">set BUILD_ID=dontKillMe  </span><br><span class="line">echo start</span><br><span class="line"></span><br><span class="line">cd /d %~dp0</span><br><span class="line">START javaw -jar mybatis-sample-0.0.1-SNAPSHOT.jar &amp; exit</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署远程Windows-Server-1"><a href="#部署远程Windows-Server-1" class="headerlink" title="部署远程Windows Server"></a>部署远程Windows Server</h3><p>点击add-post-build-step,选择【Send files or execute commands over SSH】</p>
+<p>选择之前配置的SSH Server的远程windows服务器，在Exec command中添加批处理所在路径xxx/start.bat</p>
+<blockquote>
+<p>Transfer set</p>
+</blockquote>
+<ul>
+<li>name:前面添加的SSH Server</li>
+<li>Source files:要推送的文件</li>
+<li>Remove prefix:文件路径中要去掉的前缀</li>
+<li>Remote directory:要推送到目标服务器上的哪个目录下</li>
+<li>Exec command:目标服务器上要执行的脚本</li>
+</ul>
+<h3 id="部署远程Linux"><a href="#部署远程Linux" class="headerlink" title="部署远程Linux"></a>部署远程Linux</h3><p>点击add-post-build-step,选择【Send files or execute commands over SSH】,选择之前配置的SSH Server的远程Linux服务器</p>
+<p><img src="ssh-ser-ubuntu.png" alt="ssh-ser-ubuntu"></p>
+<p>startup.sh(先将sh放置到对应目录中)与windows版的start.bat不太一样(供参考)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash </span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> BUILD_ID=dontKillMe这一句很重要，这样指定了，项目启动之后才不会被Jenkins杀掉。</span></span><br><span class="line">export BUILD_ID=dontKillMe</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash -ile</span></span><br><span class="line">project=mybatis-sample-0.0.1-SNAPSHOT.jar</span><br><span class="line">pathName=mybatis-sample-0.0.1-SNAPSHOT</span><br><span class="line">cd /root/home/mybatis-sample/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if [ ! -d &quot;backup&quot; ];then</span><br><span class="line">    mkdir backup</span><br><span class="line">else</span><br><span class="line">    echo &quot;backup is exist&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">rm -rf backup/$project</span><br><span class="line">cp  $project backup/$project</span><br><span class="line"></span><br><span class="line">pid=`ps -ef | grep $dir$project | grep -v grep | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">if [ -n &quot;$pid&quot; ]</span><br><span class="line">then</span><br><span class="line">   kill -9 $pid</span><br><span class="line">   echo &quot;kill&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;run&quot;</span><br><span class="line">BUILD_ID=dontkillMe nohup java -jar $project &gt;/dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">echo &quot;run success&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果远程执行遇到权限问题，执行chmod +x startup.sh</p>
+</blockquote>
+<h2 id="构建设置"><a href="#构建设置" class="headerlink" title="构建设置"></a>构建设置</h2><p>可以配置邮件通知等</p>
+<h2 id="构建后操作"><a href="#构建后操作" class="headerlink" title="构建后操作"></a>构建后操作</h2><p>可以添加很多操作</p>
+<p><img src="build-after.png" alt="build-after"></p>
+<h1 id="构建任务"><a href="#构建任务" class="headerlink" title="构建任务"></a>构建任务</h1><p>点击 立即构建 可以开始构建任务，控制台可以看到log输出，如果构建失败，在log中会输出原因</p>
+<p><img src="start-build.png" alt="start-build"></p>
+<p>构建成功后就可以浏览器中打开项目测试，至此便完成jenkins构建并部署springboot项目的流程<del>~</del></p>
+<p>如果配置的自动构建的地址，则使用idea编写好代码提交到git后，Jenkins便会自动构建项目</p>
+<p><img src="auto-build.png" alt="auto-build"></p>
+]]></content>
+      <categories>
+        <category>jenkins</category>
+      </categories>
+      <tags>
+        <tag>jenkins</tag>
       </tags>
   </entry>
 </search>

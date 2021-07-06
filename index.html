@@ -454,7 +454,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-22 13:27:10" itemprop="dateModified" datetime="2021-06-22T13:27:10+08:00">2021-06-22</time>
+                <time title="修改时间：2021-07-06 18:28:39" itemprop="dateModified" datetime="2021-07-06T18:28:39+08:00">2021-07-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -476,7 +476,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.2k</span>
+              <span>7.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -499,6 +499,7 @@
 <p>SpringBoot版本为2.x, 2.4.0开始版本号没有.RELEASE后缀</p>
 </blockquote>
 <p><a href="/20201226/java/springboot/c9c436f0">SpringBoot-Starters</a></p>
+<p><a href="/20210706/jenkins/9b38587/">使用Jenkins自动构建</a></p>
 <h2 id="第三方组件"><a href="#第三方组件" class="headerlink" title="第三方组件"></a>第三方组件</h2><p><a href="/20200724/java/springboot/33ed675a">SpringBoot-集成Log日志</a></p>
 <p><a href="/20210305/java/springboot/8dec456e">SpringBoot-Test用法</a></p>
 <p><a href="/20200929/java/springboot/c091a644">SpringBoot-集成Mybatis</a></p>
@@ -948,6 +949,298 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20210706/jenkins/5b02ceab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/20210706/jenkins/5b02ceab/" class="post-title-link" itemprop="url">windows上使用jenkins构建并部署springboot项目</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-06 16:56:45 / 修改时间：18:13:08" itemprop="dateCreated datePublished" datetime="2021-07-06T16:56:45+08:00">2021-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/jenkins/" itemprop="url" rel="index"><span itemprop="name">jenkins</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="创建任务"><a href="#创建任务" class="headerlink" title="创建任务"></a>创建任务</h1><p>在<a href="/20210706/jenkins/a15eda66/">安装并配置好Jenkins</a>后，我们来构建并部署springboot项目</p>
+<p>创建任务首先准备一个SpringBoot项目上传到上面凭据所在的git托管网站中，以便Jenkins可以正常拉取源码</p>
+<p>新建Item-选择【构建一个Maven项目】(如果这里没有这个选项，回到上篇安装插件Maven Integration并重启Jenkins)</p>
+<p><img src="new-job.png" alt="new-job"></p>
+<h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><p>选择该项目构建时的Java版本(如果这里没有所需的版本，回到上篇配置配置JDK、Maven、Git环境，新增即可)</p>
+<h2 id="源码管理中"><a href="#源码管理中" class="headerlink" title="源码管理中"></a>源码管理中</h2><p>选择Git，填写仓库地址，选择之前添加的凭证</p>
+<h2 id="构建触发器"><a href="#构建触发器" class="headerlink" title="构建触发器"></a>构建触发器</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/20210706/jenkins/5b02ceab/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20210706/jenkins/a15eda66/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/20210706/jenkins/a15eda66/" class="post-title-link" itemprop="url">windows上安装jenkins</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-06 14:27:25 / 修改时间：18:27:04" itemprop="dateCreated datePublished" datetime="2021-07-06T14:27:25+08:00">2021-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/jenkins/" itemprop="url" rel="index"><span itemprop="name">jenkins</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h1><h2 id="下载配置jdk"><a href="#下载配置jdk" class="headerlink" title="下载配置jdk"></a>下载配置jdk</h2><p>从Jenkins的官网可以看到</p>
+<p><img src="jenkins-jdk.png" alt="jenkins-jdk"></p>
+<p>较新的Jenkins需要运行在Java 8 或者 Java 11上，我们安装java8版本，由于Oracle下载jdk需要注册账户，我们下载openjdk，这里推荐 <a target="_blank" rel="noopener" href="https://bell-sw.com/pages/downloads/">Liberica OpenJDK</a></p>
+<p>直接下载zip版本，并在环境变量中配置JAVA_HOME，使用cmd执行java -version查看是否配置成功</p>
+<blockquote>
+<p>如果电脑里已经安装了Java环境，直接用java -version验证是否Java8+版本</p>
+</blockquote>
+<h2 id="下载安装Git"><a href="#下载安装Git" class="headerlink" title="下载安装Git"></a>下载安装Git</h2><p>我们需要使用Jenkins拉取项目源码，故需要先安装下git</p>
+<p>从<a target="_blank" rel="noopener" href="http://git-scm.com/downloads">git</a> 官网下载安装即可</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/20210706/jenkins/a15eda66/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20210706/jenkins/9b38587/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/20210706/jenkins/9b38587/" class="post-title-link" itemprop="url">jenkins使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-06 09:42:31 / 修改时间：18:20:53" itemprop="dateCreated datePublished" datetime="2021-07-06T09:42:31+08:00">2021-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/jenkins/" itemprop="url" rel="index"><span itemprop="name">jenkins</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>话说不会偷懒的程序员不是好的程序员，笔者就时常如果有一个软件能够帮我把日常的体力工作都给干了，这样就可以有时间做更多的脑力工作了。<br>逛博客的时候，经常看到DevOps和CI/CD的相关文章，抱着试试看的想法研究下如何实现。当然跟很多初次看到这几个单词都一脸懵的朋友一样，肯定搜索下都是什么意思:</p>
+<blockquote>
+<p>DevOps: DevOps是Development和Operations的组合，是一种重视软件开发人员（Dev）和运维人员（Ops）之间沟通合作的文化，运动和惯例，用于促进应用开发、应用运维和质量保障（QA）部门之间的沟通、协作与整合。以期打破传统开发和运营之间的壁垒和鸿沟。 通过自动化软件交付和架构变更的流程，使构建，测试，发布软件能够更快，频繁和可信。</p>
+</blockquote>
+<blockquote>
+<p>CI: 持续集成（Continuous Integration，简称 CI），开发人员各自编写自己负责部分的代码，然后上传到源代码库中合并，CI服务器负责构建软件并测试是否能正常运行，将测试结果反馈给开发人员。</p>
+</blockquote>
+<blockquote>
+<p>CD: 持续交付（Continuous Delivery，简称 CD）和持续部署(Continuous Deployment)，是在持续集成的基础上将集成后的代码部署到更贴近真实运行的环境中去进行进一步的测试，并可以在多种不同的配置上测试代码，运行额外的性能测试，并自动化每个步骤直到部署到生产环境。</p>
+</blockquote>
+<p>需要注意的是: 持续交付并不是指软件每一个改动都要尽快部署到产品环境中，它指的是<strong>任何的代码修改都可以在任何时候实施部署</strong>，持续部署是作为持续交付——自动将生产就绪型构建版本发布到代码存储库——的延伸，持续部署可以自动将应用发布到生产环境。</p>
+<p>好像有点意思了，按照笔者的理解：平常我们写完代码完成自测后提交代码后，就有工具可以帮我们自动编译和测试，如果没有问题就自动打包并部署到实际的生产环境中。看上去很不错的样子，那么怎么实现呢？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/20210706/jenkins/9b38587/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20210428/uncategorized/24677810/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1059,307 +1352,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20210305/java/springboot/8dec456e/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/20210305/java/springboot/8dec456e/" class="post-title-link" itemprop="url">SpringBoot-Test用法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-05 17:18:09" itemprop="dateCreated datePublished" datetime="2021-03-05T17:18:09+08:00">2021-03-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-22 13:21:00" itemprop="dateModified" datetime="2021-06-22T13:21:00+08:00">2021-06-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用idea新建SpringBoot项目时，大家应该会发现除了正常的src/main文件夹之外，还会有个test文件夹，相应的会引入spring-boot-starter-test模块，<br>本文就来聊聊这个test模板的用法</p>
-<p>说到test大家都会想到junit，是的spring-boot-starter-test默认集成的就是junit，但需要注意的是：springboot2.x的版本, 默认使用的是<a target="_blank" rel="noopener" href="https://junit.org/junit5/docs/current/user-guide/">junit5</a> 版本, junit4和junit5两个版本差别比较大，需要注意下用法：</p>
-<p><em>通常我们只要引入 spring-boot-starter-test 依赖就行，它包含了一些常用的模块 Junit、Spring Test、AssertJ、Hamcrest、Mockito 等</em></p>
-<p><img src="junit5vsjunit4.png" alt="junit5vsjunit4"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/20210305/java/springboot/8dec456e/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20210226/java/springboot/ade04692/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/20210226/java/springboot/ade04692/" class="post-title-link" itemprop="url">SpringBoot-消息队列MQ</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-02-26 10:15:43" itemprop="dateCreated datePublished" datetime="2021-02-26T10:15:43+08:00">2021-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-22 11:05:15" itemprop="dateModified" datetime="2021-06-22T11:05:15+08:00">2021-06-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="为什么要使用消息队列-MQ"><a href="#为什么要使用消息队列-MQ" class="headerlink" title="为什么要使用消息队列-MQ"></a>为什么要使用消息队列-MQ</h1><p><strong>不要跟风</strong> 使用MQ是为了：</p>
-<pre><code>- 解耦:
-  传统模式下系统间耦合性太强，比如系统A在代码中直接调用系统B和系统C的代码，如果将来D系统接入，系统A还需要修改代码，过于麻烦！
-  使用了MQ后系统A将消息写入消息队列，需要消息的系统B、C、D自己从消息队列中订阅，从而系统A不需要做任何修改。
-- 异步:  
-  传统模式下一些非必要的业务逻辑以同步的方式运行，太耗费时间！
-  使用了MQ后系统A将消息写入消息队列，非必要的业务逻辑以异步的方式运行，加快响应速度。
-- 削峰:
-  传统模式下并发量大的时候，所有的请求直接连接到数据库，会造成数据库连接异常从而引起系统崩溃！
-  使用了MQ后系统A慢慢的按照数据库能处理的并发量，从消息队列中慢慢拉取消息，减少后端的压力。在生产中，这个短暂的高峰期积压是允许的。</code></pre>
-<p><strong>不要挖坑</strong> 不管是引入MQ技术，还是其他技术，有利也有弊：</p>
-<pre><code>- 系统可用性降低: 引入MQ之后一旦MQ不可用之后(提供MQ的服务挂掉了)，那凡是关联使用的系统都会受到影响，因此，系统可用性降低
-- 系统复杂性增加: 要多考虑很多方面的问题，比如一致性问题、如何保证消息不被重复消费，如何保证保证消息可靠传输等等，会使得系统的复杂性增大(可能会引入一些潜在的bug)</code></pre>
-<p>个人建议，要看实际项目的需求，业务量不是特别大的项目，不建议为了使用而使用。<br>当然如果项目中有以上的场景需求，或者使用传统模式时遇到了瓶颈时，大胆的引入吧(上面说的弊端也是有很多解决方案的，如可以搭建MQ集群来保持MQ的高可用性)！</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wusier/p/14689805.html">消息中间件的应用场景</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/20210226/java/springboot/ade04692/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20210224/uncategorized/9fdd9683/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
-      <meta itemprop="name" content="Jone Sun">
-      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jone Sun's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/20210224/uncategorized/9fdd9683/" class="post-title-link" itemprop="url">思维改变生活</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-02-24 10:33:09" itemprop="dateCreated datePublished" datetime="2021-02-24T10:33:09+08:00">2021-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-22 11:05:15" itemprop="dateModified" datetime="2021-06-22T11:05:15+08:00">2021-06-22</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这两天翻查以前的笔记，偶然看到了记录的关于积极心理相关的摘录，防止以后丢了，写到文章中了，与有缘人共同分享，希望看到了同学都能拥有积极的心态，让思维改变生活。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/20210224/uncategorized/9fdd9683/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1431,20 +1423,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1498,12 +1490,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">514k</span>
+    <span title="站点总字数">527k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:47</span>
+    <span title="站点阅读时长">7:59</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

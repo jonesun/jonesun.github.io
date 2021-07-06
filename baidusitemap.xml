@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jonesun.github.io/20201009/java/springboot/7b2ee301/</loc>
+    <lastmod>2021-07-06</lastmod>
+  </url>
+  <url>
+    <loc>https://jonesun.github.io/20210706/jenkins/a15eda66/</loc>
+    <lastmod>2021-07-06</lastmod>
+  </url>
+  <url>
+    <loc>https://jonesun.github.io/20210706/jenkins/9b38587/</loc>
+    <lastmod>2021-07-06</lastmod>
+  </url>
+  <url>
+    <loc>https://jonesun.github.io/20210706/jenkins/5b02ceab/</loc>
+    <lastmod>2021-07-06</lastmod>
+  </url>
+  <url>
     <loc>https://jonesun.github.io/20201027/java/designPatterns/8dc1e828/</loc>
     <lastmod>2021-06-22</lastmod>
   </url>
@@ -82,10 +98,6 @@
   </url>
   <url>
     <loc>https://jonesun.github.io/20201102/java/designPatterns/5903f011/</loc>
-    <lastmod>2021-06-22</lastmod>
-  </url>
-  <url>
-    <loc>https://jonesun.github.io/20201009/java/springboot/7b2ee301/</loc>
     <lastmod>2021-06-22</lastmod>
   </url>
   <url>
