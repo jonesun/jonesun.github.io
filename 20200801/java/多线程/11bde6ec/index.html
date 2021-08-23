@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/image/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/image/logo.svg" color="#222">
+  <meta name="google-site-verification" content="7MWmpu7Y_liZprzsvd1MxYuG1tRYQ7V1eK9_rLcHmB0">
+  <meta name="baidu-site-verification" content="code-SeFMiHxes9">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jonesun.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="目录 任何并发能做的事情，单进程也能够实现，只不过这种方式效率很低，它是一种顺序性的  java多线程1-从Thread到Future再到CompletableFuture java多线程2-线程池 java多线程3-fork-join框架 java多线程4-volatile&amp;synchronized java多线程5-并发同步器CountDownLatch&amp;CyclicBarri">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java多线程">
+<meta property="og:url" content="https://jonesun.github.io/20200801/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/11bde6ec/index.html">
+<meta property="og:site_name" content="Jone Sun&#39;s Blog">
+<meta property="og:description" content="目录 任何并发能做的事情，单进程也能够实现，只不过这种方式效率很低，它是一种顺序性的  java多线程1-从Thread到Future再到CompletableFuture java多线程2-线程池 java多线程3-fork-join框架 java多线程4-volatile&amp;synchronized java多线程5-并发同步器CountDownLatch&amp;CyclicBarri">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jonesun.github.io/20200801/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/11bde6ec/%E7%BA%A2%E9%BB%91%E6%A0%91.jpg">
+<meta property="article:published_time" content="2020-08-01T06:28:36.000Z">
+<meta property="article:modified_time" content="2021-08-23T02:06:32.923Z">
+<meta property="article:author" content="Jone Sun">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jonesun.github.io/20200801/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/11bde6ec/%E7%BA%A2%E9%BB%91%E6%A0%91.jpg">
+
+<link rel="canonical" href="https://jonesun.github.io/20200801/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/11bde6ec/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java多线程 | Jone Sun's Blog</title>
+  
+
+
+
+
+
+
+	<span class="site-uv" title="总访客量">
+	  <i class="fa fa-fa fa-user"></i>
+	  <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> people visited our site. |
+	</span>
+  
+
+  
+	<span class="site-pv" title="总访问量">
+	  &nbsp;<i class="fa fa-fa fa-eye"></i>
+	  Total visits <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> times.
+	</span>
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+<a target="_blank" rel="noopener" href="https://github.com/jonesun" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jone Sun's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">用心发现,这个星球很美！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fas fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fas fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fas fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fas fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fas fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20200801/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/11bde6ec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java多线程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-01 14:28:36" itemprop="dateCreated datePublished" datetime="2020-08-01T14:28:36+08:00">2020-08-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-23 10:06:32" itemprop="dateModified" datetime="2021-08-23T10:06:32+08:00">2021-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
+<p>任何并发能做的事情，单进程也能够实现，只不过这种方式效率很低，它是一种顺序性的</p>
+</blockquote>
+<p><a href="/20200714/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/36c04c8a">java多线程1-从Thread到Future再到CompletableFuture</a></p>
+<p><a href="/20200723/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/87bed628">java多线程2-线程池</a></p>
+<p><a href="/20200728/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/a490755">java多线程3-fork-join框架</a></p>
+<p><a href="/20200730/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/cc62b819">java多线程4-volatile&amp;synchronized</a></p>
+<p><a href="/20200731/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/d2a4479b">java多线程5-并发同步器CountDownLatch&amp;CyclicBarrier&amp;Semaphore</a></p>
+<p><a href="/20200811/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/57e2d1c0">java多线程6-ConcurrentHashMap</a></p>
+<p><a href="/20200811/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/e45118f">java多线程7-atomic原子类</a></p>
+<p><a href="/20200817/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/c9ab2479">java多线程8-locks锁</a></p>
+<p><a href="/20200818/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/aa881dfa">java多线程9-BlockingQueue和BlockingDeque-待细化</a></p>
+<p><a href="/20200824/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/b6038c0d">java多线程10-ThreadLocal</a></p>
+ <a id="more"></a>
+
+<h1 id="java14并发包结构"><a href="#java14并发包结构" class="headerlink" title="java14并发包结构"></a>java14并发包结构</h1><p>共计 17(atomic) + 10(locks) + 61 = 88个类</p>
+<h2 id="juc-atomic-原子类"><a href="#juc-atomic-原子类" class="headerlink" title="juc-atomic 原子类"></a>juc-atomic 原子类</h2><h3 id="1-原子类"><a href="#1-原子类" class="headerlink" title="1. 原子类"></a>1. 原子类</h3><p>AtomicInteger AtomicLong AtomicBoolean</p>
+<p>AtomicReference AtomicStampedReference AtomicMarkableReference</p>
+<h3 id="2-原子数组"><a href="#2-原子数组" class="headerlink" title="2. 原子数组"></a>2. 原子数组</h3><p>AtomicIntegerArray AtomicLongArray AtomicReferenceArray</p>
+<h3 id="3-java8优化原子类"><a href="#3-java8优化原子类" class="headerlink" title="3. java8优化原子类"></a>3. java8优化原子类</h3><p>Striped64 -&gt; DoubleAccumulator DoubleAdder LongAccumulator LongAdder</p>
+<h3 id="4-属性原子修改器"><a href="#4-属性原子修改器" class="headerlink" title="4. 属性原子修改器"></a>4. 属性原子修改器</h3><p>AtomicIntegerFieldUpdater AtomicLongFieldUpdater AtomicReferenceFieldUpdater</p>
+<hr>
+<h2 id="juc-locks-锁"><a href="#juc-locks-锁" class="headerlink" title="juc-locks 锁"></a>juc-locks 锁</h2><h2 id="1-锁与读写锁"><a href="#1-锁与读写锁" class="headerlink" title="1. 锁与读写锁"></a>1. 锁与读写锁</h2><p>Lock ReadWriteLock</p>
+<h2 id="2-锁的具体实现类-可重入锁"><a href="#2-锁的具体实现类-可重入锁" class="headerlink" title="2. 锁的具体实现类(可重入锁)"></a>2. 锁的具体实现类(可重入锁)</h2><p>ReentrantLock ReentrantReadWriteLock</p>
+<h3 id="3-java8新增锁"><a href="#3-java8新增锁" class="headerlink" title="3. java8新增锁"></a>3. java8新增锁</h3><p>StampedLock</p>
+<h3 id="4-等待-唤醒线程类"><a href="#4-等待-唤醒线程类" class="headerlink" title="4. 等待/唤醒线程类"></a>4. 等待/唤醒线程类</h3><p>Condition</p>
+<h3 id="5-辅助类"><a href="#5-辅助类" class="headerlink" title="5. 辅助类"></a>5. 辅助类</h3><p>LockSupport</p>
+<p>AbstractOwnableSynchronizer AbstractQueuedSynchronizer AbstractQueuedLongSynchronizer</p>
+<hr>
+<h2 id="juc-sync-同步器"><a href="#juc-sync-同步器" class="headerlink" title="juc-sync 同步器"></a>juc-sync 同步器</h2><p>CountDownLatch CyclicBarrier Semaphore</p>
+<p>Exchanger Phaser</p>
+<hr>
+<h2 id="juc-collections-集合"><a href="#juc-collections-集合" class="headerlink" title="juc-collections 集合"></a>juc-collections 集合</h2><h3 id="1-map"><a href="#1-map" class="headerlink" title="1.map"></a>1.map</h3><p>ConcurrentMap ConcurrentHashMap ConcurrentSkipListMap ConcurrentNavigableMap</p>
+<h3 id="2-set"><a href="#2-set" class="headerlink" title="2.set"></a>2.set</h3><p>CopyOnWriteArraySet ConcurrentSkipListSet</p>
+<h3 id="3-list"><a href="#3-list" class="headerlink" title="3.list"></a>3.list</h3><p>CopyOnWriteArrayList</p>
+<h3 id="4-queue"><a href="#4-queue" class="headerlink" title="4.queue"></a>4.queue</h3><h4 id="4-1普通队列"><a href="#4-1普通队列" class="headerlink" title="4.1普通队列"></a>4.1普通队列</h4><p>BlockingQueue ArrayBlockingQueue ConcurrentLinkedQueue LinkedBlockingQueue LinkedTransferQueue PriorityBlockingQueue SynchronousQueue DelayQueue TransferQueue</p>
+<p>Delayed</p>
+<h4 id="4-2双端队列"><a href="#4-2双端队列" class="headerlink" title="4.2双端队列"></a>4.2双端队列</h4><p>BlockingDeque LinkedBlockingDeque ConcurrentLinkedDeque</p>
+<hr>
+<h2 id="juc-executors-执行器"><a href="#juc-executors-执行器" class="headerlink" title="juc-executors 执行器"></a>juc-executors 执行器</h2><h3 id="1-Executor线程池"><a href="#1-Executor线程池" class="headerlink" title="1.Executor线程池"></a>1.Executor线程池</h3><p>AbstractExecutorService Executor ExecutorCompletionService Executors ExecutorService ScheduledThreadPoolExecutor RejectedExecutionHandler ThreadFactory ThreadPoolExecutor ScheduledExecutorService CompletionService CompletionStage</p>
+<h3 id="2-Future"><a href="#2-Future" class="headerlink" title="2.Future"></a>2.Future</h3><p>Callable CompletableFuture Future FutureTask RunnableFuture RunnableScheduledFuture ScheduledFuture</p>
+<h3 id="3-Fork-Join"><a href="#3-Fork-Join" class="headerlink" title="3.Fork/Join"></a>3.Fork/Join</h3><p>ForkJoinPool ForkJoinTask ForkJoinWorkerThread RecursiveAction RecursiveTask CountedCompleter</p>
+<hr>
+<h2 id="jus-其他"><a href="#jus-其他" class="headerlink" title="jus-其他"></a>jus-其他</h2><h3 id="1-java9新增支持响应式编程类"><a href="#1-java9新增支持响应式编程类" class="headerlink" title="1.java9新增支持响应式编程类"></a>1.java9新增支持响应式编程类</h3><p>SubmissionPublisher Flow</p>
+<h3 id="2-异常类"><a href="#2-异常类" class="headerlink" title="2.异常类"></a>2.异常类</h3><p>BrokenBarrierException CancellationException CompletionException ExecutionException RejectedExecutionException TimeoutException</p>
+<h3 id="3-其他"><a href="#3-其他" class="headerlink" title="3.其他"></a>3.其他</h3><p>ThreadLocalRandom TimeUnit Helpers(非公开类)</p>
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>并发：系统能处理多个任务，但同时只能处理一个的任务处理机制</p>
+<p>并行：系统能处理多个任务，且同时还能处理多个的任务处理机制</p>
+<p>高并发：系统能同时并行处理很多请求的任务处理机制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">你吃饭吃到一半，电话来了，你一直到吃完了以后才去接，这就说明你不支持并发也不支持并行。</span><br><span class="line"></span><br><span class="line">你吃饭吃到一半，电话来了，你停了下来接了电话，接完后继续吃饭，这说明你支持并发。</span><br><span class="line"></span><br><span class="line">你吃饭吃到一半，电话来了，你一边打电话一边吃饭，这说明你支持并行。</span><br><span class="line"></span><br><span class="line">并发的关键是你有处理多个任务的能力，不一定要同时。并行的关键是你有同时处理多个任务的能力。</span><br></pre></td></tr></table></figure>
+
+<p>JUC: java.util.concurrent简称</p>
+<p>自旋锁：由于大部分时候，锁被占用的时间很短，共享变量的锁定时间也很短，所有没有必要挂起线程，<br>用户态和内核态的来回上下文切换严重影响性能。自旋的概念就是让线程执行一个忙循环，可以理解为就<br>是啥也不干，防止从用户态转入内核态，自旋锁可以通过设置-XX:+UseSpining来开启，自旋的默认次数<br>是10次，可以使用-XX:PreBlockSpin设置。</p>
+<p>悲观锁: synchronized是悲观锁，悲观地认为程序中的并发情况严重，所以严防死守。这种线程一旦得到锁，其他需要锁的线程就挂起的情况就是悲观锁.</p>
+<p>乐观锁: CAS操作的就是乐观锁，乐观地认为程序中的并发情况不那么严重，所以让线程不断去尝试更新。每次不加锁而是假设没有冲突而去完成某项操作，如果因为冲突失败就重试，直到成功为止</p>
+<blockquote>
+<p>CAS: Compare-and-Swap, 即比较并替换</p>
+</blockquote>
+<p>是一种实现并发算法时常用到的技术，Java并发包中的很多类都使用了CAS技术。CAS的原理是拿期望的值和原本的一个值作比较，如果相同则更新成新的值(java中使用Unsafe类来实现)<br>它包含三个操作数：</p>
+<ol>
+<li>变量内存地址，V表示</li>
+<li>旧的预期值，A表示</li>
+<li>准备设置的新值，B表示</li>
+</ol>
+<p><strong>当执行CAS指令时，只有当V等于A时，才会用B去更新V的值，否则就不会执行更新操作。</strong></p>
+<blockquote>
+<p>AQS：AbstractQueuedSynchronizer，抽象的队列式同步器。</p>
+</blockquote>
+<p>它提供了一种实现阻塞锁和一系列依赖FIFO等待队列的同步器的框架，ReentrantLock Semaphore CountDownLatch CyclicBarrier等并发类均是基于AQS来实现的，具体用法是通过继承AQS实现其模板方法，然后将子类作为同步组件的内部类。</p>
+<p>AQS 定义了两种资源共享方式：<br>1.Exclusive：独占，只有一个线程能执行，如ReentrantLock<br>2.Share：共享，多个线程可以同时执行，如Semaphore CountDownLatch ReadWriteLock，CyclicBarrier</p>
+<p>FIFO( First Input First Output): 指先进先出</p>
+<p>FILO：指先进后出</p>
+<p>红黑树</p>
+<p><img src="%E7%BA%A2%E9%BB%91%E6%A0%91.jpg" alt="红黑树"></p>
+<ul>
+<li>每个节点非红即黑</li>
+<li>根节点总是黑色的</li>
+<li>如果节点是红色的，则它的子节点必须是黑色的（反之不一定）</li>
+<li>每个叶子节点都是黑色的空节点（NIL节点）</li>
+<li>每个红色节点的两个子节点都是黑色。（从每个叶子到根的所有路径上不能有两个连续的红色节点）</li>
+<li>从根节点到叶节点或空子节点的每条路径，必须包含相同数目的黑色节点（即相同的黑色高度）</li>
+</ul>
+<p>并发的指标一般有QPS、TPS、IOPS，这几个指标都是可归为系统吞吐率，QPS越高系统能hold住的请求数越多，但光关注这几个指标不够，我们还需要关注RT，即响应时间，也就是从发出request到收到response的时延，这个指标跟吞吐往往是此消彼长的，我们追求的是一定时延下的高吞吐。</p>
+<ul>
+<li><strong>PV</strong> Page View：页面访问量，每次用户访问或者刷新页面都会被计算在内</li>
+<li><strong>QPS</strong> Queries Per Second： 每秒请求数，就是说服务器在一秒的时间内处理了多少个请求。</li>
+<li><strong>TPS</strong> Transactions Per Second： 每秒事务数，每秒系统能够处理的事务次数。</li>
+</ul>
+<blockquote>
+<p>事务表示客户端发起请求到收到服务端最终响应的整个过程，这是一个TPS，而在这个TPS中，为了处理第一次请求可能会引发后续多次对服务端的访问才能完成这次工作，每次访问都算一个QPS。所以，一个TPS可能包含多个QPS</p>
+</blockquote>
+<blockquote>
+<p>一个变量是否是线程安全的，取决于它是否被多个线程访问。要使变量能够被安全访问，必须通过同步机制来对变量进行修饰</p>
+</blockquote>
+<h1 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h1><p>当多个线程访问某个类时，这个类始终都能表现出正确的行为，那么就称这个类是线程安全的</p>
+<p>线程安全是一个多线程环境下正确性的概念，也就是保证多线程环境下共享的、可修改的状态的正确性，这里的状态反映在程序中其实可以看作是数据</p>
+<p>换个角度来看，如果状态不是共享的，或者不是可修改的，也就不存在线程安全问题，进而可以推理出保证线程安全的两个办法：</p>
+<ul>
+<li>封装：通过封装，我们可以将对象内部状态隐藏、保护起来。</li>
+<li>不可变：还记得我们在专栏第 3 讲强调的 final 和 immutable 吗，就是这个道理，Java 语言目前还没有真正意义上的原生不可变，但是未来也许会引入。</li>
+</ul>
+<p>线程安全需要保证几个基本特性：</p>
+<ul>
+<li>原子性，简单说就是相关操作不会中途被其他线程干扰，一般通过同步机制实现。</li>
+<li>可见性，是一个线程修改了某个共享变量，其状态能够立即被其他线程知晓，通常被解释为将线程本地状态反映到主内存上，volatile 就是负责保证可见性的。</li>
+<li>有序性，是保证线程内串行语义，避免指令重排等。</li>
+</ul>
+<h1 id="Spring中的多线程疑惑"><a href="#Spring中的多线程疑惑" class="headerlink" title="Spring中的多线程疑惑"></a>Spring中的多线程疑惑</h1><p>首先我们需要认清：</p>
+<ul>
+<li>web容器本身就是多线程的，每一个HTTP请求都会产生一个独立的线程（或者从线程池中取得创建好的线程）；<br>Spring中的bean（用@Repository、@Service、@Component和@Controller注册的bean）都是单例的，即整个程序、所有线程共享一个实例；</li>
+<li>虽然bean都是单例的，但是Spring提供的模板类（XXXTemplate），在Spring容器的管理下（使用@Autowired注入），会自动使用ThreadLocal以实现多线程；</li>
+<li>即使类是单例的，但是其中有可能出现并发问题的变量使用ThreadLocal实现了多线程。</li>
+<li>注意除了Spring本身提供的类以外，在Bean中定义“有状态的变量”（即有存储数据的变量），其会被所有线程共享，很可能导致并发问题，需要自行另外使用ThreadLocal进行处理，或者将Bean声明为prototype型。</li>
+<li>一个类中的方法实际上是独立，方法内定义的局部变量在每次调用方法时都是独立的，不会有并发问题。只有类的“有状态的”全局变量会有并发问题</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>使用Spring提供的template等类没有多线程问题！</li>
+<li>一般来说只有类的属性/全局变量会导致多线程问题，而方法内的局部变量不会有并发问题</li>
+<li>单例模式肯定是线程不安全的！ spring的Bean中的自定义的成员变量除非进行threadLocal封装，否则都是非线程安全的！</li>
+</ul>
+<blockquote>
+<p>一些编程语言旨在将并发任务彼此隔离。<br>这些通常被称为_函数式语言_，其中每个函数调用不产生副作用（不会干扰到其它函数），所以可以作为独立的任务来驱动。<br><strong>Erlang</strong>就是这样一种语言，它包括一个任务与另一个任务进行通信的安全机制。如果发现程序的某一部分必须大量使用并发，并且在尝试构建该部分时遇到了过多的问题，那么可以考虑使用这些专用的并发语言创建程序的这个部分</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/image/wechatpay.png" alt="Jone Sun 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/20200731/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/d2a4479b/" rel="prev" title="java多线程5-并发同步器CountDownLatch&CyclicBarrier&Semaphore">
+      <i class="fa fa-chevron-left"></i> java多线程5-并发同步器CountDownLatch&CyclicBarrier&Semaphore
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/20200811/java/designPatterns/56df777e/" rel="next" title="java设计模式">
+      java设计模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java14%E5%B9%B6%E5%8F%91%E5%8C%85%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">java14并发包结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#juc-atomic-%E5%8E%9F%E5%AD%90%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">juc-atomic 原子类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8E%9F%E5%AD%90%E7%B1%BB"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. 原子类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8E%9F%E5%AD%90%E6%95%B0%E7%BB%84"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. 原子数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-java8%E4%BC%98%E5%8C%96%E5%8E%9F%E5%AD%90%E7%B1%BB"><span class="nav-number">2.1.3.</span> <span class="nav-text">3. java8优化原子类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B1%9E%E6%80%A7%E5%8E%9F%E5%AD%90%E4%BF%AE%E6%94%B9%E5%99%A8"><span class="nav-number">2.1.4.</span> <span class="nav-text">4. 属性原子修改器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#juc-locks-%E9%94%81"><span class="nav-number">2.2.</span> <span class="nav-text">juc-locks 锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%94%81%E4%B8%8E%E8%AF%BB%E5%86%99%E9%94%81"><span class="nav-number">2.3.</span> <span class="nav-text">1. 锁与读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%94%81%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E7%B1%BB-%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81"><span class="nav-number">2.4.</span> <span class="nav-text">2. 锁的具体实现类(可重入锁)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-java8%E6%96%B0%E5%A2%9E%E9%94%81"><span class="nav-number">2.4.1.</span> <span class="nav-text">3. java8新增锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%AD%89%E5%BE%85-%E5%94%A4%E9%86%92%E7%BA%BF%E7%A8%8B%E7%B1%BB"><span class="nav-number">2.4.2.</span> <span class="nav-text">4. 等待&#x2F;唤醒线程类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%BE%85%E5%8A%A9%E7%B1%BB"><span class="nav-number">2.4.3.</span> <span class="nav-text">5. 辅助类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#juc-sync-%E5%90%8C%E6%AD%A5%E5%99%A8"><span class="nav-number">2.5.</span> <span class="nav-text">juc-sync 同步器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#juc-collections-%E9%9B%86%E5%90%88"><span class="nav-number">2.6.</span> <span class="nav-text">juc-collections 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-map"><span class="nav-number">2.6.1.</span> <span class="nav-text">1.map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-set"><span class="nav-number">2.6.2.</span> <span class="nav-text">2.set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-list"><span class="nav-number">2.6.3.</span> <span class="nav-text">3.list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-queue"><span class="nav-number">2.6.4.</span> <span class="nav-text">4.queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1%E6%99%AE%E9%80%9A%E9%98%9F%E5%88%97"><span class="nav-number">2.6.4.1.</span> <span class="nav-text">4.1普通队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97"><span class="nav-number">2.6.4.2.</span> <span class="nav-text">4.2双端队列</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#juc-executors-%E6%89%A7%E8%A1%8C%E5%99%A8"><span class="nav-number">2.7.</span> <span class="nav-text">juc-executors 执行器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Executor%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">2.7.1.</span> <span class="nav-text">1.Executor线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Future"><span class="nav-number">2.7.2.</span> <span class="nav-text">2.Future</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Fork-Join"><span class="nav-number">2.7.3.</span> <span class="nav-text">3.Fork&#x2F;Join</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jus-%E5%85%B6%E4%BB%96"><span class="nav-number">2.8.</span> <span class="nav-text">jus-其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-java9%E6%96%B0%E5%A2%9E%E6%94%AF%E6%8C%81%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%B1%BB"><span class="nav-number">2.8.1.</span> <span class="nav-text">1.java9新增支持响应式编程类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="nav-number">2.8.2.</span> <span class="nav-text">2.异常类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%85%B6%E4%BB%96"><span class="nav-number">2.8.3.</span> <span class="nav-text">3.其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">3.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">4.</span> <span class="nav-text">线程安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%B8%AD%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%96%91%E6%83%91"><span class="nav-number">5.</span> <span class="nav-text">Spring中的多线程疑惑</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jone Sun"
+      src="/image/avatar.png">
+  <p class="site-author-name" itemprop="name">Jone Sun</p>
+  <div class="site-description" itemprop="description">心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jonesun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jonesun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sunjoner7@gmail.com" title="E-Mail → mailto:sunjoner7@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fas fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://miqingwang.github.io/" title="https:&#x2F;&#x2F;miqingwang.github.io&#x2F;" rel="noopener" target="_blank">MiQing Blog</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jonesun</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">532k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '5c5b3a4f979f14390a93',
+      clientSecret: '7ca6f94a969f559ded8fd2d04bda3b85fe3071e8',
+      repo        : 'MyBlogGitalk',
+      owner       : 'jonesun',
+      admin       : ['jonesun'],
+      id          : '707a1ff2d264ca53f74333292e9fb8d5',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"log":false});</script></body>
+</html>

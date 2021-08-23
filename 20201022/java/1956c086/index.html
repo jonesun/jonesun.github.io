@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/image/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/image/logo.svg" color="#222">
+  <meta name="google-site-verification" content="7MWmpu7Y_liZprzsvd1MxYuG1tRYQ7V1eK9_rLcHmB0">
+  <meta name="baidu-site-verification" content="code-SeFMiHxes9">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jonesun.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言日常开发中必不可少要与时间打交道，而关于时间的处理网上有很多文章，下面基于大神的文章和我自己的理解对时间做一个整理 开始之前我们得先明确下一些概念，有助于后面程序代码得理解  时间：类似于08:00和2020年10月1日12:00，这个叫做时间，时间是一个相对得概念。在国内我们说得时间和国外得时间表示得就不一样，比如现在是2020年10月1日10:00，在美国芝加哥得话现在就是2020年09月">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-时间">
+<meta property="og:url" content="https://jonesun.github.io/20201022/java/1956c086/index.html">
+<meta property="og:site_name" content="Jone Sun&#39;s Blog">
+<meta property="og:description" content="前言日常开发中必不可少要与时间打交道，而关于时间的处理网上有很多文章，下面基于大神的文章和我自己的理解对时间做一个整理 开始之前我们得先明确下一些概念，有助于后面程序代码得理解  时间：类似于08:00和2020年10月1日12:00，这个叫做时间，时间是一个相对得概念。在国内我们说得时间和国外得时间表示得就不一样，比如现在是2020年10月1日10:00，在美国芝加哥得话现在就是2020年09月">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-22T09:21:42.000Z">
+<meta property="article:modified_time" content="2021-08-23T02:06:32.919Z">
+<meta property="article:author" content="Jone Sun">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://jonesun.github.io/20201022/java/1956c086/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java-时间 | Jone Sun's Blog</title>
+  
+
+
+
+
+
+
+	<span class="site-uv" title="总访客量">
+	  <i class="fa fa-fa fa-user"></i>
+	  <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> people visited our site. |
+	</span>
+  
+
+  
+	<span class="site-pv" title="总访问量">
+	  &nbsp;<i class="fa fa-fa fa-eye"></i>
+	  Total visits <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> times.
+	</span>
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+<a target="_blank" rel="noopener" href="https://github.com/jonesun" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jone Sun's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">用心发现,这个星球很美！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fas fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fas fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fas fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fas fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fas fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20201022/java/1956c086/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java-时间
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-22 17:21:42" itemprop="dateCreated datePublished" datetime="2020-10-22T17:21:42+08:00">2020-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-23 10:06:32" itemprop="dateModified" datetime="2021-08-23T10:06:32+08:00">2021-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>日常开发中必不可少要与时间打交道，而关于时间的处理网上有很多文章，下面基于大神的文章和我自己的理解对时间做一个整理</p>
+<p>开始之前我们得先明确下一些概念，有助于后面程序代码得理解</p>
+<ul>
+<li><p>时间：类似于<strong>08:00</strong>和<strong>2020年10月1日12:00</strong>，这个叫做时间，时间是一个相对得概念。在国内我们说得时间和国外得时间表示得就不一样，比如现在是2020年10月1日10:00，在美国芝加哥得话现在就是2020年09月30日21:00，所以一般需要说当地时间(本地时间)</p>
+</li>
+<li><p>时刻：时刻就是一个准确得时间，如现在我们和国外同时做了一个事情，如果以上帝得视角来看，那这个时间点就是可以确定得哪个时刻(程序里就是时间戳)</p>
+</li>
+<li><p>时区: 但我们不是上帝，我们对应得如果要准确得表示一个事情得时间，就得加上时区了。全球一共分为24个时区，伦敦所在的时区称为标准时区，其他时区按东／西偏移的小时区分，北京所在的时区是东八区</p>
+</li>
+</ul>
+<blockquote>
+<p>总结一下，如果要表示准确得时间，得这样说: 北京时间(东八区) 2020年10月1日12:00</p>
+</blockquote>
+<p>下面我们就看下在Java中对于时间得处理</p>
+<p>我们都知道Java8加入了LocalDateTime等基础类，改进了时间得运算处理，所以如果是新项目想都不要想，直接上java8+，如果是旧项目或者有引用库还是java7及以下得也有方法可以解决，但不管怎样，放弃Date或者Calendar从现在开始</p>
+<a id="more"></a>
+
+<blockquote>
+<p>新API的类型几乎全部是不变类型，可以在多线程情况下放心使用, 并且修正了旧API一些不合理的常量设计：</p>
+</blockquote>
+<ul>
+<li>Month的范围用1~12表示1月到12月(再也不用记要不要加1减1了)</li>
+<li>Week的范围用1~7表示周一到周日</li>
+<li>处理加减会自动调整日期，例如从2019-10-31减去1个月得到的结果是2019-09-30，因为9月没有31日</li>
+</ul>
+<blockquote>
+<p>System.currentTimeMillis()，这个数值代表什么呢？从 Javadoc 可以看出，它是返回当前时间和 1970 年 1 月 1 号 UTC 时间相差的毫秒数，这个数值与夏 / 冬令时并没有关系，所以并不受其影响</p>
+</blockquote>
+<h1 id="重要类"><a href="#重要类" class="headerlink" title="重要类"></a>重要类</h1><ul>
+<li><p>LocalDateTime: 表示一个带日期得时间(LocalDateTime.now())</p>
+</li>
+<li><p>LocalDate: 表示一个日期(不带时分秒得时间)</p>
+</li>
+<li><p>LocalTime: 表示一个不带日期得时间</p>
+</li>
+</ul>
+<p><em>当需要在程序上显示时就用到了</em>:</p>
+<ul>
+<li>DateTimeFormatter: 格式化显示时间</li>
+</ul>
+<p><em>当需要对时间进行计算时就用到了</em>：</p>
+<ul>
+<li>Duration: 两个LocalDateTime之间的差值(相差多少时间)，比如PT1235H10M30S，表示1235小时10分钟30秒</li>
+<li>Period：两个LocalDate之间的差值(相差多少天), 比如P1M21D，表示1个月21天</li>
+</ul>
+<p><em>当需要准确得表示时间时就得用到时区</em>：</p>
+<ul>
+<li>ZoneId: 仅表示时区</li>
+<li>ZonedDateTime: 带时区的时间(ZoneId+LocalDateTime)</li>
+</ul>
+<p><em>当需要表示时刻时就得用时间戳</em>：</p>
+<ul>
+<li>Instant: 用Instant.now()获取当前时间戳，比System.currentTimeMillis()多了一个更高精度的纳秒</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;获取当前时间戳</span><br><span class="line">Instant instant &#x3D; Instant.now();</span><br><span class="line">System.out.println(&quot;当前时间戳: &quot; + instant.toEpochMilli());&#x2F;&#x2F;与System.currentTimeMillis类似</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;加一个时区组合成ZonedDateTime 默认东八区</span><br><span class="line">ZonedDateTime zonedDateTime &#x3D; instant.atZone(ZoneId.systemDefault());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;输出显示</span><br><span class="line">System.out.println(&quot;北京时间: &quot; + zonedDateTime.format(DateTimeFormatter.ISO_DATE));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;去掉时区显示时间</span><br><span class="line">LocalDateTime localDateTime &#x3D; zonedDateTime.toLocalDateTime();</span><br><span class="line">System.out.println(&quot;当前时间: &quot; + localDateTime.format(DateTimeFormatter.ofPattern(&quot;yyyy&#x2F;MM&#x2F;dd HH:mm:ss&quot;)));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;去掉日期</span><br><span class="line">LocalTime localTime &#x3D; localDateTime.toLocalTime();</span><br><span class="line">System.out.println(&quot;当前时间: &quot; + localTime.format(DateTimeFormatter.ofPattern(&quot;HH:mm:ss&quot;)));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;计算两个时间</span><br><span class="line">LocalDateTime localDateTime1 &#x3D; LocalDateTime.of(2000, 9, 1, 9, 20);</span><br><span class="line">Duration duration &#x3D; Duration.between(localDateTime1, localDateTime);</span><br><span class="line">System.out.println(&quot;duration相差: &quot; + duration);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;计算两个日期</span><br><span class="line">Period period &#x3D; Period.between(localDateTime1.toLocalDate(), localDateTime.toLocalDate());</span><br><span class="line">System.out.println(&quot;period相差: &quot; + period);</span><br></pre></td></tr></table></figure>
+
+<h1 id="新老版本转换"><a href="#新老版本转换" class="headerlink" title="新老版本转换"></a>新老版本转换</h1><p>LocalDateTime，ZoneId，Instant，ZonedDateTime和long都可以互相转换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────┐</span><br><span class="line">│LocalDateTime│────┐</span><br><span class="line">└─────────────┘    │    ┌─────────────┐</span><br><span class="line">                   ├───&gt;│ZonedDateTime│</span><br><span class="line">┌─────────────┐    │    └─────────────┘</span><br><span class="line">│   ZoneId    │────┘           ▲</span><br><span class="line">└─────────────┘      ┌─────────┴─────────┐</span><br><span class="line">                     │                   │</span><br><span class="line">                     ▼                   ▼</span><br><span class="line">              ┌─────────────┐     ┌─────────────┐</span><br><span class="line">              │   Instant   │&lt;───&gt;│    long     │</span><br><span class="line">              └─────────────┘     └─────────────┘</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>转换的时候，需要留意long类型以毫秒还是秒为单位即可</p>
+</blockquote>
+<h2 id="旧API转新API"><a href="#旧API转新API" class="headerlink" title="旧API转新API"></a>旧API转新API</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;long -&gt; Instance</span><br><span class="line">Instant instant &#x3D; Instant.ofEpochMilli(System.currentTimeMillis());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Date -&gt; Instant</span><br><span class="line">Instant ins1 &#x3D; new Date().toInstant();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Calendar -&gt; Instant</span><br><span class="line">Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">Instant ins2 &#x3D; Calendar.getInstance().toInstant();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Instance + ZoneId -&gt; ZonedDateTime</span><br><span class="line">ZonedDateTime zonedDateTime &#x3D; instant.atZone(ZoneId.systemDefault());</span><br><span class="line">&#x2F;&#x2F;注意，如果源数据是calendar，采用calendar中保存的时区</span><br><span class="line">ZonedDateTime zdt &#x3D; ins2.atZone(calendar.getTimeZone().toZoneId());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;ZonedDateTime -&gt; LocalDateTime</span><br><span class="line">LocalDateTime localDateTime &#x3D; zonedDateTime.toLocalDateTime();</span><br></pre></td></tr></table></figure>
+
+<h2 id="新API转旧API"><a href="#新API转旧API" class="headerlink" title="新API转旧API"></a>新API转旧API</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; LocalDateTime -&gt; ZonedDateTime -&gt; long -&gt; Date:</span><br><span class="line">ZonedDateTime zdt &#x3D; LocalDateTime.now().atZone(ZoneId.systemDefault());</span><br><span class="line">long ts &#x3D; zdt.toInstant().toEpochMilli();</span><br><span class="line">Date date &#x3D; new Date(ts);</span><br><span class="line">System.out.println(&quot;date: &quot; + new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(date));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; LocalDateTime -&gt; ZonedDateTime -&gt; long -&gt; Calendar:</span><br><span class="line">Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">calendar.clear();</span><br><span class="line">calendar.setTimeZone(TimeZone.getTimeZone(zdt.getZone().getId()));</span><br><span class="line">calendar.setTimeInMillis(ts);</span><br></pre></td></tr></table></figure>
+
+<h1 id="SpringBoot中处理"><a href="#SpringBoot中处理" class="headerlink" title="SpringBoot中处理"></a>SpringBoot中处理</h1><blockquote>
+<p>以上配置针对于SpringBoot 2.x及以上版本</p>
+</blockquote>
+<p><strong>推荐jackson, SpringBoot内置，既能处理json也能处理xml</strong>故这里只讲jackson的处理，其他json库网上搜索即可</p>
+<p>一般我们都会用json来作为前后台传递数据用的格式，LocalDateTime类型如果不处理话，直接传递客户端使用是不太方便的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class MyUser &#123;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    private LocalDateTime createTime;</span><br><span class="line"></span><br><span class="line">    private LocalDate localDate;</span><br><span class="line"></span><br><span class="line">    private LocalTime localTime;</span><br><span class="line"></span><br><span class="line">    private Date date;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;getter setter</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;json返回</span><br><span class="line">&#123;</span><br><span class="line">  &quot;createTime&quot;: &quot;2020-10-23T05:47:07.670Z&quot;,</span><br><span class="line">  &quot;date&quot;: &quot;2020-10-23T05:47:07.670Z&quot;,</span><br><span class="line">  &quot;localDate&quot;: &quot;string&quot;,</span><br><span class="line">  &quot;localTime&quot;: &#123;</span><br><span class="line">    &quot;hour&quot;: 0,</span><br><span class="line">    &quot;minute&quot;: 0,</span><br><span class="line">    &quot;nano&quot;: 0,</span><br><span class="line">    &quot;second&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;name&quot;: &quot;string&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ISO 8601规定的日期和时间分隔符是T</p>
+</blockquote>
+<p>故需要作一些配置修改</p>
+<ul>
+<li>如果是部分实体需要，直接在属性上加上@JsonFormat注解即可:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@JsonFormat(pattern &#x3D; &quot;yyyy-MM-dd HH:mm:ss&quot;)</span><br><span class="line">private LocalDateTime createTime;</span><br><span class="line"></span><br><span class="line">@JsonFormat(pattern &#x3D; &quot;yyyy-MM-dd&quot;)</span><br><span class="line">private LocalDate localDate;</span><br><span class="line"></span><br><span class="line">@JsonFormat(pattern &#x3D; &quot;HH:mm:ss&quot;)</span><br><span class="line">private LocalTime localTime;</span><br><span class="line"></span><br><span class="line">@JsonFormat(pattern &#x3D; &quot;yyyy-MM-dd HH:mm:ss&quot;)</span><br><span class="line">private Date date;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;返回json</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;jone&quot;,</span><br><span class="line">  &quot;createTime&quot;: &quot;2020-10-23 13:50:48&quot;,</span><br><span class="line">  &quot;localDate&quot;: &quot;2020-10-23&quot;,</span><br><span class="line">  &quot;localTime&quot;: &quot;13:50:48&quot;,</span><br><span class="line">  &quot;date&quot;: &quot;2020-10-23 05:50:48&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果项目涉及到国内外，还需加上时区如：@JsonFormat(pattern = “yyyy-MM-dd HH:mm:ss”,timezone=”GMT+8”)</p>
+</blockquote>
+<ul>
+<li>全局设置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class JsonConfig &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * DateTime格式化字符串</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private static final String DEFAULT_DATETIME_PATTERN &#x3D; &quot;yyyy-MM-dd HH:mm:ss&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * Date格式化字符串</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private static final String DEFAULT_DATE_PATTERN &#x3D; &quot;yyyy-MM-dd&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * Time格式化字符串</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private static final String DEFAULT_TIME_PATTERN &#x3D; &quot;HH:mm:ss&quot;;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() &#123;</span><br><span class="line">        return builder -&gt; builder</span><br><span class="line">                .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATETIME_PATTERN)))</span><br><span class="line">                .serializerByType(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN)))</span><br><span class="line">                .serializerByType(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_PATTERN)))</span><br><span class="line">                .serializerByType(Date.class, new DateSerializer(false, new SimpleDateFormat(DEFAULT_DATETIME_PATTERN)))</span><br><span class="line">                .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATETIME_PATTERN)))</span><br><span class="line">                .deserializerByType(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN)))</span><br><span class="line">                .deserializerByType(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_PATTERN)))</span><br><span class="line">                .deserializerByType(Date.class, new DateDeserializers.DateDeserializer(DateDeserializers.DateDeserializer.instance, new SimpleDateFormat(DEFAULT_DATETIME_PATTERN), DEFAULT_DATETIME_PATTERN))</span><br><span class="line">                ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>将前端获取的时间转换为一个符合自定义格式的时间格式存储到数据库@DateTimeFormat</p>
+<blockquote>
+<p>关于@JsonFormat与@DateTimeFormat的用法</p>
+</blockquote>
+<p>@JsonFormat 是jackson提供的，@DateTimeFormat 由spring提供的</p>
+<ul>
+<li>前端 传给 后端。<ul>
+<li>当前端传来的是键值对，用@DateTimeFormat 规定接收的时间格式。</li>
+<li>当前端传来json串，后台用@ReuqestBody接收，用@JsonFormat 规定接收的时间格式。</li>
+</ul>
+</li>
+<li>后端 传给 前端。<ul>
+<li>后端返回给前端的时间值，只能用@JsonFormat 规定返回格式，@DateTimeFormat 无法决定返回值的格式。</li>
+</ul>
+</li>
+</ul>
+<h1 id="数据库相关处理"><a href="#数据库相关处理" class="headerlink" title="数据库相关处理"></a>数据库相关处理</h1><table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>对应Java类（旧）</th>
+<th>对应Java类（新）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DATETIME</td>
+<td>java.util.Date</td>
+<td>LocalDateTime</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>java.sql.Date</td>
+<td>LocalDate</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>java.sql.Time</td>
+<td>LocalTime</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>java.sql.Timestamp</td>
+<td>LocalDateTime</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>DATETIME与TIMESTAMP区别：datetime的存储范围是 1000-01-01 00:00:00.000000 到 9999-12-31 23:59:59.999999，而timestamp的范围是 1970-01-01 00:00:01.000000到 2038-01-19 03:14:07.999999</p>
+</blockquote>
+<blockquote>
+<p>新系统最好使用DATETIME，因为TIMESTAMP存储了不在范围内的时间值时，会直接抛出异常</p>
+</blockquote>
+<blockquote>
+<p>还有一种建议即直接用long表示，在数据库中存储为BIGINT类型, 显示的时候再转换</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Year_2038_problem">2038 年问题</a></p>
+<h2 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h2><p>由于日常开发Mybatis用的比较多，故只讲下Mybatis下的用法，JPA的有兴趣可以自行搜索下</p>
+<p>首先检查下项目中引用的Mybatis版本，当然所有的第三方库配合SpringBoot的话，优先看是否存在xxx-spring-boot-starter或者xxx-starter(珍惜时间，远离加班)</p>
+<p>如果是新项目建议使用最新版本，如目前我使用的是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.spring.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.3&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;此版本引用的mybatis版本是3.5.3</span><br></pre></td></tr></table></figure>
+<p>MyBatis从3.4.5版本开始就完全支持了LocalDateTime, 如果使用的是旧版本请升级下，如果是由于三方库使用的mybatis版本较低，可以排除内嵌的引用，单独引用新版本</p>
+<h1 id="旧系统处理"><a href="#旧系统处理" class="headerlink" title="旧系统处理"></a>旧系统处理</h1><p>当项目无法升级到Java8+环境的，也无需担心，可以使用<strong>Joda-Time</strong>这个库，值得一提的是，Joda-Time的作者Stephen Colebourne和Oracle一起共同参与了java8新的API的设计和实现，用法上基本同Java8一致</p>
+<p>当然Joda-Time也有一些功能(如用来表示一对时间的Interval)是java8还没支持的，所以Stephen Colebourne又提供了一个新的第三方库<strong>Threeten</strong>来弥补Java 8的不足</p>
+<p>Threeten主要提供两种发行包：</p>
+<ul>
+<li>ThreeTen-Backport：对Java 6和Java 7的项目提供Java 8的date-time类的支持</li>
+<li>ThreeTen-Extra：为Java 8的date-time类提供额外的增强功能（比如：Interval等）</li>
+</ul>
+<h1 id="Android项目"><a href="#Android项目" class="headerlink" title="Android项目"></a>Android项目</h1><blockquote>
+<p>Android到棉花糖上运行在Java 7(“Android N”是第一个引入Java 8语言特性的版本)。因此，除非你只针对Android NoGuAT和以上，否则你不能依赖Java 8语言特性</p>
+</blockquote>
+<p>因为Android项目对于内存要求较高，Joda-Time不是最好的选择，ThreeTen-Backport也存在一些性能问题(使用JAR资源加载时区信息)，这个时候Android界的大神<strong>jakewharton</strong>提供了<a target="_blank" rel="noopener" href="https://github.com/JakeWharton/ThreeTenABP">threetenabp</a>, 他的github上也说明了为什么不推荐使用Joda-Time和ThreeTen-Backport</p>
+<p>所以如果你的Android项目需兼容老版本(现在还有需要兼容4.4-的):</p>
+<ul>
+<li>在app/build.gradle中引用threetenabp</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &#39;com.jakewharton.threetenabp:threetenabp:1.2.4&#39;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在Application.onCreate()方法中初始化时区信息：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override public void onCreate() &#123;</span><br><span class="line">  super.onCreate();</span><br><span class="line">  AndroidThreeTen.init(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就可以愉快的使用LocalDateTime等新类了</p>
+<h1 id="Date及Calendar不便之处"><a href="#Date及Calendar不便之处" class="headerlink" title="Date及Calendar不便之处"></a>Date及Calendar不便之处</h1><p>前面说了Java8+的新api，下面我们说一说旧的Date及Calendar的不便之处，以便放弃</p>
+<ul>
+<li>首先就是获取年月日的时候的加减1了</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(date.getYear() + 1900); &#x2F;&#x2F; 必须加上1900</span><br><span class="line">System.out.println(date.getMonth() + 1); &#x2F;&#x2F; 0~11，必须加上1</span><br><span class="line">System.out.println(date.getDate()); &#x2F;&#x2F; 1~31，不能加1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Date不能直接转换时区，并且总是以当前计算机系统的默认时区为基础进行输出(Date对象无时区信息，时区信息存储在SimpleDateFormat中)</p>
+</li>
+<li><p>相比较locaDateTime丰富的时间处理(获取前一天，两个时间差等)，Date需要额外编写DateUtils(网上各种搜索,还不一定正确)</p>
+</li>
+</ul>
+<p>Calendar可以用于获取并设置年、月、日、时、分、秒，多了可以做简单的日期和时间运算的功能，但是:</p>
+<ul>
+<li><p>Calendar只有一种方式获取，即Calendar.getInstance()，而且一获取到就是当前时间。如果我们想给它设置成特定的一个日期和时间，就必须先清除所有字段</p>
+</li>
+<li><p>Calendar获取年月日这些信息变成了get(int field)，返回的年份不必转换，返回的月份仍然要加1，返回的星期要特别注意，1~7分别表示周日，周一，……，周六。</p>
+</li>
+<li><p>最后就是常见的多线程安全的问题了, SimpleDateFormat线程不安全(原因网上自行搜索下)</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/image/wechatpay.png" alt="Jone Sun 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/20201022/java/ddadecb7/" rel="prev" title="java-io">
+      <i class="fa fa-chevron-left"></i> java-io
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/20201027/java/designPatterns/8dc1e828/" rel="next" title="java设计模式-工厂方法模式">
+      java设计模式-工厂方法模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">重要类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E8%80%81%E7%89%88%E6%9C%AC%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.</span> <span class="nav-text">新老版本转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A7API%E8%BD%AC%E6%96%B0API"><span class="nav-number">3.1.</span> <span class="nav-text">旧API转新API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0API%E8%BD%AC%E6%97%A7API"><span class="nav-number">3.2.</span> <span class="nav-text">新API转旧API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E4%B8%AD%E5%A4%84%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">SpringBoot中处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3%E5%A4%84%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">数据库相关处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis"><span class="nav-number">5.1.</span> <span class="nav-text">Mybatis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A7%E7%B3%BB%E7%BB%9F%E5%A4%84%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">旧系统处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android%E9%A1%B9%E7%9B%AE"><span class="nav-number">7.</span> <span class="nav-text">Android项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Date%E5%8F%8ACalendar%E4%B8%8D%E4%BE%BF%E4%B9%8B%E5%A4%84"><span class="nav-number">8.</span> <span class="nav-text">Date及Calendar不便之处</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jone Sun"
+      src="/image/avatar.png">
+  <p class="site-author-name" itemprop="name">Jone Sun</p>
+  <div class="site-description" itemprop="description">心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jonesun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jonesun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sunjoner7@gmail.com" title="E-Mail → mailto:sunjoner7@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fas fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://miqingwang.github.io/" title="https:&#x2F;&#x2F;miqingwang.github.io&#x2F;" rel="noopener" target="_blank">MiQing Blog</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jonesun</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">532k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '5c5b3a4f979f14390a93',
+      clientSecret: '7ca6f94a969f559ded8fd2d04bda3b85fe3071e8',
+      repo        : 'MyBlogGitalk',
+      owner       : 'jonesun',
+      admin       : ['jonesun'],
+      id          : 'cc5c3d80d24899b80b5bed0e080d6e40',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"log":false});</script></body>
+</html>

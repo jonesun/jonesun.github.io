@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/image/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/image/logo.svg" color="#222">
+  <meta name="google-site-verification" content="7MWmpu7Y_liZprzsvd1MxYuG1tRYQ7V1eK9_rLcHmB0">
+  <meta name="baidu-site-verification" content="code-SeFMiHxes9">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jonesun.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Redis介绍 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.    C语言开发的、开源的、基于内存的数据结构存储器，可以用作数据库、缓存和消息中间件   一种 NoSQL（not-only sql，泛指非关系型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot-集成Redis">
+<meta property="og:url" content="https://jonesun.github.io/20200826/java/springboot/b11f77d1/index.html">
+<meta property="og:site_name" content="Jone Sun&#39;s Blog">
+<meta property="og:description" content="Redis介绍 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.    C语言开发的、开源的、基于内存的数据结构存储器，可以用作数据库、缓存和消息中间件   一种 NoSQL（not-only sql，泛指非关系型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jonesun.github.io/20200826/java/springboot/b11f77d1/sentinel-info.png">
+<meta property="article:published_time" content="2020-08-26T07:36:38.000Z">
+<meta property="article:modified_time" content="2021-08-23T02:06:32.900Z">
+<meta property="article:author" content="Jone Sun">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="springboot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jonesun.github.io/20200826/java/springboot/b11f77d1/sentinel-info.png">
+
+<link rel="canonical" href="https://jonesun.github.io/20200826/java/springboot/b11f77d1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SpringBoot-集成Redis | Jone Sun's Blog</title>
+  
+
+
+
+
+
+
+	<span class="site-uv" title="总访客量">
+	  <i class="fa fa-fa fa-user"></i>
+	  <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> people visited our site. |
+	</span>
+  
+
+  
+	<span class="site-pv" title="总访问量">
+	  &nbsp;<i class="fa fa-fa fa-eye"></i>
+	  Total visits <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> times.
+	</span>
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+<a target="_blank" rel="noopener" href="https://github.com/jonesun" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jone Sun's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">用心发现,这个星球很美！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fas fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fas fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fas fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fas fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fas fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20200826/java/springboot/b11f77d1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="Jone Sun">
+      <meta itemprop="description" content="心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jone Sun's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot-集成Redis
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-26 15:36:38" itemprop="dateCreated datePublished" datetime="2020-08-26T15:36:38+08:00">2020-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-23 10:06:32" itemprop="dateModified" datetime="2021-08-23T10:06:32+08:00">2021-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>23k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>21 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Redis介绍"><a href="#Redis介绍" class="headerlink" title="Redis介绍"></a>Redis介绍</h1><blockquote>
+<p>Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.</p>
+</blockquote>
+<blockquote>
+<p> C语言开发的、开源的、基于内存的数据结构存储器，可以用作数据库、缓存和消息中间件</p>
+</blockquote>
+<blockquote>
+<p>一种 NoSQL（not-only sql，泛指非关系型数据库）的数据库，性能优秀，数据在内存中，读写速度非常快，支持并发 10W QPS</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://redis.io/">Redis</a> <a target="_blank" rel="noopener" href="http://www.redis.cn/">中文网站</a> 的应用场景包括：缓存系统（“热点”数据：高频读、低频写）、计数器、消息队列系统、排行榜、社交网络和实时系统。</p>
+<h2 id="为什么要使用redis"><a href="#为什么要使用redis" class="headerlink" title="为什么要使用redis"></a>为什么要使用redis</h2><blockquote>
+<p>性能</p>
+</blockquote>
+<p>由于MySql数据存储在磁盘中，对于一些需要执行耗时非常长的，但结果不会频繁改动的SQL操作(经常是查询，如每日排行榜或者高频业务热数据)，就适合将运行结果放到到redis中。<br>后面的请求优先去redis中获取，加快访问速度、提高性能</p>
+<blockquote>
+<p>并发</p>
+</blockquote>
+<p>mysql支持并发访问的能力有限(当然现在一般会使用一些数据库连接池的来加强并发能力)，当有大量的并发请求，直接访问数据库的话，mysql会挂掉。所以可以使用redis作为缓冲，让请求先访问到redis，而不是直接访问数据库，提高系统的并发能力。</p>
+<blockquote>
+<p>当然redis是基于内存的，存储容量肯定要比磁盘少很多，要存储大量数据，需升级内存，造成在一些不需要高性能的地方是相对比较浪费的，所以建议在需要性能的地方使用redis，在不需要高性能的地方使用mysql。不要一味的什么数据都丢到redis中。</p>
+</blockquote>
+<a id="more"></a>
+
+<p><strong>Redis主要有5种数据类型，包括String、list、Set、ZSet、Hash</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>可以存储的值</th>
+<th>操作</th>
+<th>应用场景</th>
+<th>Java对应</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String</td>
+<td>字符串、整数或者浮点数</td>
+<td>对整个字符串或者字符串的其中一部分执行操作;对整数和浮点数执行自增或者自减操作</td>
+<td>做简单的键值对缓存</td>
+<td>类似Java的String</td>
+</tr>
+<tr>
+<td>List</td>
+<td>列表</td>
+<td>从两端压入或者弹出元素;对单个或者多个元素进行修剪,只保留一个范围内的元素</td>
+<td>存储一些列表型的数据结构，类似粉丝列表、文章的评论列表之类的数据</td>
+<td>类似Java的LinkedList</td>
+</tr>
+<tr>
+<td>Set</td>
+<td>无序集合</td>
+<td>添加、获取、移除单个元素;检查一个元素是否存在于集合中;计算交集、并集、差集;从集合里面随机获取元素</td>
+<td>交集、并集、差集的操作，比如交集，可以把两个人的粉丝列表整一个交集</td>
+<td>类似Java中的HashSet</td>
+</tr>
+<tr>
+<td>ZSet(Sorted sets)</td>
+<td>有序集合</td>
+<td>添加、获取、删除元素;根据分值范围或者成员来获取元素;计算一个键的排名</td>
+<td>去重但可以排序，如获取排名前几名的用户</td>
+<td>类似Java的SortedSet和HashMap的结合体</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>包含键值对的无序散列表</td>
+<td>添加、获取、移除单个键值对;获取所有键值对;检查某个键是否存在</td>
+<td>结构化的数据，比如一个对象</td>
+<td>类似Java的HashMap</td>
+</tr>
+</tbody></table>
+<h1 id="集成方式"><a href="#集成方式" class="headerlink" title="集成方式"></a>集成方式</h1><h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>截至2021年1月，官方也没提供windows版本的下载，如果是为了学习需要，可以到<a target="_blank" rel="noopener" href="https://github.com/MicrosoftArchive/redis/releases">MicrosoftArchive Github</a> 上下载(最后的更新时间为2016年)</p>
+<p>下载后像常用的软件类似：双击redis-server.exe即可启动redis服务器, 可参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xing-nb/p/12146449.html">Redis下载及安装(windows版)</a></p>
+<blockquote>
+<p>此版本对应的是redis的3.2.1版本，而目前redis已经发展到了6.x，故生产环境不建议使用，自己学习就好;<br>当然如果生产环境中的服务器恰好是windows的，小型项目使用也可以(毕竟没那么多并发量)，但还是建议使用下面的docker方式安装，使用较新的稳定版本<br>另外还有一种方案就是到github上下载redis对应版本的源码自己编译(或者找找网络大神的编译好的版本)</p>
+</blockquote>
+<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p>直接输入命令: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install redis-server</span><br></pre></td></tr></table></figure>
+<p>安装完成后，Redis服务器会自动启动。</p>
+<p>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux|grep redis</span><br></pre></td></tr></table></figure>
+<p>可以看到服务器系统进程默认端口6379</p>
+<p>需要手动下载安装包并运行的话，可参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/hzlarm/article/details/99432240">Ubuntu安装Redis及使用</a></p>
+<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>使用docker:</p>
+<p>下载镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis</span><br></pre></td></tr></table></figure>
+
+<p>运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name my-redis -p 6379:6379 -d redis</span><br></pre></td></tr></table></figure>
+
+<p>其他定制配置可参考<a target="_blank" rel="noopener" href="https://hub.docker.com/_/redis/">hub.docker</a></p>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>访问Redis，直接引入spring-boot-starter-data-redis依赖即可(它实际上是Spring Data的一个子项目——<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#preface">Spring Data Redis</a>)</p>
+<p>在pom.xml中加入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- lettuce pool 缓存连接池 如果不需要在yml中自定义pool配置, 则不需要引用--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Springboot2以后，底层访问redis已经不再是jedis了，而是默认lettuce</p>
+</blockquote>
+<ul>
+<li>使用jedis：当多线程使用同一个连接时，是线程不安全的。所以要使用连接池，为每个jedis实例分配一个连接。</li>
+<li>使用Lettuce：当多线程使用同一连接实例时，是线程安全的。是采用netty连接redis server，实例可以在多个线程间共享，不存在线程不安全的情况，这样可以减少线程数量</li>
+</ul>
+<p>所以如果要继续使用jedis的话需要改为:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.lettuce<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lettuce-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>推荐使用lettuce</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>如果使用默认lettuce的话，直接在application.yml配置redis服务连接基本参数即可(spring-boot-starter-xx的好处之一):</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment">## Redis 配置</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="comment">## Redis数据库索引（默认为0）</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">1</span></span><br><span class="line">    <span class="comment">## Redis服务器地址</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">    <span class="comment">## Redis服务器连接端口</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span></span><br><span class="line">    <span class="comment">## Redis服务器连接密码（默认为空）</span></span><br><span class="line">    <span class="attr">password:</span></span><br></pre></td></tr></table></figure>
+
+<p>如果需要配置连接池的参数的话:</p>
+<ul>
+<li>使用lettuce：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lettuce:</span></span><br><span class="line">    <span class="attr">pool:</span></span><br><span class="line">        <span class="comment">## 连接池最大连接数（使用负值表示没有限制） 默认8</span></span><br><span class="line">        <span class="attr">max-active:</span> <span class="number">500</span></span><br><span class="line">        <span class="comment">## 连接池中的最小空闲连接 默认0</span></span><br><span class="line">        <span class="attr">min-idle:</span> <span class="number">0</span></span><br><span class="line">        <span class="comment">## 连接池中的最大空闲连接 默认8</span></span><br><span class="line">        <span class="attr">max-idle:</span> <span class="number">500</span></span><br><span class="line">        <span class="comment">##连接池最大阻塞等待时间（使用负值表示没有限制）</span></span><br><span class="line">        <span class="attr">max-wait:</span> <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用jedis</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jedis:</span></span><br><span class="line">    <span class="attr">pool:</span></span><br><span class="line">        <span class="comment">## 连接池最大连接数（使用负值表示没有限制）</span></span><br><span class="line">        <span class="comment">#spring.redis.pool.max-active=8</span></span><br><span class="line">        <span class="attr">max-active:</span> <span class="number">8</span></span><br><span class="line">        <span class="comment">## 连接池最大阻塞等待时间（使用负值表示没有限制）</span></span><br><span class="line">        <span class="comment">#spring.redis.pool.max-wait=-1</span></span><br><span class="line">        <span class="attr">max-wait:</span> <span class="number">-1</span></span><br><span class="line">        <span class="comment">## 连接池中的最大空闲连接</span></span><br><span class="line">        <span class="comment">#spring.redis.pool.max-idle=8</span></span><br><span class="line">        <span class="attr">max-idle:</span> <span class="number">8</span></span><br><span class="line">        <span class="comment">## 连接池中的最小空闲连接</span></span><br><span class="line">        <span class="comment">#spring.redis.pool.min-idle=0</span></span><br><span class="line">        <span class="attr">min-idle:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="编写公共配置"><a href="#编写公共配置" class="headerlink" title="编写公共配置"></a>编写公共配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="meta">@Configuration(&quot;cache&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RedisConnectionFactory redisConnectionFactory;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title">objectRedisTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> configRedisTemplate(Object.class, redisConnectionFactory);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 可以根据自己实际项目需要，定制多个CacheManager，注解的地方可以指定使用哪个CacheManager</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> objectRedisTemplate</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CacheManager <span class="title">cacheManager</span><span class="params">(RedisTemplate&lt;String, Object&gt; objectRedisTemplate)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//如果支持使用objectRedisTemplate，没有用注解或者cacheManager方式的话，则此配置不生效，即key相关的规则，需使用者自己定义</span></span><br><span class="line">        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration</span><br><span class="line">                .defaultCacheConfig()</span><br><span class="line"><span class="comment">//                .entryTtl(Duration.ofDays(1))</span></span><br><span class="line">                .disableCachingNullValues()</span><br><span class="line">                .computePrefixWith(cacheName -&gt; <span class="string">&quot;spring-redis&quot;</span>.concat(<span class="string">&quot;:&quot;</span>).concat(cacheName).concat(<span class="string">&quot;:&quot;</span>))</span><br><span class="line">                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(objectRedisTemplate.getStringSerializer()))</span><br><span class="line">                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(objectRedisTemplate.getValueSerializer()));</span><br><span class="line"></span><br><span class="line">        Set&lt;String&gt; cacheNames = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        cacheNames.add(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 对每个缓存空间应用不同的配置</span></span><br><span class="line">        Map&lt;String, RedisCacheConfiguration&gt; configMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        configMap.put(<span class="string">&quot;user&quot;</span>, cacheConfiguration.entryTtl(Duration.ofSeconds(<span class="number">120</span>)));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> RedisCacheManager.builder(Objects.requireNonNull(objectRedisTemplate.getConnectionFactory()))</span><br><span class="line">                .cacheDefaults(cacheConfiguration)</span><br><span class="line">                .initialCacheNames(cacheNames)</span><br><span class="line">                .withInitialCacheConfigurations(configMap)</span><br><span class="line">                <span class="comment">//在spring事务正常提交时才缓存数据</span></span><br><span class="line">                .transactionAware()</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> &lt;T&gt; <span class="function">RedisTemplate&lt;String, T&gt; <span class="title">configRedisTemplate</span><span class="params">(Class&lt;T&gt; clazz, RedisConnectionFactory redisConnectionFactory)</span> </span>&#123;</span><br><span class="line">        RedisTemplate&lt;String, T&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line">        redisTemplate.setConnectionFactory(redisConnectionFactory);</span><br><span class="line"></span><br><span class="line">        Jackson2JsonRedisSerializer&lt;T&gt; j2jrs = <span class="keyword">new</span> Jackson2JsonRedisSerializer&lt;&gt;(clazz);</span><br><span class="line">        ObjectMapper om = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        <span class="comment">// 指定要序列化的域，field,get和set,以及修饰符范围，ANY是都有包括private和public</span></span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        <span class="comment">// 解决jackson2无法反序列化LocalDateTime的问题</span></span><br><span class="line">        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);</span><br><span class="line">        om.registerModule(<span class="keyword">new</span> JavaTimeModule());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 指定序列化输入的类型，类必须是非final修饰的，final修饰的类，比如String,Integer等会跑出异常</span></span><br><span class="line"><span class="comment">//        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);</span></span><br><span class="line">        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,</span><br><span class="line">                ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);</span><br><span class="line">        j2jrs.setObjectMapper(om);</span><br><span class="line"></span><br><span class="line">        redisTemplate.setKeySerializer(RedisSerializer.string());</span><br><span class="line">        redisTemplate.setHashKeySerializer(RedisSerializer.string());</span><br><span class="line">        redisTemplate.setValueSerializer(j2jrs);</span><br><span class="line">        redisTemplate.setHashValueSerializer(j2jrs);</span><br><span class="line">        redisTemplate.afterPropertiesSet();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="service中使用"><a href="#service中使用" class="headerlink" title="service中使用"></a>service中使用</h3><blockquote>
+<p>注意推荐使用SpringCache中的注解和类，这样就算后期不使用redis，改用mongodb或者其他缓存中间件时，业务代码都不需要变更，这里体现了Java中的门面模式(外观模式)</p>
+</blockquote>
+<h4 id="使用-CacheConfig相关注解"><a href="#使用-CacheConfig相关注解" class="headerlink" title="使用@CacheConfig相关注解"></a>使用@CacheConfig相关注解</h4><p><strong>项目中一定要加上@EnableCaching</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;cacheAnnotationUserService&quot;)</span></span><br><span class="line"><span class="meta">@CacheConfig(cacheNames = &quot;user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheAnnotationUserService</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Cacheable[] cacheable() default &#123;&#125;; //声明多个<span class="doctag">@Cacheable</span></span></span><br><span class="line"><span class="comment">     * CachePut[] put() default &#123;&#125;;        //声明多个<span class="doctag">@CachePut</span></span></span><br><span class="line"><span class="comment">     * CacheEvict[] evict() default &#123;&#125;;    //声明多个<span class="doctag">@CacheEvict</span></span></span><br><span class="line"><span class="comment">     * 插入用户</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Caching(put = &#123;@CachePut(key = &quot;#user.id&quot;)&#125;)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">saveUser</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;插入用户: &#123;&#125;&quot;</span>, user.getUsername());</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * --<span class="doctag">@Cacheable</span>注解会先查询是否已经有缓存，有会使用缓存，没有则会执行方法并缓存</span></span><br><span class="line"><span class="comment">     * 命名空间:<span class="doctag">@Cacheable</span>的value会替换<span class="doctag">@CacheConfig</span>的cacheNames(两者必须有一个)</span></span><br><span class="line"><span class="comment">     * --key是[命名空间]::[<span class="doctag">@Cacheable</span>的key或者KeyGenerator生成的key](<span class="doctag">@Cacheable</span>的key优先级高,KeyGenerator不配置走默认KeyGenerator SimpleKey [])</span></span><br><span class="line"><span class="comment">     * 使用 sync = true保证只有一个线程访问数据库，避免缓存击穿 ，注意sync = true不能与unless=&quot;#result == null&quot;一起使用</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Cacheable(key = &quot;#userId&quot;, sync = true)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUser</span><span class="params">(Long userId)</span> </span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;查找用户: &#123;&#125;&quot;</span>, userId);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * --<span class="doctag">@CachePut</span>注解的作用 主要针对方法配置，能够根据方法的请求参数对其结果进行缓存，</span></span><br><span class="line"><span class="comment">     * 和 <span class="doctag">@Cacheable</span> 不同的是，它每次都会触发真实方法的调用</span></span><br><span class="line"><span class="comment">     * 简单来说就是用户更新缓存数据。但需要注意的是该注解的value 和 key 必须与要更新的缓存相同，也就是与<span class="doctag">@Cacheable</span> 相同</span></span><br><span class="line"><span class="comment">     * 默认先执行数据库更新再执行缓存更新</span></span><br><span class="line"><span class="comment">     * 注意返回值必须是要修改后的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@CachePut(key = &quot;#user.id&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">updateUser</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;更新用户：&#123;&#125;&quot;</span>, user.getId());</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@CacheEvict(key = &quot;#userId&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">deleteById</span><span class="params">(Long userId)</span> </span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;删除用户：&#123;&#125;&quot;</span>, userId);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * --<span class="doctag">@CachEvict</span> 的作用 主要针对方法配置，能够根据一定的条件对缓存进行清空</span></span><br><span class="line"><span class="comment">     * 触发缓存清除</span></span><br><span class="line"><span class="comment">     * 默认先执行数据库删除再执行缓存删除</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@CacheEvict(allEntries = true)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;清除所有&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用CacheManager"><a href="#使用CacheManager" class="headerlink" title="使用CacheManager"></a>使用CacheManager</h4><p>注解方式适合逻辑不是很复杂的情况，当业务逻辑需要更加灵活的控制缓存处理时，可使用CacheManager来管理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;cacheManagerUserService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheManagerUserService</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CacheManager cacheManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">saveUser</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        getUserCache().put(user.getId(), user);</span><br><span class="line">        logger.info(<span class="string">&quot;保存用户: &#123;&#125;&quot;</span>, user);</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUser</span><span class="params">(Long userId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getUserCache().get(userId, User.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">updateUser</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        getUserCache().put(user.getId(), user);</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">deleteById</span><span class="params">(Long userId)</span> </span>&#123;</span><br><span class="line">        getUserCache().evict(userId);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        getUserCache().clear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Cache <span class="title">getUserCache</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cacheManager.getCache(<span class="string">&quot;user&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="通过-RedisHash注解存储实体到redis"><a href="#通过-RedisHash注解存储实体到redis" class="headerlink" title="通过@RedisHash注解存储实体到redis"></a>通过@RedisHash注解存储实体到redis</h4><p>参考<a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-data-redis-tutorial">Introduction to Spring Data Redis</a> 可以像其他数据库一样继承CrudRepository来操作对象</p>
+<p>如果需要将某个属性标识为唯一id，添加@Id注解即可</p>
+<p>如果需要在redis存储中拥有生命周期，添加@TimeToLive注解；以秒为单位，可根据需要设置其失效时间: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RedisHash(&quot;Student&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Gender gender;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> grade;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 以秒为单位，失效时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@TimeToLive</span></span><br><span class="line">    <span class="keyword">private</span> Long time;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> Gender &#123;</span><br><span class="line">        MALE, FEMALE</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//.......</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然如果对一个类想要整体设置过期时间，可以使用@RedisHash(value = “Student”, timeToLive = 20L)</p>
+<h4 id="直接使用RedisTemplate"><a href="#直接使用RedisTemplate" class="headerlink" title="直接使用RedisTemplate"></a>直接使用RedisTemplate</h4><p>当然如果直接使用RedisTemplate也是可以的，不过需要注意的是一旦直接使用了RedisTemplate，则cacheManager相关的配置将不会生效，包含CachingConfigurerSupport相关的也不会生效，如发生异常时将不会回调CacheErrorHandler</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;redisTemplateUserService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisTemplateUserService</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String PREFIX_CACHE_REDIS_KEY_USER = <span class="string">&quot;spring-redis:user:&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RedisTemplate&lt;String, User&gt; userRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">saveUser</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        userRedisTemplate.opsForValue().set(getRealKeyById(user.getId()), user);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUser</span><span class="params">(Long userId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userRedisTemplate.opsForValue().get(getRealKeyById(userId));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">updateUser</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        userRedisTemplate.opsForValue().set(getRealKeyById(user.getId()), user);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">deleteById</span><span class="params">(Long userId)</span> </span>&#123;</span><br><span class="line">        Boolean result = userRedisTemplate.delete(getRealKeyById(userId));</span><br><span class="line">        logger.info(<span class="string">&quot;删除结果: &#123;&#125;&quot;</span>, result);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Set&lt;String&gt; keys = userRedisTemplate.keys(PREFIX_CACHE_REDIS_KEY_USER + <span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (keys != <span class="keyword">null</span>) &#123;</span><br><span class="line">            userRedisTemplate.delete(keys);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取真实key</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getRealKeyById</span><span class="params">(Long userId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> PREFIX_CACHE_REDIS_KEY_USER + userId;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>key需要自己定义前缀，当然之间使用RedisTemplate可以直接控制更加底层的api</p>
+</blockquote>
+<h2 id="分布式锁实现"><a href="#分布式锁实现" class="headerlink" title="分布式锁实现"></a>分布式锁实现</h2><p>单机情况下使用jvm提供的锁机制即可</p>
+<ul>
+<li>方式一: 直接在方法上加上synchronized(或者在关键代码上使用)，缺点购买多个商品时效率会较低(当然因为java8对于synchronized做了很多优化，效率也不会有多差相较于lock)</li>
+<li>方式二: 使用lock, 缺点如果逻辑上出现异常(未捕获的)导致锁未及时释放的话，会导致后面的请求都会由于获取不到锁而失败，一个商品抢购还好，如果好多商品，会因为某一个异常导致所有商品都失败</li>
+<li>方式三(推荐)：使用ConcurrentHashMap，一个商品一个锁(或者一段数量一个锁)，这样可以在某个商品秒杀出现异常时，不影响其他商品</li>
+</ul>
+<blockquote>
+<p>如果是单机环境的话，使用ConcurrentHashMap是不错的选择，不过如果是集群情况下(部署到多个服务器上)，使用jvm的锁机制就满足不了需求了</p>
+</blockquote>
+<h3 id="使用redis实现"><a href="#使用redis实现" class="headerlink" title="使用redis实现"></a>使用redis实现</h3><p>可参考<a target="_blank" rel="noopener" href="https://developer.ibm.com/zh/articles/j-spring-boot-aop-web-log-processing-and-distributed-locking/">使用 Spring Boot AOP 实现 Web 日志处理和分布式锁</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisLockUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getLock</span><span class="params">(String key, <span class="keyword">long</span> timeout, TimeUnit timeUnit)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String value = UUID.randomUUID().toString();</span><br><span class="line">            Boolean lockStat = redisTemplate.execute((RedisCallback&lt; Boolean&gt;) connection -&gt;</span><br><span class="line">                    connection.set(key.getBytes(StandardCharsets.UTF_8), value.getBytes(StandardCharsets.UTF_8),</span><br><span class="line">                            Expiration.from(timeout, timeUnit), RedisStringCommands.SetOption.SET_IF_ABSENT));</span><br><span class="line">            <span class="keyword">if</span> (!lockStat) &#123;</span><br><span class="line">                <span class="comment">// 获取锁失败。</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> value;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(<span class="string">&quot;获取分布式锁失败，key=&#123;&#125;&quot;</span>, key, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unLock</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String script = <span class="string">&quot;if redis.call(&#x27;get&#x27;, KEYS[1]) == ARGV[1] then return redis.call(&#x27;del&#x27;, KEYS[1]) else return 0 end&quot;</span>;</span><br><span class="line">            <span class="keyword">boolean</span> unLockStat = redisTemplate.execute((RedisCallback&lt; Boolean&gt;)connection -&gt;</span><br><span class="line">                    connection.eval(script.getBytes(), ReturnType.BOOLEAN, <span class="number">1</span>,</span><br><span class="line">                            key.getBytes(StandardCharsets.UTF_8), value.getBytes(StandardCharsets.UTF_8)));</span><br><span class="line">            <span class="keyword">if</span> (!unLockStat) &#123;</span><br><span class="line">                logger.error(<span class="string">&quot;释放分布式锁失败，key=&#123;&#125;，已自动超时，其他线程可能已经重新获取锁&quot;</span>, key);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(<span class="string">&quot;释放分布式锁失败，key=&#123;&#125;&quot;</span>, key, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用redisson"><a href="#使用redisson" class="headerlink" title="使用redisson"></a>使用redisson</h3><p>使用redis做分布式锁时容易发生死锁等未知情况，实际项目还是推荐使用<a target="_blank" rel="noopener" href="https://redisson.pro/">redisson</a> 来实现 分布式分段锁</p>
+<p>pom.xml中引入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.redisson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>redisson-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.14.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.redisson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>redisson-spring-data-23<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.redisson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>redisson-spring-data-24<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.14.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>redisson-spring-data-24, 取决于项目中使用的SpringBoot版本，因为我使用了SpringBoot 2.4.2，故引用24，而redisson-spring-boot-starter的3.14.0版本默认引用的是23，故需排除</p>
+</blockquote>
+<p>resource下新建redisson-single.yml(单机版):</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ngleServerConfig:</span></span><br><span class="line">  <span class="comment"># 连接空闲超时，单位：毫秒</span></span><br><span class="line">  <span class="attr">idleConnectionTimeout:</span> <span class="number">10000</span></span><br><span class="line">  <span class="comment"># 连接超时，单位：毫秒</span></span><br><span class="line">  <span class="attr">connectTimeout:</span> <span class="number">10000</span></span><br><span class="line">  <span class="comment"># 命令等待超时，单位：毫秒</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="number">3000</span></span><br><span class="line">  <span class="comment"># 命令失败重试次数,如果尝试达到 retryAttempts（命令失败重试次数） 仍然不能将命令发送至某个指定的节点时，将抛出错误。</span></span><br><span class="line">  <span class="comment"># 如果尝试在此限制之内发送成功，则开始启用 timeout（命令等待超时） 计时。</span></span><br><span class="line">  <span class="attr">retryAttempts:</span> <span class="number">3</span></span><br><span class="line">  <span class="comment"># 命令重试发送时间间隔，单位：毫秒</span></span><br><span class="line">  <span class="attr">retryInterval:</span> <span class="number">1500</span></span><br><span class="line">  <span class="comment">#  # 重新连接时间间隔，单位：毫秒</span></span><br><span class="line">  <span class="comment">#  reconnectionTimeout: 3000</span></span><br><span class="line">  <span class="comment">#  # 执行失败最大次数</span></span><br><span class="line">  <span class="comment">#  failedAttempts: 3</span></span><br><span class="line">  <span class="comment"># 密码</span></span><br><span class="line">  <span class="attr">password:</span></span><br><span class="line">  <span class="comment"># 单个连接最大订阅数量</span></span><br><span class="line">  <span class="attr">subscriptionsPerConnection:</span> <span class="number">5</span></span><br><span class="line">  <span class="comment"># 客户端名称</span></span><br><span class="line">  <span class="attr">clientName:</span> <span class="literal">null</span></span><br><span class="line">  <span class="comment">#  # 节点地址</span></span><br><span class="line">  <span class="attr">address:</span> <span class="string">&quot;redis://127.0.0.1:6379&quot;</span></span><br><span class="line">  <span class="comment"># 发布和订阅连接的最小空闲连接数</span></span><br><span class="line">  <span class="attr">subscriptionConnectionMinimumIdleSize:</span> <span class="number">1</span></span><br><span class="line">  <span class="comment"># 发布和订阅连接池大小</span></span><br><span class="line">  <span class="attr">subscriptionConnectionPoolSize:</span> <span class="number">50</span></span><br><span class="line">  <span class="comment"># 最小空闲连接数</span></span><br><span class="line">  <span class="attr">connectionMinimumIdleSize:</span> <span class="number">32</span></span><br><span class="line">  <span class="comment"># 连接池大小</span></span><br><span class="line">  <span class="attr">connectionPoolSize:</span> <span class="number">64</span></span><br><span class="line">  <span class="comment"># 数据库编号</span></span><br><span class="line">  <span class="attr">database:</span> <span class="number">2</span></span><br><span class="line">  <span class="comment"># DNS监测时间间隔，单位：毫秒</span></span><br><span class="line">  <span class="attr">dnsMonitoringInterval:</span> <span class="number">5000</span></span><br><span class="line"><span class="comment"># 线程池数量,默认值: 当前处理核数量 * 2</span></span><br><span class="line"><span class="attr">threads:</span> <span class="number">0</span></span><br><span class="line"><span class="comment"># Netty线程池数量,默认值: 当前处理核数量 * 2</span></span><br><span class="line"><span class="attr">nettyThreads:</span> <span class="number">0</span></span><br><span class="line"><span class="comment"># 编码</span></span><br><span class="line"><span class="attr">codec:</span> <span class="type">!&lt;org.redisson.codec.JsonJacksonCodec&gt;</span> &#123;&#125;</span><br><span class="line"><span class="comment"># 传输模式</span></span><br><span class="line"><span class="attr">transportMode :</span> <span class="string">&quot;NIO&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在application.yml中加入:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment">## Redis 配置</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># redisson相关配置, 会导致redis原有配置失效，使用时需注意</span></span><br><span class="line">    <span class="attr">redisson:</span></span><br><span class="line">      <span class="attr">file:</span> <span class="string">&quot;classpath:redisson-single.yml&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这样的好处在于，不想引用redisson的话，只要去除pom中的引用并去除spring.redis.redisson配置即可</p>
+</blockquote>
+<p>即可使用RedissonClient获取分布式锁:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired(required = false)</span></span><br><span class="line">    <span class="keyword">private</span> RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">buyWithRedissonLock</span><span class="params">(Long productId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(redissonClient == <span class="keyword">null</span>) &#123;</span><br><span class="line">            logger.error(<span class="string">&quot;未配置RedissonClient&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String key = <span class="string">&quot;xxx_lock_&quot;</span> + productId;</span><br><span class="line">        RLock lock = redissonClient.getLock(key);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(lock.tryLock(<span class="number">2</span>, TimeUnit.SECONDS)) &#123;</span><br><span class="line">                <span class="keyword">return</span> normalBuy(productId);</span><br><span class="line">            &#125;</span><br><span class="line">            logger.error(<span class="string">&quot;获取不到锁&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            logger.error(<span class="string">&quot;获取锁异常&quot;</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>再进阶的话就可以再封装一层读写锁</p>
+</blockquote>
+<blockquote>
+<p>另外redis和redisson也支持发布和订阅的功能convertAndSend，有兴趣可以了解下</p>
+</blockquote>
+<h1 id="注意要点"><a href="#注意要点" class="headerlink" title="注意要点"></a>注意要点</h1><p>缓存的处理策略一般是：前台请求，后台先从缓存中取数据，取到直接返回结果，取不到时从数据库中取，数据库取到更新缓存，并返回结果，数据库也没取到，那直接返回空结果。所以可能就会存在以下问题:</p>
+<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>缓存穿透是指缓存和数据库中都没有的数据，而用户不断发起请求，如发起为id为“-1”的数据或id为特别大不存在的数据。这时的用户很可能是攻击者，攻击会导致数据库压力过大</p>
+<p><strong>如何解决？</strong></p>
+<ul>
+<li>接口层增加校验，如用户鉴权校验，id做基础校验，id&lt;=0的直接拦截</li>
+<li>从缓存取不到的数据，在数据库中也没有取到，这时也可以将key-value对写为key-null，缓存有效时间可以设置短点，如30秒（设置太长会导致正常情况也没法使用）。这样可以防止攻击用户反复用同一个id暴力攻击</li>
+<li>加一层布隆过滤器</li>
+</ul>
+<blockquote>
+<p>当然一般情况下，在接口层增加校验即可，真正业务发展大了，存在攻击了，所采取的策略不会这么简单</p>
+</blockquote>
+<h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p>缓存击穿是指缓存中没有但数据库中有的数据(一般是缓存时间到期)，这时由于并发用户特别多，同时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力</p>
+<p><strong>如何解决？</strong></p>
+<ul>
+<li>加锁</li>
+<li>将过期时间组合写在value中，通过异步的方式不断的刷新过期时间，防止此类现象</li>
+<li>设置热点数据永远不过期</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用lock解决缓存击穿问题(粗颗粒度锁)</span><br><span class="line">private Lock lock &#x3D; new ReentrantLock();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用ConcurrentHashMap解决缓存击穿问题(细颗粒度锁-推荐)</span><br><span class="line">private ConcurrentHashMap&lt;String, Lock&gt; lockConcurrentHashMap &#x3D; new ConcurrentHashMap&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>缓存雪崩是指缓存中数据大批量到过期时间，而查询数据量巨大，引起数据库压力过大甚至down机。和缓存击穿不同的是，缓存击穿指并发查同一条数据，缓存雪崩是不同数据都过期了，很多数据都查不到从而查数据库</p>
+<p><strong>如何解决？</strong></p>
+<ul>
+<li>针对不同key设置不同的过期时间，过期时间设置随机，防止同一时间大量数据过期现象发生。</li>
+<li>限流，如果redis宕机，可以限流，避免同时刻大量请求打崩DB</li>
+<li>如果缓存数据库是<strong>分布式部署</strong>，将热点数据均匀分布在不同搞得缓存数据库中。</li>
+<li>加入二级缓存，提前加载热key数据到内存中，如果redis宕机，走内存查询</li>
+<li>设置热点数据永远不过期</li>
+</ul>
+<h1 id="进阶-Redis部署模式"><a href="#进阶-Redis部署模式" class="headerlink" title="进阶: Redis部署模式"></a>进阶: Redis部署模式</h1><h2 id="standalone-单机-模式"><a href="#standalone-单机-模式" class="headerlink" title="standalone(单机)模式"></a>standalone(单机)模式</h2><p>部署在一台服务器中，并发需求不太高时</p>
+<h2 id="master-slaver-主从复制-模式"><a href="#master-slaver-主从复制-模式" class="headerlink" title="master/slaver(主从复制)模式"></a>master/slaver(主从复制)模式</h2><p>部署在多台服务器中，一个主节点，多个从节点</p>
+<p><strong>优点</strong></p>
+<ul>
+<li><p>数据备份: 当一个节点损坏（指不可恢复的硬件损坏）时，数据因为有备份，可以方便恢复</p>
+</li>
+<li><p>负载均衡：所有客户端都访问一个节点肯定会影响Redis工作效率，有了主从以后，可做读写分离，查询操作就可以通过查询从节点来完成</p>
+</li>
+</ul>
+<p><strong>缺点</strong></p>
+<p>master节点挂了以后，redis就不能对外提供写服务了，因为剩下的slave不能成为master</p>
+<h3 id="搭建方式"><a href="#搭建方式" class="headerlink" title="搭建方式"></a>搭建方式</h3><p>这里就演示windows docker desktop下的搭建方式, 以下命令都用cmd或者powerShell</p>
+<ol>
+<li><p>拉取最新redis镜像 <code>docker pull redis</code></p>
+</li>
+<li><p>从官方下载最新的redis, 找到redis.conf文件，拷贝到本地某个文件夹下，如：D:\env\docker\redis\config\redis.conf</p>
+</li>
+<li><p>配置并运行主服务器</p>
+</li>
+</ol>
+<p>redis.conf中找到下面的配置并修改:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># bind 127.0.0.1</span><br><span class="line">requirepass 123456 #给redis设置密码</span><br><span class="line">appendonly yes #redis持久化　　默认是no</span><br><span class="line"></span><br><span class="line">dir &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis-master&#x2F;data&#x2F; #db等相关目录位置(根据自己需要配置)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>bind配置可以修改为bind 0.0.0.0, 或者指定ip, 或者直接注释掉(这里我们选择直接注释掉，允许所有来自于可用网络接口的连接)，appendonly开启后，Redis会把每次写入的数据在接收后都写入appendonly.aof文件，每次启动时Redis都会先把这个文件的数据读入内存里</p>
+</blockquote>
+<p>实际项目中可能还需要记录日志，可配置logfile并映射本地文件即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name redis -p 6379:6379 -v /d/env/docker/redis/conf/redis.conf:/usr/local/etc/redis/redis-master/redis.conf -v /d/env/docker/redis/data/:/usr/local/etc/redis/redis-master/data/ -d redis redis-server /usr/local/etc/redis/redis-master/redis.conf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>#docker run -p &lt;容器端口&gt;:&lt;主机端口&gt; –name &lt;容器名&gt; -v &lt;本地配置文件映射容器配置文件&gt; -v &lt;本地文件夹挂载到容器文件夹&gt; -d(表示以守护进程方式启动容器) &lt;启动redis服务并制定配置文件(容器中的路径)&gt;</p>
+</blockquote>
+<ol start="4">
+<li><p>使用Redis Desktop Manager测试是否连接成功</p>
+</li>
+<li><p>配置从服务器1，拷贝新的redis.conf并重命名为redis-slave-1.conf，找到下面的配置并编辑:</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">port 6380</span><br><span class="line"># bind 127.0.0.1</span><br><span class="line">requirepass 123456 #给redis设置密码</span><br><span class="line">appendonly yes #redis持久化　　默认是no</span><br><span class="line"></span><br><span class="line">masterauth 123456 #主服务器密码</span><br><span class="line"># replicaof &lt;master ip&gt; &lt;master port&gt;</span><br><span class="line">replicaof 192.168.31.13 6379 #Redis主机(Master)IP 端口</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>replicaof为主服务器的ip+端口(在redis5.x的主从配置中，从机配置要配置 replicaof 参数。而早期版本，要配置的是slaveof参数)，如果主服务器设置了密码则需配置masterauth</p>
+</blockquote>
+<ol start="6">
+<li>运行从服务器1</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name redis-slave-1 -p 6380:6380 -v /d/env/docker/redis/conf/redis-slave-1.conf:/usr/local/etc/redis/redis-slave-1/redis.conf -d redis redis-server /usr/local/etc/redis/redis-slave-1/redis.conf</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>按照类似步骤配置并运行从服务器2</li>
+</ol>
+<p>为了方便，直接拷贝redis-slave-1.conf并修改port即可</p>
+<p>redis-slave-2.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">port 6381</span><br></pre></td></tr></table></figure>
+
+<p>运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name redis-slave-2 -p 6381:6381 -v /d/env/docker/redis/conf/redis-slave-2.conf:/usr/local/etc/redis/redis-slave-2/redis.conf -d redis redis-server /usr/local/etc/redis/redis-slave-2/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p>以上便可以搭建1主2从的master/slaver(主从复制)模式, 通过向主服务器写入数据，两个从服务器即会自动同步数据</p>
+<blockquote>
+<p>如果是本机dockers，可以在每个redis-xx.conf中修改,以便显示声明物理机的ip与port，如redis-slave-1.conf</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">replica-announce-ip 192.168.31.13 # 这里写自己的ip地址</span><br><span class="line">replica-announce-port 6380 # 这里写绑定的redis服务端口</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="sentinel-哨兵-模式"><a href="#sentinel-哨兵-模式" class="headerlink" title="sentinel(哨兵)模式"></a>sentinel(哨兵)模式</h2><p>Sentinel 其实是运行在特殊模式下的 redis server, 部署在多台服务器中, 心跳机制+投票裁决，是建立在主从模式的基础上，这也是目前的<strong>主流方案</strong>, 可参考<a target="_blank" rel="noopener" href="https://redis.io/topics/sentinel">官方文章-Redis Sentinel文档</a></p>
+<p><strong>优点</strong></p>
+<p>有效解决主从模式主库异常手动主从切换的问题</p>
+<p><strong>缺点</strong></p>
+<p>当数据量过大到一台服务器存放不下的情况时，主从模式或sentinel模式就不能满足需求了，这个时候需要对存储的数据进行分片，将数据存储到多个Redis实例中</p>
+<h3 id="搭建方式-1"><a href="#搭建方式-1" class="headerlink" title="搭建方式"></a>搭建方式</h3><p>先搭建1个主服务器和两个从服务器，搭建方式同上面的master/slaver(主从复制)模式，我们还是通过windows docker desktop的方式</p>
+<blockquote>
+<p>由于 Sentinel 启动，故障切换，日志文件创建 等情况均需要修改配置文件，因此一定要给文件读写权限，因此启动前先 chmod 777 -R /data/redis/ 给所有文件夹配置好权限</p>
+</blockquote>
+<p>下面再搭建1个哨兵</p>
+<ol>
+<li>哨兵1</li>
+</ol>
+<p>从官方下载最新的redis, 找到sentinel.conf文件(windows版的是没有这个文件的，需要自己新建或者官网下载linux版本)，拷贝到本地某个文件夹下，如：D:\env\docker\redis\config\sentinel-1.conf</p>
+<p>编辑文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 禁止保护模式</span><br><span class="line">protected-mode no</span><br><span class="line"># 配置监听的主服务器，这里sentinel monitor代表监控，mymaster代表服务器的名称，可以自定义，192.168.11.128代表监控的主服务器，6379代表端口，2代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。</span><br><span class="line">sentinel monitor mymaster 192.168.11.128 6379 1</span><br><span class="line"># sentinel author-pass定义服务的密码，mymaster是服务名称，123456是Redis服务器密码</span><br><span class="line"># sentinel auth-pass &lt;master-name&gt; &lt;password&gt;</span><br><span class="line">sentinel auth-pass mymaster 123456</span><br><span class="line">logfile &quot;.&#x2F;sentinel_log.log&quot;</span><br></pre></td></tr></table></figure>
+
+<p>运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name sentinel-1 -p 26379:26379 -v  /d/env/docker/redis/conf/sentinel-1.conf:/usr/local/etc/redis/sentinel-1.conf -d redis redis-sentinel /usr/local/etc/redis/sentinel-1.conf</span><br></pre></td></tr></table></figure>
+
+
+
+<p>实际环境中对于哨兵也会有多个，一个哨兵进程对Redis服务器进行监控，可能会出现问题，为此，需要使用多个哨兵进行监控。各个哨兵之间还会进行监控，这样就形成了多哨兵模式</p>
+<p>需先修改sentinel-1.conf中的sentinel monitor</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 配置监听的主服务器，这里sentinel monitor代表监控，mymaster代表服务器的名称，可以自定义，192.168.11.128代表监控的主服务器，6379代表端口，2代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。</span><br><span class="line">sentinel monitor mymaster 192.168.11.128 6379 2</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>哨兵2<br>he<br>拷贝一份sentinel-1.conf, 重命名为sentinel-2.conf，修改端口号即可</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">port 26380</span><br></pre></td></tr></table></figure>
+
+<p>运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name sentinel-2 -p 26380:26380 -v  /d/env/docker/redis/conf/sentinel-2.conf:/usr/local/etc/redis/sentinel-2.conf -d redis redis-sentinel /usr/local/etc/redis/sentinel-2.conf</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>哨兵3</li>
+</ol>
+<p>同样拷贝一份sentinel-1.conf, 重命名为sentinel-3.conf，修改端口号即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">port 26381</span><br></pre></td></tr></table></figure>
+
+<p>运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name sentinel-3 -p 26381:26381 -v  /d/env/docker/redis/conf/sentinel-3.conf:/usr/local/etc/redis/sentinel-3.conf -d redis redis-sentinel /usr/local/etc/redis/sentinel-3.conf</span><br></pre></td></tr></table></figure>
+
+<p>如果指定了新的dir, 如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Sentinel服务运行时使用的临时文件夹</span><br><span class="line">dir &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis</span><br></pre></td></tr></table></figure>
+<p>则</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name sentinel-3 -p 26384:26384  -v  /d/env/docker/redis/conf/sentinel-3.conf:/usr/local/etc/redis-sentinel/sentinel.conf  -v  /d/tmp:/usr/local/etc/redis -d redis redis-sentinel /usr/local/etc/redis-sentinel/sentinel.conf</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>注意启动的顺序: 首先是主机的Redis服务进程，然后启动从机的服务进程，最后启动3个哨兵的服务进程</p>
+</blockquote>
+<p>测试</p>
+<p>使用redis-cli –p 26379查看信息</p>
+<p><img src="sentinel-info.png" alt="sentinel-info"></p>
+<p>关闭主服务器，等待30秒， 可以看到已经切换到某个从服务器中了</p>
+<blockquote>
+<blockquote>
+<p>如果是本机dockers，可以在每个sentinel-xx.conf中修改,以便显示声明物理机的ip与port，如sentinel-1.conf</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sentinel announce-ip &lt;ip&gt; # 这里写自己的ip地址</span><br><span class="line">sentinel announce-port &lt;port&gt; # 这里写绑定的redis-sentinel服务端口</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Springboot-整合哨兵模式"><a href="#Springboot-整合哨兵模式" class="headerlink" title="Springboot 整合哨兵模式"></a>Springboot 整合哨兵模式</h3><p>application.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">12345</span></span><br><span class="line">    <span class="attr">sentinel:</span></span><br><span class="line">      <span class="attr">master:</span> <span class="string">mymaster</span> <span class="comment">## master 名称</span></span><br><span class="line">      <span class="comment">## 哨兵节点的 ip和端口好，哨兵会托管主从的架构</span></span><br><span class="line">      <span class="attr">nodes:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:26379</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="cluster-集群-模式"><a href="#cluster-集群-模式" class="headerlink" title="cluster(集群)模式"></a>cluster(集群)模式</h2><p>部署在多台服务器中,3.0版本开始正式引入，cluster的出现是为了解决单机Redis容量有限的问题，将Redis的数据根据一定的规则分配到多台机器，可以理解为是哨兵和主从模式的结合体</p>
+<blockquote>
+<p>这种模式适合数据量巨大的缓存要求，当数据量不是很大使用sentinel即可</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.ibm.com/zh/languages/java/articles/know-redis-and-use-it-in-springboot-projects/">IBM开发者文章-了解 Redis 并在 Spring Boot 项目中使用 Redis</a></p>
+<blockquote>
+<p>Spring Boot 2.4.0「新增RedisCacheMetrics」：用于监控使用redis时的puts、gets、deletes以及缓存命中率等信息<br>此指标信息默认不开启，需你增加配置spring.cache.redis.enable-statistics = true</p>
+</blockquote>
+<p>笔者使用了某云服务器部署了一些测试项目，结果竟然被爆出对外存在攻击行为，最后发现是被人攻占了redis的端口6379，所以<strong>部署 redis 建议修改默认端口或者限制 IP 访问，开启密码认证功能，并使用强密码。</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-redis-mongodb">Redis vs MongoDB</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jonesun/spring-boot-redis-demo">本文示例源码</a></p>
+<h1 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h1><h2 id="Redis为什么快呢？"><a href="#Redis为什么快呢？" class="headerlink" title="Redis为什么快呢？"></a>Redis为什么快呢？</h2><p>redis的速度非常的快，单机的redis就可以支撑每秒10几万的并发，相对于mysql来说，性能是mysql的几<br>十倍。速度快的原因主要有几点：</p>
+<ul>
+<li>完全基于内存操作</li>
+<li>C语言实现，优化过的数据结构，基于几种基础的数据结构，redis做了大量的优化，性能极高</li>
+<li>使用单线程，无上下文的切换成本</li>
+<li>基于非阻塞的IO多路复用机制</li>
+</ul>
+<h2 id="那为什么Redis6-0之后又改用多线程呢"><a href="#那为什么Redis6-0之后又改用多线程呢" class="headerlink" title="那为什么Redis6.0之后又改用多线程呢?"></a>那为什么Redis6.0之后又改用多线程呢?</h2><p>redis使用多线程并非是完全摒弃单线程，redis还是使用单线程模型来处理客户端的请求，只是使用多线程<br>来处理数据的读写和协议解析，执行命令还是使用单线程。</p>
+<p>这样做的目的是因为redis的性能瓶颈在于网络IO而非CPU，使用多线程能提升IO读写的效率，从而整体提<br>  高redis的性能。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/image/wechatpay.png" alt="Jone Sun 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/springboot/" rel="tag"># springboot</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/20200824/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/b6038c0d/" rel="prev" title="java多线程10-ThreadLocal">
+      <i class="fa fa-chevron-left"></i> java多线程10-ThreadLocal
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/20200831/java/springboot/c177f6b0/" rel="next" title="SpringBoot开发小技巧-对象属性拷贝BeanUtils.copyProperties">
+      SpringBoot开发小技巧-对象属性拷贝BeanUtils.copyProperties <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">Redis介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8redis"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用redis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E6%88%90%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">集成方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">下载安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#windows"><span class="nav-number">2.1.1.</span> <span class="nav-text">windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux"><span class="nav-number">2.1.2.</span> <span class="nav-text">linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker"><span class="nav-number">2.1.3.</span> <span class="nav-text">docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5"><span class="nav-number">2.2.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.4.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E5%85%AC%E5%85%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">2.4.1.</span> <span class="nav-text">编写公共配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number">2.4.2.</span> <span class="nav-text">service中使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-CacheConfig%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">使用@CacheConfig相关注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CacheManager"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">使用CacheManager</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-RedisHash%E6%B3%A8%E8%A7%A3%E5%AD%98%E5%82%A8%E5%AE%9E%E4%BD%93%E5%88%B0redis"><span class="nav-number">2.4.2.3.</span> <span class="nav-text">通过@RedisHash注解存储实体到redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8RedisTemplate"><span class="nav-number">2.4.2.4.</span> <span class="nav-text">直接使用RedisTemplate</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.5.</span> <span class="nav-text">分布式锁实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8redis%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.5.1.</span> <span class="nav-text">使用redis实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8redisson"><span class="nav-number">2.5.2.</span> <span class="nav-text">使用redisson</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E8%A6%81%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">注意要点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-number">3.1.</span> <span class="nav-text">缓存穿透</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-number">3.2.</span> <span class="nav-text">缓存击穿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-number">3.3.</span> <span class="nav-text">缓存雪崩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6-Redis%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">进阶: Redis部署模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#standalone-%E5%8D%95%E6%9C%BA-%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.1.</span> <span class="nav-text">standalone(单机)模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#master-slaver-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6-%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">master&#x2F;slaver(主从复制)模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="nav-number">4.2.1.</span> <span class="nav-text">搭建方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sentinel-%E5%93%A8%E5%85%B5-%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.3.</span> <span class="nav-text">sentinel(哨兵)模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E6%96%B9%E5%BC%8F-1"><span class="nav-number">4.3.1.</span> <span class="nav-text">搭建方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Springboot-%E6%95%B4%E5%90%88%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.3.2.</span> <span class="nav-text">Springboot 整合哨兵模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cluster-%E9%9B%86%E7%BE%A4-%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.4.</span> <span class="nav-text">cluster(集群)模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%B8%B8%E9%97%AE"><span class="nav-number">5.</span> <span class="nav-text">面试常问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB%E5%91%A2%EF%BC%9F"><span class="nav-number">5.1.</span> <span class="nav-text">Redis为什么快呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E4%B8%BA%E4%BB%80%E4%B9%88Redis6-0%E4%B9%8B%E5%90%8E%E5%8F%88%E6%94%B9%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%91%A2"><span class="nav-number">5.2.</span> <span class="nav-text">那为什么Redis6.0之后又改用多线程呢?</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jone Sun"
+      src="/image/avatar.png">
+  <p class="site-author-name" itemprop="name">Jone Sun</p>
+  <div class="site-description" itemprop="description">心随精英，口随大众。生活不仅仅只有电脑、手机和电视。。。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jonesun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jonesun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sunjoner7@gmail.com" title="E-Mail → mailto:sunjoner7@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fas fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://miqingwang.github.io/" title="https:&#x2F;&#x2F;miqingwang.github.io&#x2F;" rel="noopener" target="_blank">MiQing Blog</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jonesun</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">532k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '5c5b3a4f979f14390a93',
+      clientSecret: '7ca6f94a969f559ded8fd2d04bda3b85fe3071e8',
+      repo        : 'MyBlogGitalk',
+      owner       : 'jonesun',
+      admin       : ['jonesun'],
+      id          : '899decb4695d756fc9baa0f54cec6436',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"log":false});</script></body>
+</html>
