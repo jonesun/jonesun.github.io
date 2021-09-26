@@ -6231,8 +6231,9 @@ limitations under the License.</code></pre>
 <p>拿到redis.conf 后放到指定目录(这个目录用于后面docker指定本地目录用，比如我放在D:\Software\docker\env\redis\redis.conf)</p>
 <p>修改redis.conf配置文件的以下配置：</p>
 <ul>
-<li>bind 127.0.0.1 #如果需要使redis可以外部访问，则注释掉这部分</li>
-<li>requirepass 密码#给redis设置密码(如果需要)</li>
+<li>注释掉 bind 127.0.0.1 使redis可以外部访问，则注释掉这部分</li>
+<li>修改 protected-mode no 不限制只能本地访问</li>
+<li>修改 requirepass 123456 #给redis设置密码(如果需要)</li>
 </ul>
 <p>运行</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker run -p 6379:6379 --name redis -v D:\Software\docker\env\redis\redis.conf:/etc/redis/redis.conf  -v D:\Software\docker\env\redis\data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes</span></span><br><span class="line">docker run -p 6379:6379 --name redis --restart=always -v /d/Software/docker/env/redis/redis.conf:/etc/redis/redis.conf  -v /d/Software/docker/env/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes</span><br><span class="line"><span class="meta">#</span><span class="bash"> /d/ Windows的D盘</span></span><br></pre></td></tr></table></figure>
@@ -6246,6 +6247,20 @@ limitations under the License.</code></pre>
 <li>appendonly yes：redis启动后数据持久化</li>
 </ul>
 <p>其他定制配置可参考<a href="https://hub.docker.com/_/redis/">hub.docker</a></p>
+<h2 id="Redis可视化客户端"><a href="#Redis可视化客户端" class="headerlink" title="Redis可视化客户端"></a>Redis可视化客户端</h2><p>Redis的可视化客户端目前较流行的有：</p>
+<ul>
+<li>Redis Desktop Manager: 基于Qt5的跨平台Redis桌面管理软件，<a href="http://docs.redisdesktop.com/en/latest/install/#windows">下载地址</a> , 不过<a href="https://github.com/uglide/RedisDesktopManager/releases/tag/0.9.3">0.9.3</a> 版本之后就开始付费使用了，只能下载0.9.3的版本。</li>
+</ul>
+<p><img src="redis-desktop-manager.png" alt="redis-desktop-manager"></p>
+<ul>
+<li><p>Another Redis Desktop Manager：基于nodejs开发的免费的Redis可视化管理工具 <a href="https://github.com/qishibo/AnotherRedisDesktopManager/releases">下载地址</a> <a href="https://gitee.com/qishibo/AnotherRedisDesktopManager/releases">码云下载地址</a></p>
+</li>
+<li><p><img src="another-redis-desktop-manager.png" alt="another-redis-desktop-manager"></p>
+</li>
+</ul>
+<blockquote>
+<p>个人推荐 Another Redis DeskTop Manager，作为替代方案</p>
+</blockquote>
 <h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>访问Redis，直接引入spring-boot-starter-data-redis依赖即可(它实际上是Spring Data的一个子项目——<a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#preface">Spring Data Redis</a>)</p>
 <p>在pom.xml中加入</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- lettuce pool 缓存连接池 如果不需要在yml中自定义pool配置, 则不需要引用--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -8050,6 +8065,8 @@ limitations under the License.</code></pre>
 
 <p>查看是否拉取成功</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
 
 <p><img src="docker-images.png" alt="docker-images"></p>
 <h2 id="运行nginx"><a href="#运行nginx" class="headerlink" title="运行nginx"></a>运行nginx</h2><p>一般需要代理转发，需要修改配置。直接修改容器的配置不是很方便，这时候，可以用上挂载功能，让容器加载或写入宿主机器上的挂载目录。<br>这样，我们直接在宿主机上就可以修改配置或查看日志了。</p>
