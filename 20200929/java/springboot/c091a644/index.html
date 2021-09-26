@@ -30,12 +30,16 @@
 <meta property="og:site_name" content="Jone Sun&#39;s Blog">
 <meta property="og:description" content="简介MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jonesun.github.io/20200929/java/springboot/c091a644/mysql-workbench.png">
+<meta property="og:image" content="https://jonesun.github.io/20200929/java/springboot/c091a644/dbeaver-ss-mock.png">
+<meta property="og:image" content="https://jonesun.github.io/20200929/java/springboot/c091a644/navicat-for-mysql.png">
 <meta property="article:published_time" content="2020-09-29T07:43:05.000Z">
-<meta property="article:modified_time" content="2021-08-23T02:06:32.900Z">
+<meta property="article:modified_time" content="2021-09-26T08:11:07.325Z">
 <meta property="article:author" content="Jone Sun">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="springboot">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jonesun.github.io/20200929/java/springboot/c091a644/mysql-workbench.png">
 
 <link rel="canonical" href="https://jonesun.github.io/20200929/java/springboot/c091a644/">
 
@@ -241,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-23 10:06:32" itemprop="dateModified" datetime="2021-08-23T10:06:32+08:00">2021-08-23</time>
+                <time title="修改时间：2021-09-26 16:11:07" itemprop="dateModified" datetime="2021-09-26T16:11:07+08:00">2021-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,14 +274,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>22k</span>
+              <span>23k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>20 分钟</span>
+              <span>21 分钟</span>
             </span>
 
         </div>
@@ -560,6 +564,37 @@
 <h1 id="Mybatis-Dynamic-Sql"><a href="#Mybatis-Dynamic-Sql" class="headerlink" title="Mybatis Dynamic Sql"></a>Mybatis Dynamic Sql</h1><p>我们常用的xml配置属于MyBatis3风格，官方推出了一个新的风格MyBatis3DynamicSql(java+注解)，感兴趣可以参考<a target="_blank" rel="noopener" href="https://github.com/mybatis/mybatis-dynamic-sql">官方Github</a></p>
 <p>pom.xml需加入</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.dynamic-sql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-dynamic-sql<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Docker-Mysql"><a href="#Docker-Mysql" class="headerlink" title="Docker Mysql"></a>Docker Mysql</h1><p>拉取mysql镜像，如果需要指定版本则可以到<a target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql?tab=tags">Hub Docker</a>中寻找合适版本，这里我们直接用最新版本(8.+)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql</span><br></pre></td></tr></table></figure>
+
+<p>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root123 -d mysql</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 映射本地路径</span></span><br><span class="line">docker run -p 3306:3306 --name mysql --restart=always -v /d/Software/docker/env/mysql/logs:/var/log/mysql -v /d/Software/docker/env/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root123 -d mysql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一般mysql配置文件是不需要映射的，只要映射日志和数据保存位置即可</p>
+</blockquote>
+<p>进入容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql bash</span><br></pre></td></tr></table></figure>
+
+<p>登录mysql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果要修改密码</span></span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;root123&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>授权其他电脑访问并更新加密规则</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on *.* TO &#x27;root&#x27;@&#x27;%&#x27;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<p>添加远程登录用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &#x27;jonesun&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;jonesun123&#x27;;</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;jonesun&#x27;@&#x27;%&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mysql客户端工具"><a href="#Mysql客户端工具" class="headerlink" title="Mysql客户端工具"></a>Mysql客户端工具</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.mysql.com/products/workbench/">MySQL Workbench</a>: 这属于mysql官方出品，免费，功能强大，是首选。<br><img src="mysql-workbench.png" alt="mysql-workbench"></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://dbeaver.io/download/">DBeaver</a>:  开放<a target="_blank" rel="noopener" href="https://github.com/dbeaver/dbeaver">源码</a>  超过2万Star的项目，中文友好，推荐使用<br><img src="dbeaver-ss-mock.png" alt="dbeaver-ss-mock"></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.navicat.com/en/products/navicat-for-mysql">navicat-for-mysql</a>: 这个确实是好用，就是价格有点贵。网上也有不少破解版，喜欢用的自行搜索吧<br><img src="navicat-for-mysql.png" alt="navicat-for-mysql"></p>
+</li>
+</ul>
+
     </div>
 
     
@@ -659,7 +694,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E6%88%90%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">集成方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yml%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.1.</span> <span class="nav-text">yml配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99mapper"><span class="nav-number">2.3.1.</span> <span class="nav-text">编写mapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%B1%BB"><span class="nav-number">2.3.2.</span> <span class="nav-text">编写测试类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8A%A8%E6%80%81SQL%E6%A0%87%E7%AD%BE"><span class="nav-number">3.</span> <span class="nav-text">常用动态SQL标签</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if"><span class="nav-number">3.1.</span> <span class="nav-text">if</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#choose%E3%80%81when%E3%80%81otherwise"><span class="nav-number">3.2.</span> <span class="nav-text">choose、when、otherwise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where"><span class="nav-number">3.3.</span> <span class="nav-text">where</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set"><span class="nav-number">3.4.</span> <span class="nav-text">set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#foreach"><span class="nav-number">3.5.</span> <span class="nav-text">foreach</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql"><span class="nav-number">3.6.</span> <span class="nav-text">sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include"><span class="nav-number">3.7.</span> <span class="nav-text">include</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="nav-number">3.8.</span> <span class="nav-text">常量定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87selectKey%E8%8E%B7%E5%8F%96%E8%87%AA%E5%AE%9A%E4%B9%89%E5%88%97"><span class="nav-number">3.9.</span> <span class="nav-text">通过selectKey获取自定义列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache"><span class="nav-number">3.10.</span> <span class="nav-text">cache</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E8%A6%81%E7%82%B9"><span class="nav-number">3.10.1.</span> <span class="nav-text">注意要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="nav-number">3.10.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pagehelper"><span class="nav-number">4.</span> <span class="nav-text">pagehelper</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql"><span class="nav-number">5.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="nav-number">6.</span> <span class="nav-text">数据库连接池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MyBatis-Plus"><span class="nav-number">7.</span> <span class="nav-text">MyBatis-Plus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90idea%E6%8F%92%E4%BB%B6"><span class="nav-number">8.</span> <span class="nav-text">推荐idea插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">9.</span> <span class="nav-text">多数据源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis%E5%88%86%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">10.</span> <span class="nav-text">Mybatis分层结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis-Dynamic-Sql"><span class="nav-number">11.</span> <span class="nav-text">Mybatis Dynamic Sql</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E6%88%90%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">集成方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yml%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.1.</span> <span class="nav-text">yml配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99mapper"><span class="nav-number">2.3.1.</span> <span class="nav-text">编写mapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%B1%BB"><span class="nav-number">2.3.2.</span> <span class="nav-text">编写测试类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8A%A8%E6%80%81SQL%E6%A0%87%E7%AD%BE"><span class="nav-number">3.</span> <span class="nav-text">常用动态SQL标签</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if"><span class="nav-number">3.1.</span> <span class="nav-text">if</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#choose%E3%80%81when%E3%80%81otherwise"><span class="nav-number">3.2.</span> <span class="nav-text">choose、when、otherwise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where"><span class="nav-number">3.3.</span> <span class="nav-text">where</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set"><span class="nav-number">3.4.</span> <span class="nav-text">set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#foreach"><span class="nav-number">3.5.</span> <span class="nav-text">foreach</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql"><span class="nav-number">3.6.</span> <span class="nav-text">sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include"><span class="nav-number">3.7.</span> <span class="nav-text">include</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="nav-number">3.8.</span> <span class="nav-text">常量定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87selectKey%E8%8E%B7%E5%8F%96%E8%87%AA%E5%AE%9A%E4%B9%89%E5%88%97"><span class="nav-number">3.9.</span> <span class="nav-text">通过selectKey获取自定义列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache"><span class="nav-number">3.10.</span> <span class="nav-text">cache</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E8%A6%81%E7%82%B9"><span class="nav-number">3.10.1.</span> <span class="nav-text">注意要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="nav-number">3.10.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pagehelper"><span class="nav-number">4.</span> <span class="nav-text">pagehelper</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql"><span class="nav-number">5.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="nav-number">6.</span> <span class="nav-text">数据库连接池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MyBatis-Plus"><span class="nav-number">7.</span> <span class="nav-text">MyBatis-Plus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90idea%E6%8F%92%E4%BB%B6"><span class="nav-number">8.</span> <span class="nav-text">推荐idea插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">9.</span> <span class="nav-text">多数据源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis%E5%88%86%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">10.</span> <span class="nav-text">Mybatis分层结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis-Dynamic-Sql"><span class="nav-number">11.</span> <span class="nav-text">Mybatis Dynamic Sql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Mysql"><span class="nav-number">12.</span> <span class="nav-text">Docker Mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B7%A5%E5%85%B7"><span class="nav-number">12.1.</span> <span class="nav-text">Mysql客户端工具</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -742,7 +777,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">535k</span>
+    <span title="站点总字数">536k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

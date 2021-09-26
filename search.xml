@@ -5144,7 +5144,38 @@ limitations under the License.</code></pre>
 </ul>
 <h1 id="Mybatis-Dynamic-Sql"><a href="#Mybatis-Dynamic-Sql" class="headerlink" title="Mybatis Dynamic Sql"></a>Mybatis Dynamic Sql</h1><p>我们常用的xml配置属于MyBatis3风格，官方推出了一个新的风格MyBatis3DynamicSql(java+注解)，感兴趣可以参考<a href="https://github.com/mybatis/mybatis-dynamic-sql">官方Github</a></p>
 <p>pom.xml需加入</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.dynamic-sql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-dynamic-sql<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.dynamic-sql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-dynamic-sql<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Docker-Mysql"><a href="#Docker-Mysql" class="headerlink" title="Docker Mysql"></a>Docker Mysql</h1><p>拉取mysql镜像，如果需要指定版本则可以到<a href="https://hub.docker.com/_/mysql?tab=tags">Hub Docker</a>中寻找合适版本，这里我们直接用最新版本(8.+)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull mysql</span><br></pre></td></tr></table></figure>
+
+<p>启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root123 -d mysql</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 映射本地路径</span></span><br><span class="line">docker run -p 3306:3306 --name mysql --restart=always -v /d/Software/docker/env/mysql/logs:/var/log/mysql -v /d/Software/docker/env/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root123 -d mysql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一般mysql配置文件是不需要映射的，只要映射日志和数据保存位置即可</p>
+</blockquote>
+<p>进入容器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it mysql bash</span><br></pre></td></tr></table></figure>
+
+<p>登录mysql</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果要修改密码</span></span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;root123&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>授权其他电脑访问并更新加密规则</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grant all privileges on *.* TO &#x27;root&#x27;@&#x27;%&#x27;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<p>添加远程登录用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">CREATE USER &#x27;jonesun&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;jonesun123&#x27;;</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;jonesun&#x27;@&#x27;%&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mysql客户端工具"><a href="#Mysql客户端工具" class="headerlink" title="Mysql客户端工具"></a>Mysql客户端工具</h2><ul>
+<li><p><a href="https://www.mysql.com/products/workbench/">MySQL Workbench</a>: 这属于mysql官方出品，免费，功能强大，是首选。<br><img src="mysql-workbench.png" alt="mysql-workbench"></p>
+</li>
+<li><p><a href="https://dbeaver.io/download/">DBeaver</a>:  开放<a href="https://github.com/dbeaver/dbeaver">源码</a>  超过2万Star的项目，中文友好，推荐使用<br><img src="dbeaver-ss-mock.png" alt="dbeaver-ss-mock"></p>
+</li>
+<li><p><a href="https://www.navicat.com/en/products/navicat-for-mysql">navicat-for-mysql</a>: 这个确实是好用，就是价格有点贵。网上也有不少破解版，喜欢用的自行搜索吧<br><img src="navicat-for-mysql.png" alt="navicat-for-mysql"></p>
+</li>
+</ul>
+]]></content>
       <categories>
         <category>java</category>
         <category>springboot</category>
