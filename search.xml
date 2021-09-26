@@ -6224,13 +6224,27 @@ limitations under the License.</code></pre>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -aux|grep redis</span><br></pre></td></tr></table></figure>
 <p>可以看到服务器系统进程默认端口6379</p>
 <p>需要手动下载安装包并运行的话，可参考<a href="https://blog.csdn.net/hzlarm/article/details/99432240">Ubuntu安装Redis及使用</a></p>
-<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>使用docker:</p>
-<p>下载镜像</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull redis</span><br></pre></td></tr></table></figure>
+<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>使用docker</p>
+<h4 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull redis</span><br></pre></td></tr></table></figure>
 
+<h4 id="准备redis的配置文件"><a href="#准备redis的配置文件" class="headerlink" title="准备redis的配置文件"></a>准备redis的配置文件</h4><p>因为需要redis的配置文件，这里最好去redis的<a href="http://www.redis.cn/download.html">官方网站</a> 去下载一个redis使用里面的配置文件即可</p>
+<p>拿到redis.conf 后放到指定目录(这个目录用于后面docker指定本地目录用，比如我放在D:\Software\docker\env\redis\redis.conf)</p>
+<p>修改redis.conf配置文件的以下配置：</p>
+<ul>
+<li>bind 127.0.0.1 #如果需要使redis可以外部访问，则注释掉这部分</li>
+<li>requirepass 密码#给redis设置密码(如果需要)</li>
+</ul>
 <p>运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run --name my-redis -p 6379:6379 -d redis</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker run -p 6379:6379 --name redis -v D:\Software\docker\env\redis\redis.conf:/etc/redis/redis.conf  -v D:\Software\docker\env\redis\data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes</span></span><br><span class="line">docker run -p 6379:6379 --name redis --restart=always -v /d/Software/docker/env/redis/redis.conf:/etc/redis/redis.conf  -v /d/Software/docker/env/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes</span><br><span class="line"><span class="meta">#</span><span class="bash"> /d/ Windows的D盘</span></span><br></pre></td></tr></table></figure>
 
+<p>参数解释：</p>
+<ul>
+<li>-p 6379:6379:把容器内的6379端口映射到宿主机6379端口</li>
+<li>-v /d/Software/docker/env/redis.conf:/etc/redis/redis.conf：把宿主机配置好的redis.conf放到容器内的这个位置中</li>
+<li>-v /d/Software/docker/env/redis/data:/data：把redis持久化的数据在宿主机内显示，做数据备份</li>
+<li>redis-server /etc/redis/redis.conf：这个是关键配置，让redis不是无配置启动，而是按照这个redis.conf的配置启动</li>
+<li>appendonly yes：redis启动后数据持久化</li>
+</ul>
 <p>其他定制配置可参考<a href="https://hub.docker.com/_/redis/">hub.docker</a></p>
 <h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>访问Redis，直接引入spring-boot-starter-data-redis依赖即可(它实际上是Spring Data的一个子项目——<a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#preface">Spring Data Redis</a>)</p>
 <p>在pom.xml中加入</p>
