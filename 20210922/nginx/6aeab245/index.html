@@ -23,29 +23,25 @@
     var CONFIG = {"hostname":"jonesun.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="next高版本的已经默认集成gitalk插件, 如果你本地没找到配置，尽快升级。目前我使用的是next 7.x版本，故只需要在_config.yml中打开gitalk配置即可   在GitHub新建Application  用于用户评论文章时登录授权">
+  <meta name="description" content="docker 中运行nginx拉取nginx最新镜像1docker pull nginx:latest  如果需要指定版本，可以到 Docker Hub 镜像仓库 选择指定Tag 1docker pull nginx:1.21.3  查看是否拉取成功 1docker images   运行nginx一般需要代理转发，需要修改配置。直接修改容器的配置不是很方便，这时候，可以用上挂载功能，让容器加载或">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客集成Gitalk评论">
-<meta property="og:url" content="https://jonesun.github.io/20200729/hexo/63d6ed0b/index.html">
+<meta property="og:title" content="nginx的使用">
+<meta property="og:url" content="https://jonesun.github.io/20210922/nginx/6aeab245/index.html">
 <meta property="og:site_name" content="Jone Sun&#39;s Blog">
-<meta property="og:description" content="next高版本的已经默认集成gitalk插件, 如果你本地没找到配置，尽快升级。目前我使用的是next 7.x版本，故只需要在_config.yml中打开gitalk配置即可   在GitHub新建Application  用于用户评论文章时登录授权">
+<meta property="og:description" content="docker 中运行nginx拉取nginx最新镜像1docker pull nginx:latest  如果需要指定版本，可以到 Docker Hub 镜像仓库 选择指定Tag 1docker pull nginx:1.21.3  查看是否拉取成功 1docker images   运行nginx一般需要代理转发，需要修改配置。直接修改容器的配置不是很方便，这时候，可以用上挂载功能，让容器加载或">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jonesun.github.io/20200729/hexo/63d6ed0b/register-a-new-oauth-application.png">
-<meta property="og:image" content="https://jonesun.github.io/20200729/hexo/63d6ed0b/client-id-secret.png">
-<meta property="og:image" content="https://jonesun.github.io/20200729/hexo/63d6ed0b/blog-comment.png">
-<meta property="og:image" content="https://jonesun.github.io/20200729/hexo/63d6ed0b/gitalk-comment-data.png">
-<meta property="og:image" content="https://jonesun.github.io/20200729/hexo/63d6ed0b/no-comment.png">
-<meta property="article:published_time" content="2020-07-29T06:27:46.000Z">
-<meta property="article:modified_time" content="2021-08-23T02:06:32.878Z">
+<meta property="og:image" content="https://jonesun.github.io/20210922/nginx/6aeab245/docker-images.png">
+<meta property="og:image" content="https://jonesun.github.io/20210922/nginx/6aeab245/windows%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png">
+<meta property="og:image" content="https://jonesun.github.io/20210922/nginx/6aeab245/docker-ps.png">
+<meta property="og:image" content="https://jonesun.github.io/20210922/nginx/6aeab245/welcome-to-nginx.png">
+<meta property="article:published_time" content="2021-09-22T01:47:31.000Z">
+<meta property="article:modified_time" content="2021-09-26T01:24:23.539Z">
 <meta property="article:author" content="Jone Sun">
-<meta property="article:tag" content="nodejs">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="NexT">
-<meta property="article:tag" content="gitalk">
+<meta property="article:tag" content="nginx">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jonesun.github.io/20200729/hexo/63d6ed0b/register-a-new-oauth-application.png">
+<meta name="twitter:image" content="https://jonesun.github.io/20210922/nginx/6aeab245/docker-images.png">
 
-<link rel="canonical" href="https://jonesun.github.io/20200729/hexo/63d6ed0b/">
+<link rel="canonical" href="https://jonesun.github.io/20210922/nginx/6aeab245/">
 
 
 <script id="page-configurations">
@@ -58,7 +54,7 @@
   };
 </script>
 
-  <title>Hexo博客集成Gitalk评论 | Jone Sun's Blog</title>
+  <title>nginx的使用 | Jone Sun's Blog</title>
   
 
 
@@ -219,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20200729/hexo/63d6ed0b/">
+    <link itemprop="mainEntityOfPage" href="https://jonesun.github.io/20210922/nginx/6aeab245/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/image/avatar.png">
@@ -232,7 +228,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo博客集成Gitalk评论
+          nginx的使用
         </h1>
 
         <div class="post-meta">
@@ -242,14 +238,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-07-29 14:27:46" itemprop="dateCreated datePublished" datetime="2020-07-29T14:27:46+08:00">2020-07-29</time>
+              <time title="创建时间：2021-09-22 09:47:31" itemprop="dateCreated datePublished" datetime="2021-09-22T09:47:31+08:00">2021-09-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-23 10:06:32" itemprop="dateModified" datetime="2021-08-23T10:06:32+08:00">2021-08-23</time>
+                <time title="修改时间：2021-09-26 09:24:23" itemprop="dateModified" datetime="2021-09-26T09:24:23+08:00">2021-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +253,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
                 </span>
             </span>
 
@@ -274,14 +270,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>900</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -293,52 +289,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>next高版本的已经默认集成gitalk插件, 如果你本地没找到配置，尽快升级。目前我使用的是next 7.x版本，故只需要在_config.yml中打开gitalk配置即可</p>
+        <h1 id="docker-中运行nginx"><a href="#docker-中运行nginx" class="headerlink" title="docker 中运行nginx"></a>docker 中运行nginx</h1><h2 id="拉取nginx最新镜像"><a href="#拉取nginx最新镜像" class="headerlink" title="拉取nginx最新镜像"></a>拉取nginx最新镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx:latest</span><br></pre></td></tr></table></figure>
+
+<p>如果需要指定版本，可以到<a target="_blank" rel="noopener" href="https://hub.docker.com/_/nginx?tab=tags&page=1&ordering=last_updated"> Docker Hub 镜像仓库</a> 选择指定Tag</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx:1.21.3</span><br></pre></td></tr></table></figure>
+
+<p>查看是否拉取成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<p><img src="docker-images.png" alt="docker-images"></p>
+<h2 id="运行nginx"><a href="#运行nginx" class="headerlink" title="运行nginx"></a>运行nginx</h2><p>一般需要代理转发，需要修改配置。直接修改容器的配置不是很方便，这时候，可以用上挂载功能，让容器加载或写入宿主机器上的挂载目录。<br>这样，我们直接在宿主机上就可以修改配置或查看日志了。</p>
+<p>首先在宿主机上创建3个nginx的文件夹(笔者是使用Windows版的Docker Desktop进行测试的，故宿主机是windows，如果是部署到Linux的话则使用mkdir -p进行创建)：</p>
+<p>html: 挂载静态页面目录<br>conf: 挂载nginx的主配置文件，以方便在宿主机上直接修改容器的配置文件<br>log: 挂载容器内nginx的日志，容器运行起来之后，可以直接在宿主机的这个目录中查看nginx日志</p>
+<p><img src="windows%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt="windows宿主机创建文件夹"></p>
+<h3 id="拷贝容器中默认的配置文件"><a href="#拷贝容器中默认的配置文件" class="headerlink" title="拷贝容器中默认的配置文件"></a>拷贝容器中默认的配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 先简单运行nginx</span></span><br><span class="line">docker run --name nginx -it -p 80:80 -d nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看nginx 运行的容器ID</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 找到nginx的容器id如笔者的是02e4a2b4767a 拷贝conf到宿主机对应目录 </span></span><br><span class="line">docker cp 容器id:/etc/nginx/nginx.conf D:\Software\docker\env\nginx\conf\</span><br><span class="line">docker cp 容器id:/etc/nginx/conf.d D:\Software\docker\env\nginx\conf\</span><br><span class="line">docker cp 容器id:/usr/share/nginx/html D:\Software\docker\env\nginx\html\</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拷贝完之后停止并删除容器</span></span><br><span class="line">docker stop 容器id</span><br><span class="line">docker rm 容器id</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>新版本的docker desktop设置中设置后支持直接D:\ 如果不支持的则可以使用/d/ 代表D:\</p>
 </blockquote>
-<ol>
-<li>在GitHub新建Application</li>
-</ol>
-<p>用于用户评论文章时登录授权</p>
- <a id="more"></a>
+<p><img src="docker-ps.png" alt="docker-ps"></p>
+<p>可以看到我们在本地的conf文件夹中多了一个nginx.conf，这个就是nginx的核心配置文件了</p>
+<blockquote>
+<p>当然如果本地已经有了配置文件，则可以不用拷贝容器中默认的配置文件，直接进入下一步</p>
+</blockquote>
+<h3 id="挂载后运行"><a href="#挂载后运行" class="headerlink" title="挂载后运行"></a>挂载后运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> docker run --name my-nginx -p 80:80 --restart=always -v /d/Software/docker/env/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /d/Software/docker/env/nginx/<span class="built_in">log</span>:/var/<span class="built_in">log</span>/nginx -v /d/Software/docker/env/nginx/html:/usr/share/nginx/html -d nginx</span></span><br><span class="line"></span><br><span class="line">docker run --name my-nginx -p 80:80 --restart=always -v D:\Software\docker\env\nginx\conf\nginx.conf:/etc/nginx/nginx.conf -v D:\Software\docker\env\nginx\log:/var/log/nginx -v D:\Software\docker\env\nginx\html:/usr/share/nginx/html -d nginx</span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">新建</a></p>
-<p><img src="register-a-new-oauth-application.png" alt="image"> </p>
-<ul>
-<li><p>Application name： 应用名称</p>
-</li>
-<li><p>Homepage URL：主页地址，直接写博客地址就行</p>
-</li>
-<li><p>Application description： 描述</p>
-</li>
-<li><p>Authorization callback URL：回调地址，也写博客地址就行</p>
-</li>
-</ul>
-<ol start="2">
-<li>拷贝Client ID和Client Secret</li>
-</ol>
-<p><img src="client-id-secret.png" alt="image"> </p>
-<ol start="3">
-<li>在Github中新建仓库</li>
-</ol>
-<p>用于存放评论数据</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/new">新建</a></p>
-<p><img src="blog-comment.png" alt="image"> </p>
-<ol start="4">
-<li>修改next主题配置</li>
-</ol>
-<p>打开next主题配置文件_config.yml(路径为blog\themes\xxx-主题名称)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">gitalk:</span><br><span class="line">  enable: true #改为 true </span><br><span class="line">  github_id: jonesun # 填写自己的github的用户名</span><br><span class="line">  repo: MyBlogGitalk # 存放评论的仓库名</span><br><span class="line">  client_id: xxxxxx # 填写上一步拷贝的Client ID</span><br><span class="line">  client_secret: xxxxxxxxx # 填写上一步拷贝的Client Secret</span><br><span class="line">  admin_user: jonesun # 也填写自己的github的用户名</span><br><span class="line">  distraction_free_mode: true # Facebook-like distraction free mode</span><br><span class="line">  # Gitalk&#39;s display language depends on user&#39;s browser or system environment</span><br><span class="line">  # If you want everyone visiting your site to see a uniform language, you can set a force language value</span><br><span class="line">  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>–restart=always 一直保持运行，自动启动 -d 表示在一直在后台运行容器</p>
+</blockquote>
+<p>打开浏览器输入localhost后看到如下页面，就说明nginx已经启动成功，后面就根据项目需要配置更改nginx.conf即可</p>
+<p><img src="welcome-to-nginx.png" alt="welcome-to-nginx"></p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>修改配置后，我们可以重启镜像，或者进入镜像中 ./nginx -s reload，即可让修改生效:</p>
+<p>查看nginx 运行的容器ID</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
 
-<ol start="5">
-<li>部署上传</li>
-</ol>
-<p>使用 hexo g 和hexo d上传到博客保存的git上(一般是github)</p>
-<p><img src="gitalk-comment-data.png" alt="image"> </p>
-<p>用户在看到文章后，即可进行评论(需要GitHub账户才行)</p>
-<p>如果有出现这个，登录一下就行了</p>
-<p><img src="no-comment.png" alt="image"> </p>
+<p>进入容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 容器id /bin/bash</span><br></pre></td></tr></table></figure>
 
+<p>重新加载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -t 容器id nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<p>如果有需要则可以重启容器容器重启</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -t 容器id nginx -t</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -362,10 +353,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/nodejs/" rel="tag"># nodejs</a>
-              <a href="/tags/hexo/" rel="tag"># hexo</a>
-              <a href="/tags/NexT/" rel="tag"># NexT</a>
-              <a href="/tags/gitalk/" rel="tag"># gitalk</a>
+              <a href="/tags/nginx/" rel="tag"># nginx</a>
           </div>
 
         
@@ -374,13 +362,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/20200728/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/a490755/" rel="prev" title="java多线程3-fork/join框架">
-      <i class="fa fa-chevron-left"></i> java多线程3-fork/join框架
+    <a href="/20210712/java/springboot/5ca3dffb/" rel="prev" title="springboot多环境配置">
+      <i class="fa fa-chevron-left"></i> springboot多环境配置
     </a></div>
-      <div class="post-nav-item">
-    <a href="/20200730/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/cc62b819/" rel="next" title="java多线程4-volatile&synchronized">
-      java多线程4-volatile&synchronized <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -440,6 +425,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-%E4%B8%AD%E8%BF%90%E8%A1%8Cnginx"><span class="nav-number">1.</span> <span class="nav-text">docker 中运行nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%89%E5%8F%96nginx%E6%9C%80%E6%96%B0%E9%95%9C%E5%83%8F"><span class="nav-number">1.1.</span> <span class="nav-text">拉取nginx最新镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cnginx"><span class="nav-number">1.2.</span> <span class="nav-text">运行nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E5%AE%B9%E5%99%A8%E4%B8%AD%E9%BB%98%E8%AE%A4%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">拷贝容器中默认的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD%E5%90%8E%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.2.</span> <span class="nav-text">挂载后运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.3.</span> <span class="nav-text">常用命令</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -645,7 +631,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'MyBlogGitalk',
       owner       : 'jonesun',
       admin       : ['jonesun'],
-      id          : 'c69433b5bf3da2bf095f6c0e187c22dd',
+      id          : 'bea6d86b237a087c9f06cc1f4b84ce8a',
         language: 'zh-CN',
       distractionFreeMode: true
     });
