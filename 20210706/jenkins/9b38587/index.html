@@ -319,7 +319,7 @@
 </blockquote>
 <p>需要注意的是: 持续交付并不是指软件每一个改动都要尽快部署到产品环境中，它指的是<strong>任何的代码修改都可以在任何时候实施部署</strong>，持续部署是作为持续交付——自动将生产就绪型构建版本发布到代码存储库——的延伸，持续部署可以自动将应用发布到生产环境。</p>
 <p>好像有点意思了，按照笔者的理解：平常我们写完代码完成自测后提交代码后，就有工具可以帮我们自动编译和测试，如果没有问题就自动打包并部署到实际的生产环境中。看上去很不错的样子，那么怎么实现呢？</p>
- <a id="more"></a>
+ <span id="more"></span>
 
 <p><img src="jenkins-logo.jpg" alt="jenkins-logo"></p>
 <p><a target="_blank" rel="noopener" href="https://www.jenkins.io/zh//">Jenkins</a> 著名的可扩展的开源CI/CD工具，可以自动执行与软件的构建，测试，部署，集成和发布有关的任务。Jenkins完全用Java编写，可在Tomcat等流行的servlet容器中运行，也可独立运行。</p>
@@ -343,7 +343,7 @@
 </blockquote>
 <h2 id="Ubuntu上安装"><a href="#Ubuntu上安装" class="headerlink" title="Ubuntu上安装"></a>Ubuntu上安装</h2><p>macOS买不起相关设备，就再尝试下Ubuntu下的安装吧</p>
 <p>由于包含在默认Ubuntu软件包中的Jenkins版本往往落后于项目本身的最新版本。 为了利用最新的修复和功能，我们将使用项目维护的软件包来安装Jenkins</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 先安装jdk</span></span><br><span class="line">sudo apt-get install openjdk-8-jdk</span><br><span class="line"></span><br><span class="line">wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -</span><br><span class="line">sudo sh -c &#x27;echo deb https://pkg.jenkins.io/debian-stable binary/ &gt; \</span><br><span class="line">    /etc/apt/sources.list.d/jenkins.list&#x27;</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br><span class="line"></span><br><span class="line">sudo systemctl start jenkins</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">  设置开机自启动</span></span><br><span class="line">sudo systemctl enable jenkins</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">先安装jdk</span></span><br><span class="line">sudo apt-get install openjdk-8-jdk</span><br><span class="line"></span><br><span class="line">wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -</span><br><span class="line">sudo sh -c &#x27;echo deb https://pkg.jenkins.io/debian-stable binary/ &gt; \</span><br><span class="line">    /etc/apt/sources.list.d/jenkins.list&#x27;</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br><span class="line"></span><br><span class="line">sudo systemctl start jenkins</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> 设置开机自启动</span></span><br><span class="line">sudo systemctl enable jenkins</span><br></pre></td></tr></table></figure>
 
 <p>确认端口</p>
 <p>Jenkins 默认使用8080端口，如果你的8080端口被占用了，请修改配置文件/etc/sysconfig/jenkins，将JENKINS_PORT字段配置成你想要的端口：</p>
@@ -418,13 +418,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

@@ -439,10 +439,10 @@
 <blockquote>
 <p>ThreadLocal是属于java.lang包下的，Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离</p>
 </blockquote>
-<h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public void set(T value) &#123;</span><br><span class="line">    Thread t &#x3D; Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map &#x3D; getMap(t);</span><br><span class="line">    if (map !&#x3D; null) &#123;</span><br><span class="line">        map.set(this, value);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        createMap(t, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ThreadLocalMap getMap(Thread t) &#123;</span><br><span class="line">    return t.threadLocals;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void createMap(Thread t, T firstValue) &#123;</span><br><span class="line">    t.threadLocals &#x3D; new ThreadLocalMap(this, firstValue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public void set(T value) &#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    if (map != null) &#123;</span><br><span class="line">        map.set(this, value);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        createMap(t, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ThreadLocalMap getMap(Thread t) &#123;</span><br><span class="line">    return t.threadLocals;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void createMap(Thread t, T firstValue) &#123;</span><br><span class="line">    t.threadLocals = new ThreadLocalMap(this, firstValue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>可以看到实际上ThreadLocal中的值是存在其内部的ThreadLocalMap中的，而其key是ThreadLocal自身(注意不是Thread)，但ThreadLocalMap的实例却是Thread中属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal.ThreadLocalMap threadLocals &#x3D; null;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal.ThreadLocalMap threadLocals = null;</span><br></pre></td></tr></table></figure>
 <p>也就是说是把value保存到给当前线程Thread的ThreadLocalMap中，并以当前ThreadLocal的实例作为key</p>
 <blockquote>
 <p>ThreadLocalMap本质是每个Thread内部各存一份，互不干扰</p>
@@ -660,7 +660,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8k</span>
+      <span>7.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -786,7 +786,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>996</span>
+      <span>956</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -806,10 +806,10 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我们平常在开发SpringBoot+Mybatis项目时,有时会需要打印sql的执行语句</p>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h2><p>如果项目使用的时yml配置，则:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  configuration:</span><br><span class="line">    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line"></span><br><span class="line">logging:</span><br><span class="line">    level:</span><br><span class="line">        com:</span><br><span class="line">            xxxxx:</span><br><span class="line">                dao: debug</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  configuration:</span><br><span class="line">    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line"></span><br><span class="line">logging:</span><br><span class="line">    level:</span><br><span class="line">        com:</span><br><span class="line">            xxxxx:</span><br><span class="line">                dao: debug</span><br></pre></td></tr></table></figure>
 
 <h2 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h2><p>如果项目使用的时properties配置，则:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line">logging.level.com.xxxxx.dao&#x3D;debug</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line">logging.level.com.xxxxx.dao=debug</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>注意包名路径应为mybatis对应的方法接口所在的包，而不是mapper.xml所在的包</p>
@@ -906,7 +906,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>917</span>
+      <span>877</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -925,10 +925,10 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>日常开发中经常会需要计算一个方法执行了多久:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">long startTime &#x3D; System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;模拟方法执行，花费2s</span><br><span class="line">TimeUnit.SECONDS.sleep(2);</span><br><span class="line"></span><br><span class="line">long endTime &#x3D; System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;花费 &quot; + (endTime - startTime) + &quot; 毫秒&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">long startTime = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">//模拟方法执行，花费2s</span><br><span class="line">TimeUnit.SECONDS.sleep(2);</span><br><span class="line"></span><br><span class="line">long endTime = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;花费 &quot; + (endTime - startTime) + &quot; 毫秒&quot;);</span><br></pre></td></tr></table></figure>
 
 <p>java8之后提供了新的时间日期处理类，那么Java8之后就可以使用ChronoUnit:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LocalDateTime startTime &#x3D; LocalDateTime.now();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;模拟方法执行，花费2s</span><br><span class="line">TimeUnit.SECONDS.sleep(2);</span><br><span class="line"></span><br><span class="line">LocalDateTime endTime &#x3D;  LocalDateTime.now();</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;花费 &quot; + ChronoUnit.MILLIS.between(startTime, LocalDateTime.now()) + &quot; 毫秒&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LocalDateTime startTime = LocalDateTime.now();</span><br><span class="line"></span><br><span class="line">//模拟方法执行，花费2s</span><br><span class="line">TimeUnit.SECONDS.sleep(2);</span><br><span class="line"></span><br><span class="line">LocalDateTime endTime =  LocalDateTime.now();</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;花费 &quot; + ChronoUnit.MILLIS.between(startTime, LocalDateTime.now()) + &quot; 毫秒&quot;);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/20200812/java/java8/16e93703/#more" rel="contents">
@@ -1044,7 +1044,7 @@
 <p>主要利用 CAS (compare and swap) + volatile 和 native 方法来保证原子操作，从而避免 synchronized 的高开销，执行效率大为提升</p>
 <p><img src="atomicInteger.png" alt="基本类"> </p>
 <h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><p>这三个类提供的方法几乎一样，AtomicBoolean少一些，因为boolean值就两个值，所以就是来回改，相对的很多增加减少的方法自然就没有了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;** </span><br><span class="line">* AtomicInteger常见的方法列表 </span><br><span class="line">* @see AtomicInteger#get()             直接返回值 </span><br><span class="line">* @see AtomicInteger#getAndAdd(int)    增加指定的数据，返回变化前的数据 </span><br><span class="line">* @see AtomicInteger#getAndDecrement() 减少1，返回减少前的数据 </span><br><span class="line">* @see AtomicInteger#getAndIncrement() 增加1，返回增加前的数据 </span><br><span class="line">* @see AtomicInteger#getAndSet(int)    设置指定的数据，返回设置前的数据 </span><br><span class="line">*  </span><br><span class="line">* @see AtomicInteger#addAndGet(int)    增加指定的数据后返回增加后的数据 </span><br><span class="line">* @see AtomicInteger#decrementAndGet() 减少1，返回减少后的值 </span><br><span class="line">* @see AtomicInteger#incrementAndGet() 增加1，返回增加后的值 </span><br><span class="line">* @see AtomicInteger#lazySet(int)      仅仅当get时才会set </span><br><span class="line">*  </span><br><span class="line">* @see AtomicInteger#compareAndSet(int, int) 尝试新增后对比，若增加成功则返回true否则返回false </span><br><span class="line">*&#x2F;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> &#x2F;** </span><br><span class="line">* AtomicBoolean主要方法： </span><br><span class="line">* @see AtomicBoolean#compareAndSet(boolean, boolean)  第一个参数为原始值，第二个参数为要修改的新值，若修改成功则返回true，否则返回false </span><br><span class="line">* @see AtomicBoolean#getAndSet(boolean)   尝试设置新的boolean值，直到成功为止，返回设置前的数据 </span><br><span class="line">*&#x2F;  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/** </span><br><span class="line">* AtomicInteger常见的方法列表 </span><br><span class="line">* @see AtomicInteger#get()             直接返回值 </span><br><span class="line">* @see AtomicInteger#getAndAdd(int)    增加指定的数据，返回变化前的数据 </span><br><span class="line">* @see AtomicInteger#getAndDecrement() 减少1，返回减少前的数据 </span><br><span class="line">* @see AtomicInteger#getAndIncrement() 增加1，返回增加前的数据 </span><br><span class="line">* @see AtomicInteger#getAndSet(int)    设置指定的数据，返回设置前的数据 </span><br><span class="line">*  </span><br><span class="line">* @see AtomicInteger#addAndGet(int)    增加指定的数据后返回增加后的数据 </span><br><span class="line">* @see AtomicInteger#decrementAndGet() 减少1，返回减少后的值 </span><br><span class="line">* @see AtomicInteger#incrementAndGet() 增加1，返回增加后的值 </span><br><span class="line">* @see AtomicInteger#lazySet(int)      仅仅当get时才会set </span><br><span class="line">*  </span><br><span class="line">* @see AtomicInteger#compareAndSet(int, int) 尝试新增后对比，若增加成功则返回true否则返回false </span><br><span class="line">*/  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> /** </span><br><span class="line">* AtomicBoolean主要方法： </span><br><span class="line">* @see AtomicBoolean#compareAndSet(boolean, boolean)  第一个参数为原始值，第二个参数为要修改的新值，若修改成功则返回true，否则返回false </span><br><span class="line">* @see AtomicBoolean#getAndSet(boolean)   尝试设置新的boolean值，直到成功为止，返回设置前的数据 </span><br><span class="line">*/  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3>
           <!--noindex-->
@@ -1139,7 +1139,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.8k</span>
+      <span>6.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1257,7 +1257,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>20k</span>
+      <span>19k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1372,7 +1372,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.4k</span>
+      <span>7.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1442,13 +1442,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

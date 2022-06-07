@@ -318,14 +318,14 @@
 <p>查看是否拉取成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
 
-<a id="more"></a>
+<span id="more"></span>
 
 <p><img src="docker-images.png" alt="docker-images"></p>
 <h2 id="运行nginx"><a href="#运行nginx" class="headerlink" title="运行nginx"></a>运行nginx</h2><p>一般需要代理转发，需要修改配置。直接修改容器的配置不是很方便，这时候，可以用上挂载功能，让容器加载或写入宿主机器上的挂载目录。<br>这样，我们直接在宿主机上就可以修改配置或查看日志了。</p>
 <p>首先在宿主机上创建3个nginx的文件夹(笔者是使用Windows版的Docker Desktop进行测试的，故宿主机是windows，如果是部署到Linux的话则使用mkdir -p进行创建)：</p>
 <p>html: 挂载静态页面目录<br>conf: 挂载nginx的主配置文件，以方便在宿主机上直接修改容器的配置文件<br>log: 挂载容器内nginx的日志，容器运行起来之后，可以直接在宿主机的这个目录中查看nginx日志</p>
 <p><img src="windows%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt="windows宿主机创建文件夹"></p>
-<h3 id="拷贝容器中默认的配置文件"><a href="#拷贝容器中默认的配置文件" class="headerlink" title="拷贝容器中默认的配置文件"></a>拷贝容器中默认的配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 先简单运行nginx</span></span><br><span class="line">docker run --name nginx -it -p 80:80 -d nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看nginx 运行的容器ID</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 找到nginx的容器id如笔者的是02e4a2b4767a 拷贝conf到宿主机对应目录 </span></span><br><span class="line">docker cp 容器id:/etc/nginx/nginx.conf D:\Software\docker\env\nginx\conf\</span><br><span class="line">docker cp 容器id:/etc/nginx/conf.d D:\Software\docker\env\nginx\conf\</span><br><span class="line">docker cp 容器id:/usr/share/nginx/html D:\Software\docker\env\nginx\html\</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拷贝完之后停止并删除容器</span></span><br><span class="line">docker stop 容器id</span><br><span class="line">docker rm 容器id</span><br></pre></td></tr></table></figure>
+<h3 id="拷贝容器中默认的配置文件"><a href="#拷贝容器中默认的配置文件" class="headerlink" title="拷贝容器中默认的配置文件"></a>拷贝容器中默认的配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">先简单运行nginx</span></span><br><span class="line">docker run --name nginx -it -p 80:80 -d nginx</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看nginx 运行的容器ID</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">找到nginx的容器<span class="built_in">id</span>如笔者的是02e4a2b4767a 拷贝conf到宿主机对应目录</span> </span><br><span class="line">docker cp 容器id:/etc/nginx/nginx.conf D:\Software\docker\env\nginx\conf\</span><br><span class="line">docker cp 容器id:/etc/nginx/conf.d D:\Software\docker\env\nginx\conf\</span><br><span class="line">docker cp 容器id:/usr/share/nginx/html D:\Software\docker\env\nginx\html\</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拷贝完之后停止并删除容器</span></span><br><span class="line">docker stop 容器id</span><br><span class="line">docker rm 容器id</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>新版本的docker desktop设置中设置后支持直接D:\ 如果不支持的则可以使用/d/ 代表D:\</p>
 </blockquote>
@@ -334,7 +334,7 @@
 <blockquote>
 <p>当然如果本地已经有了配置文件，则可以不用拷贝容器中默认的配置文件，直接进入下一步</p>
 </blockquote>
-<h3 id="挂载后运行"><a href="#挂载后运行" class="headerlink" title="挂载后运行"></a>挂载后运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> docker run --name my-nginx -p 80:80 --restart=always -v /d/Software/docker/env/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /d/Software/docker/env/nginx/<span class="built_in">log</span>:/var/<span class="built_in">log</span>/nginx -v /d/Software/docker/env/nginx/html:/usr/share/nginx/html -d nginx</span></span><br><span class="line"></span><br><span class="line">docker run --name my-nginx -p 80:80 --restart=always -v D:\Software\docker\env\nginx\conf\nginx.conf:/etc/nginx/nginx.conf -v D:\Software\docker\env\nginx\log:/var/log/nginx -v D:\Software\docker\env\nginx\html:/usr/share/nginx/html -d nginx</span><br></pre></td></tr></table></figure>
+<h3 id="挂载后运行"><a href="#挂载后运行" class="headerlink" title="挂载后运行"></a>挂载后运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker run --name my-nginx -p 80:80 --restart=always -v /d/Software/docker/env/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /d/Software/docker/env/nginx/log:/var/log/nginx -v /d/Software/docker/env/nginx/html:/usr/share/nginx/html -d nginx</span></span><br><span class="line"></span><br><span class="line">docker run --name my-nginx -p 80:80 --restart=always -v D:\Software\docker\env\nginx\conf\nginx.conf:/etc/nginx/nginx.conf -v D:\Software\docker\env\nginx\log:/var/log/nginx -v D:\Software\docker\env\nginx\html:/usr/share/nginx/html -d nginx</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>–restart=always 一直保持运行，自动启动 -d 表示在一直在后台运行容器</p>
@@ -404,13 +404,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

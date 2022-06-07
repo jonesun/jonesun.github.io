@@ -311,7 +311,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用Spring Boot Starters可以快速集成相关组件，无需编写复杂的配置，在引入某项技术框架时，一个比较好的习惯就是看有没有xxx-starter</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="一、官方提供的starts"><a href="#一、官方提供的starts" class="headerlink" title="一、官方提供的starts"></a>一、官方提供的starts</h2><blockquote>
 <p>以下基于Spring Boot 2.4.0版本，后续版本可能会有新增和删除，有兴趣可以到spring-boot-autoconfigure中查看最新版本</p>
@@ -442,10 +442,12 @@
 <h2 id="二、第三方starts"><a href="#二、第三方starts" class="headerlink" title="二、第三方starts"></a>二、第三方starts</h2><p>一般第三方的框架会提供自制的 Spring Boot Starter，如：mybatis-spring-boot-starter，只要几个依赖，几行配置参数就能轻松实现集成</p>
 <h2 id="三、自己编写Starter"><a href="#三、自己编写Starter" class="headerlink" title="三、自己编写Starter"></a>三、自己编写Starter</h2><p>除了第三方的 Starter，也可以私有定制Starter，方便在公司内部各业务部门快速集成使用，而不用各自造轮子</p>
 <h3 id="命名风格"><a href="#命名风格" class="headerlink" title="命名风格"></a>命名风格</h3><ul>
-<li>groupId: 不要用官方的org.springframework.boot, 而要用你自己独特的。</li>
-<li>artifactId: Spring Boot官方建议非官方的Starter命名格式遵循 xxx-spring-boot-starter ，例如 mybatis-spring-boot-starter。<br>官方starter会遵循spring-boot-starter-xxx ,例如的spring-boot-starter-web。</li>
+<li><p>groupId: 不要用官方的org.springframework.boot, 而要用你自己独特的。</p>
+</li>
+<li><p>artifactId: Spring Boot官方建议非官方的Starter命名格式遵循 xxx-spring-boot-starter ，例如 mybatis-spring-boot-starter。<br>官方starter会遵循spring-boot-starter-xxx ,例如的spring-boot-starter-web。</p>
+<h3 id="编写要点"><a href="#编写要点" class="headerlink" title="编写要点"></a>编写要点</h3></li>
 </ul>
-<h3 id="编写要点"><a href="#编写要点" class="headerlink" title="编写要点"></a>编写要点</h3><p>starter集成入应用有两种方式：</p>
+<p>starter集成入应用有两种方式：</p>
 <ul>
 <li>主动生效，使用@Import注解，集成后在Spring Boot中加入自定义的@Enablexxx就会生效</li>
 <li>被动生效, 在autoconfigure资源包下新建META-INF/spring.factories写入XXXAutoConfiguration全限定名, 这样在starter组件集成入Spring Boot应用后就会生效</li>
@@ -519,13 +521,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

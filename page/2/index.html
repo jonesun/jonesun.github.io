@@ -435,9 +435,8 @@
 <li>计算机使生活更美好。<blockquote>
 <p>Computers can change your life for the better.</p>
 </blockquote>
-</li>
+根据这六条“黑客伦理”，黑客价值观的核心原则可以概括成这样几点：<strong>分享、开放、民主、计算机的自由使用、进步</strong>。</li>
 </ol>
-<p>根据这六条“黑客伦理”，黑客价值观的核心原则可以概括成这样几点：<strong>分享、开放、民主、计算机的自由使用、进步</strong>。</p>
 
           <!--noindex-->
             <div class="post-button">
@@ -672,10 +671,12 @@
   使用了MQ后系统A将消息写入消息队列，非必要的业务逻辑以异步的方式运行，加快响应速度。
 - 削峰:
   传统模式下并发量大的时候，所有的请求直接连接到数据库，会造成数据库连接异常从而引起系统崩溃！
-  使用了MQ后系统A慢慢的按照数据库能处理的并发量，从消息队列中慢慢拉取消息，减少后端的压力。在生产中，这个短暂的高峰期积压是允许的。</code></pre>
+  使用了MQ后系统A慢慢的按照数据库能处理的并发量，从消息队列中慢慢拉取消息，减少后端的压力。在生产中，这个短暂的高峰期积压是允许的。
+</code></pre>
 <p><strong>不要挖坑</strong> 不管是引入MQ技术，还是其他技术，有利也有弊：</p>
 <pre><code>- 系统可用性降低: 引入MQ之后一旦MQ不可用之后(提供MQ的服务挂掉了)，那凡是关联使用的系统都会受到影响，因此，系统可用性降低
-- 系统复杂性增加: 要多考虑很多方面的问题，比如一致性问题、如何保证消息不被重复消费，如何保证保证消息可靠传输等等，会使得系统的复杂性增大(可能会引入一些潜在的bug)</code></pre>
+- 系统复杂性增加: 要多考虑很多方面的问题，比如一致性问题、如何保证消息不被重复消费，如何保证保证消息可靠传输等等，会使得系统的复杂性增大(可能会引入一些潜在的bug)
+</code></pre>
 <p>个人建议，要看实际项目的需求，业务量不是特别大的项目，不建议为了使用而使用。<br>当然如果项目中有以上的场景需求，或者使用传统模式时遇到了瓶颈时，大胆的引入吧(上面说的弊端也是有很多解决方案的，如可以搭建MQ集群来保持MQ的高可用性)！</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wusier/p/14689805.html">消息中间件的应用场景</a></p>
           <!--noindex-->
@@ -1331,14 +1332,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>14k</span>
+      <span>12k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>12 分钟</span>
+      <span>11 分钟</span>
     </span>
 </div>
 
@@ -1407,13 +1408,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

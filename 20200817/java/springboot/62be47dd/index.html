@@ -292,7 +292,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>996</span>
+      <span>956</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -312,16 +312,16 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我们平常在开发SpringBoot+Mybatis项目时,有时会需要打印sql的执行语句</p>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h2><p>如果项目使用的时yml配置，则:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  configuration:</span><br><span class="line">    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line"></span><br><span class="line">logging:</span><br><span class="line">    level:</span><br><span class="line">        com:</span><br><span class="line">            xxxxx:</span><br><span class="line">                dao: debug</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  configuration:</span><br><span class="line">    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line"></span><br><span class="line">logging:</span><br><span class="line">    level:</span><br><span class="line">        com:</span><br><span class="line">            xxxxx:</span><br><span class="line">                dao: debug</span><br></pre></td></tr></table></figure>
 
 <h2 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h2><p>如果项目使用的时properties配置，则:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line">logging.level.com.xxxxx.dao&#x3D;debug</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br><span class="line">logging.level.com.xxxxx.dao=debug</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>注意包名路径应为mybatis对应的方法接口所在的包，而不是mapper.xml所在的包</p>
 </blockquote>
 <p>即可在控制台中打印sql语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x3D;&#x3D;&gt;  Preparing: SELECT user_change_bind_log_id,user_id,last_bind,bind,bind_type,log_time FROM user_change_bind_log WHERE user_id&#x3D;? AND bind_type&#x3D;? AND log_status&#x3D;0 ORDER BY log_time DESC LIMIT ? </span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;&gt; Parameters: 100023(Integer), device(String), 10(Integer)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: SELECT user_change_bind_log_id,user_id,last_bind,bind,bind_type,log_time FROM user_change_bind_log WHERE user_id=? AND bind_type=? AND log_status=0 ORDER BY log_time DESC LIMIT ? </span><br><span class="line"></span><br><span class="line">==&gt; Parameters: 100023(Integer), device(String), 10(Integer)</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>注意上线时需要去除打印，可以用application-xx实现</p>
@@ -393,13 +393,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

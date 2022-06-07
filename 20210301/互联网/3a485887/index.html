@@ -341,7 +341,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>此文章<strong>转载</strong>自Google Chrome Team的文章：<a target="_blank" rel="noopener" href="http://www.20thingsilearned.com/zh-CN/all/print">20 Things I Learned About Browsers and the Web</a> 国内可能打不开，非常有意思，在此记录下来，以防丢失。</p>
- <a id="more"></a>
+ <span id="more"></span>
 
 <p>20 Things I Learned About Browsers and the Web 里面的20件事包括了：</p>
 <ol>
@@ -600,13 +600,15 @@
 <p>例如，您为了访问美国银行的网站而点击了某个链接：</p>
 <p>合法网址：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="http://www.bankofamerica.com/">www.bankofamerica.com</a> 是合法网址，因为主机名是正确的。</li>
-<li><a target="_blank" rel="noopener" href="http://www.bankofamerica.com/smallbusiness">www.bankofamerica.com/smallbusiness</a> 也是合法网址，因为主机名同样是正确的。这个网址的路径指向的是关<br>于小型企业的子网页。</li>
-</ul>
+<li><p><a target="_blank" rel="noopener" href="http://www.bankofamerica.com/">www.bankofamerica.com</a> 是合法网址，因为主机名是正确的。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.bankofamerica.com/smallbusiness">www.bankofamerica.com/smallbusiness</a> 也是合法网址，因为主机名同样是正确的。这个网址的路径指向的是关<br>于小型企业的子网页。</p>
 <p>可疑网址：</p>
-<ul>
-<li>bankofamerica.xyz.com 不是美国银行的网站。“bankofamerica”实际上是 xyz.com 网站的子域。</li>
-<li><a target="_blank" rel="noopener" href="http://www.xyz.com/bankofamerica">www.xyz.com/bankofamerica</a> 也不是美国银行的网址。“bankofamerica”实际上是 <a target="_blank" rel="noopener" href="http://www.xyz.com/">www.xyz.com</a> 中的路径。</li>
+</li>
+<li><p>bankofamerica.xyz.com 不是美国银行的网站。“bankofamerica”实际上是 xyz.com 网站的子域。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.xyz.com/bankofamerica">www.xyz.com/bankofamerica</a> 也不是美国银行的网址。“bankofamerica”实际上是 <a target="_blank" rel="noopener" href="http://www.xyz.com/">www.xyz.com</a> 中的路径。</p>
+</li>
 </ul>
 <p>如果您要使用密码或帐号等敏感信息访问银行网站或进行在线交易，请首先检查地址栏中的网址！应确<br>保网址的协议是“https://”，并且浏览器地址栏中显示锁形图标。“https://”表示服务器与浏览器之间传输数据所<br>用的是安全连接。</p>
 <hr>
@@ -647,11 +649,14 @@
 <hr>
 <p>数据量和复杂程度究竟提高了多少呢？下面的一些统计数据足以令人震惊：</p>
 <ul>
-<li>按每页字节数计算，目前一个常见网页上的图片和照片占据了大约 65% 的信息量。</li>
-<li>每分钟有总时长 35 小时的视频上传到 YouTube。（这就好比好莱坞每周要发行 13 万部新片，不过爆米花<br>消耗量可没这么多。）</li>
-<li>JavaScript 程序的源代码已经从只有几行增加到了几百 KB，每次载入网页或应用程序时都必须处理这些<br>JavaScript 程序。</li>
-</ul>
+<li><p>按每页字节数计算，目前一个常见网页上的图片和照片占据了大约 65% 的信息量。</p>
+</li>
+<li><p>每分钟有总时长 35 小时的视频上传到 YouTube。（这就好比好莱坞每周要发行 13 万部新片，不过爆米花<br>消耗量可没这么多。）</p>
+</li>
+<li><p>JavaScript 程序的源代码已经从只有几行增加到了几百 KB，每次载入网页或应用程序时都必须处理这些<br>JavaScript 程序。</p>
 <p>那么，这些汹涌而来的数据会减慢浏览器载入网页的速度吗？互联网会很快因为堵塞而变得一团糟吗？</p>
+</li>
+</ul>
 <p>这不太可能。计算机科学家们找到了将图片和照片压缩成较小文件的方法，以便于发送和下载，使它们<br>可以在网络上广泛应用。GIF 和 JPEG 是早期文件压缩系统中最常用的格式。同时，插件的发明打破了<br>HTML 的早期限制，让视频可以嵌入在网页中并进行播放。</p>
 <hr>
 <p>将来，用户利用 HTML5 中的 <video> 标记就可以轻松地在网页中嵌入和播放视频了。Google 还与网<br>络社区在 WebM 项目上展开合作，致力于开发一种免费的开放源代码视频格式，可以适应网络上的各种计算<br>机性能和带宽条件，这样无论是内布拉斯加州农家的计算机还是内罗毕的智能手机，都能收到高品质的视<br>频。</p>
@@ -748,13 +753,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

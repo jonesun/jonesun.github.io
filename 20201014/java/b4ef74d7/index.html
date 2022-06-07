@@ -293,7 +293,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.7k</span>
+      <span>6.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -320,7 +320,7 @@
 <li><p>Map：一种通过键值（key-value）查找的映射表集合</p>
 </li>
 <li><p>Queue: 先进先出（FIFO：First In First Out）的有序表</p>
-<a id="more"></a>
+<span id="more"></span>
 
 </li>
 </ul>
@@ -348,12 +348,12 @@
 <blockquote>
 <p>list转array</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] array &#x3D; list.toArray(Integer[]::new);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Integer[] array &#x3D; list.toArray(new Integer[list.size()]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] array = list.toArray(Integer[]::new);</span><br><span class="line"></span><br><span class="line">//Integer[] array = list.toArray(new Integer[list.size()]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>array转list</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] array &#x3D; &#123; 1, 2, 3 &#125;;</span><br><span class="line">List&lt;Integer&gt; list &#x3D; List.of(array);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;java 11之前的版本，可以使用Arrays.asList(T...)方法把数组转换成List</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] array = &#123; 1, 2, 3 &#125;;</span><br><span class="line">List&lt;Integer&gt; list = List.of(array);</span><br><span class="line"></span><br><span class="line">//java 11之前的版本，可以使用Arrays.asList(T...)方法把数组转换成List</span><br></pre></td></tr></table></figure>
 
 <p>要注意的是，返回的List不一定就是ArrayList或者LinkedList，因为List只是一个接口，如果我们调用List.of()，它返回的是一个只读List。对只读List调用add()、remove()方法会抛出UnsupportedOperationException</p>
 <p><strong>如果对 List 对象做了任何修改，又不想让原始数组被修改，那么就应该在另一个集合中创建一个副本。</strong></p>
@@ -469,7 +469,7 @@
 <li>removeLast() 删除并返回列表的最后一个元素。</li>
 </ul>
 <p><em>使用时一样，尽量用同一组方法</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 这是一个List:</span><br><span class="line">List&lt;String&gt; list &#x3D; new LinkedList&lt;&gt;();</span><br><span class="line">&#x2F;&#x2F; 这是一个Queue:</span><br><span class="line">Queue&lt;String&gt; queue &#x3D; new LinkedList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 这是一个List:</span><br><span class="line">List&lt;String&gt; list = new LinkedList&lt;&gt;();</span><br><span class="line">// 这是一个Queue:</span><br><span class="line">Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();</span><br></pre></td></tr></table></figure>
 
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>由于Java的集合设计非常久远，中间经历过大规模改进，我们要注意到有一小部分集合类是遗留类，不应该继续使用：</p>
 <ul>
@@ -478,8 +478,7 @@
 <li>Stack：基于Vector实现的LIFO的栈(Java 6 添加了 ArrayDeque ，其中包含直接实现堆栈功能的方法)</li>
 </ul>
 <p>如使用ArrayDeque封装下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Deque&lt;T&gt; storage = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(T v)</span> </span>&#123; storage.push(v); &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> T <span class="title">peek</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> storage.peek(); &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> T <span class="title">pop</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> storage.pop(); &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> storage.isEmpty(); &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> storage.toString();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//或者直接Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Stack</span>&lt;T&gt; &#123;</span><br><span class="line">  <span class="keyword">private</span> Deque&lt;T&gt; storage = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(T v)</span> &#123; storage.push(v); &#125;</span><br><span class="line">  <span class="keyword">public</span> T <span class="title function_">peek</span><span class="params">()</span> &#123; <span class="keyword">return</span> storage.peek(); &#125;</span><br><span class="line">  <span class="keyword">public</span> T <span class="title function_">pop</span><span class="params">()</span> &#123; <span class="keyword">return</span> storage.pop(); &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span> &#123; <span class="keyword">return</span> storage.isEmpty(); &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> storage.toString();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//或者直接Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();</span></span><br></pre></td></tr></table></figure>
 <p>还有一小部分接口是遗留接口，也不应该继续使用：Enumeration<E>：已被Iterator<E>取代。</p>
 <h2 id="线程安全集合"><a href="#线程安全集合" class="headerlink" title="线程安全集合"></a>线程安全集合</h2><table>
 <thead>
@@ -516,17 +515,17 @@
 </tr>
 </tbody></table>
 <p>java.util.Collections工具类还提供了一个旧的线程安全集合转换器，可以这么用:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map unsafeMap &#x3D; new HashMap();</span><br><span class="line">Map threadSafeMap &#x3D; Collections.synchronizedMap(unsafeMap);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map unsafeMap = new HashMap();</span><br><span class="line">Map threadSafeMap = Collections.synchronizedMap(unsafeMap);</span><br></pre></td></tr></table></figure>
 <p>但是它实际上是用一个包装类包装了非线程安全的Map，然后对所有读写方法都用synchronized加锁，这样获得的线程安全集合的性能比java.util.concurrent集合要低很多，一般不推荐使用。</p>
 <p>例如: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private static class SynchronizedMap&lt;K,V&gt;</span><br><span class="line">    implements Map&lt;K,V&gt;, Serializable &#123;</span><br><span class="line">    private final Map&lt;K,V&gt; m;     &#x2F;&#x2F; Backing Map</span><br><span class="line">    final Object      mutex;        &#x2F;&#x2F; Object on which to synchronize</span><br><span class="line">    &#x2F;&#x2F; …</span><br><span class="line">    public int size() &#123;</span><br><span class="line">        synchronized (mutex) &#123;return m.size();&#125;</span><br><span class="line">    &#125;</span><br><span class="line"> &#x2F;&#x2F; … </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private static class SynchronizedMap&lt;K,V&gt;</span><br><span class="line">    implements Map&lt;K,V&gt;, Serializable &#123;</span><br><span class="line">    private final Map&lt;K,V&gt; m;     // Backing Map</span><br><span class="line">    final Object      mutex;        // Object on which to synchronize</span><br><span class="line">    // …</span><br><span class="line">    public int size() &#123;</span><br><span class="line">        synchronized (mutex) &#123;return m.size();&#125;</span><br><span class="line">    &#125;</span><br><span class="line"> // … </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <h1 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h1><p>java提供了Collections方便集合的操作</p>
 <ul>
 <li>排序</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list &#x3D; Arrays.asList(2, 4, 9, 3, 1, 5, 8, 6);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;排序</span><br><span class="line">Collections.sort(list);</span><br><span class="line">System.out.println(&quot;list: &quot; + list);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;倒序</span><br><span class="line">Collections.reverse(list);</span><br><span class="line">System.out.println(&quot;list: &quot; + list);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(2, 4, 9, 3, 1, 5, 8, 6);</span><br><span class="line"></span><br><span class="line">//排序</span><br><span class="line">Collections.sort(list);</span><br><span class="line">System.out.println(&quot;list: &quot; + list);</span><br><span class="line"></span><br><span class="line">//倒序</span><br><span class="line">Collections.reverse(list);</span><br><span class="line">System.out.println(&quot;list: &quot; + list);</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>reverse的意思是反转，而不是降序。只是将list集合原来的顺序反转了一下，反转并不意味着降序了。所以要想实现降序，可以先对集合进行升序，然后再反转，这样就降序了</p>
 </blockquote>
@@ -614,13 +613,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

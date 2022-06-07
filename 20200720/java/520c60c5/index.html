@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.2k</span>
+      <span>4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -321,7 +321,7 @@
 <h1 id="JMH-可视化"><a href="#JMH-可视化" class="headerlink" title="JMH 可视化"></a>JMH 可视化</h1><p>将测试例子结果的 json 文件导入，就可以实现可视化</p>
 <p><a target="_blank" rel="noopener" href="http://deepoove.com/jmh-visual-chart/">JMH Visual Chart</a></p>
 <p><a target="_blank" rel="noopener" href="https://jmh.morethan.io/">JMH Visualizer</a></p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h1 id="JMH-插件"><a href="#JMH-插件" class="headerlink" title="JMH 插件"></a>JMH 插件</h1><p>可以通过 IDEA 安装 JMH 插件使 JMH 更容易实现基准测试，在 IDEA 中点击 File-&gt;Settings…-&gt;Plugins，然后搜索 jmh，选择安装 JMH plugin</p>
 <p>这个插件可以让我们能够以 JUnit 相同的方式使用 JMH，主要功能如下：</p>
@@ -333,7 +333,7 @@
 <p>比如可以通过右键点击 Generate…，选择操作 Generate JMH benchmark 就可以生成一个带有 @Benchmark 的方法。</p>
 <p>还有将光标移动到方法声明并调用 Run 操作就运行一个单独的 Benchmark 方法。</p>
 <p>将光标移到类名所在行，右键点击 Run 运行，该类下的所有被 @Benchmark 注解的方法都会被执行。</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="maven-引用"><a href="#maven-引用" class="headerlink" title="maven 引用"></a>maven 引用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;org.openjdk.jmh&#x2F;jmh-core --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.openjdk.jmh&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jmh-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.23&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;org.openjdk.jmh&#x2F;jmh-generator-annprocess --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.openjdk.jmh&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jmh-generator-annprocess&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.23&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;!--            &lt;scope&gt;test&lt;&#x2F;scope&gt;--&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="maven-引用"><a href="#maven-引用" class="headerlink" title="maven 引用"></a>maven 引用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.openjdk.jmh&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jmh-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.23&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.openjdk.jmh&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jmh-generator-annprocess&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.23&lt;/version&gt;</span><br><span class="line">    &lt;!--            &lt;scope&gt;test&lt;/scope&gt;--&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="JMH-基础"><a href="#JMH-基础" class="headerlink" title="JMH 基础"></a>JMH 基础</h2><p><strong>@BenchmarkMode</strong></p>
 <p>用来配置 Mode 选项，可用于类或者方法上，这个注解的 value 是一个数组，可以把几种 Mode 集合在一起执行，如：@BenchmarkMode({Mode.SampleTime, Mode.AverageTime})，还可以设置为 Mode.All，即全部执行一遍：</p>
@@ -361,16 +361,17 @@
 <li>timeUnit：时间的单位，默认秒</li>
 <li>batchSize：批处理大小，每次操作调用几次方法</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;代码预热总计5秒（迭代5次，每次1秒</span><br><span class="line">@Warmup(iterations &#x3D; 5, time &#x3D; 1, timeUnit &#x3D; TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//代码预热总计5秒（迭代5次，每次1秒</span><br><span class="line">@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure>
 
 
 <blockquote>
 <p>为什么需要预热？</p>
 </blockquote>
-<pre><code>因为 JVM 的 JIT 机制的存在，如果某个函数被调用多次之后，JVM 会尝试将其编译为机器码，从而提高执行速度，所以为了让 benchmark 的结果更加接近真实情况就需要进行预热。</code></pre>
+<pre><code>因为 JVM 的 JIT 机制的存在，如果某个函数被调用多次之后，JVM 会尝试将其编译为机器码，从而提高执行速度，所以为了让 benchmark 的结果更加接近真实情况就需要进行预热。
+</code></pre>
 <p><strong>@Measurement</strong></p>
 <p>实际调用方法所需要配置的一些基本测试参数，可用于类或者方法上，参数和 @Warmup 相同。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;表示循环运行5次，总计5秒时间</span><br><span class="line">@Measurement(iterations &#x3D; 5, time &#x3D; 1, timeUnit &#x3D; TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//表示循环运行5次，总计5秒时间</span><br><span class="line">@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure>
 
 
 <p><strong>@Threads</strong></p>
@@ -379,7 +380,7 @@
 <p>进行 fork 的次数，可用于类或者方法上。如果@Fork(1)，那么就是一个线程，这时候就是同步模式。如果 fork 数是 2 的话，则 JMH 会 fork 出两个进程来进行测试。</p>
 <p><strong>@Param</strong></p>
 <p>指定某项参数的多种情况，特别适合用来测试一个函数在不同的参数输入的情况下的性能，只能作用在字段上，使用该注解必须定义 @State 注解。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Param(&#123;&quot;1&quot;,&quot;2&quot;,&quot;3&quot;&#125;)</span><br><span class="line">int  outputType;</span><br><span class="line">@Benchmark</span><br><span class="line">public String benchmark() throws TemplateException, IOException &#123;</span><br><span class="line">  if(outputType&#x3D;&#x3D;3)&#123;</span><br><span class="line">            return doStream();</span><br><span class="line">  &#125;else if(outputType&#x3D;&#x3D;2) &#123;</span><br><span class="line">    return doCharStream()</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    return  doString();</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Param(&#123;&quot;1&quot;,&quot;2&quot;,&quot;3&quot;&#125;)</span><br><span class="line">int  outputType;</span><br><span class="line">@Benchmark</span><br><span class="line">public String benchmark() throws TemplateException, IOException &#123;</span><br><span class="line">  if(outputType==3)&#123;</span><br><span class="line">			return doStream();</span><br><span class="line">  &#125;else if(outputType==2) &#123;</span><br><span class="line">    return doCharStream()</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    return  doString();</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 <p><strong>@Setup 和 @TearDown</strong></p>
@@ -392,7 +393,7 @@
 <li>Level.Invocation,每次调用方法的时候执行，这个选项需要谨慎使用</li>
 </ul>
 <h2 id="运行Benchmark"><a href="#运行Benchmark" class="headerlink" title="运行Benchmark"></a>运行Benchmark</h2><p>JMH提供了Runner类能运行Benchmark类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static void main(String[] args) throws RunnerException &#123;</span><br><span class="line">    Options opt &#x3D; new OptionsBuilder()</span><br><span class="line">        .include(MyBenchmark.class.getSimpleName())</span><br><span class="line">        .build();</span><br><span class="line">    new Runner(opt).run();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> public static void main(String[] args) throws RunnerException &#123;</span><br><span class="line">        Options opt &#x3D; new OptionsBuilder()</span><br><span class="line">                .include(StringConnectTest.class.getSimpleName())</span><br><span class="line">                .result(&quot;result.json&quot;)</span><br><span class="line">                .resultFormat(ResultFormatType.JSON).build();</span><br><span class="line">        new Runner(opt).run();</span><br><span class="line">    &#125;</span><br><span class="line">&#x2F;&#x2F;include接受一个字符串表达式，如只测试方法名字包含“testObjectKey“的方法</span><br><span class="line">include(MyBenchmark.class.getSimpleName()+&quot;.*testObjectKey*&quot;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;用4个子进程做性能测试，每个进程预热一次，执行5次迭代</span><br><span class="line">public static void main(String[] args) throws RunnerException &#123;</span><br><span class="line">    Options opt &#x3D; new OptionsBuilder()</span><br><span class="line">        .include(MyBenchmark.class.getSimpleName())</span><br><span class="line">        .forks(4)</span><br><span class="line">        .warmupIterations(1)</span><br><span class="line">        .measurementIterations(5)</span><br><span class="line">        .build();</span><br><span class="line">    new Runner(opt).run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static void main(String[] args) throws RunnerException &#123;</span><br><span class="line">    Options opt = new OptionsBuilder()</span><br><span class="line">        .include(MyBenchmark.class.getSimpleName())</span><br><span class="line">        .build();</span><br><span class="line">    new Runner(opt).run();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> public static void main(String[] args) throws RunnerException &#123;</span><br><span class="line">        Options opt = new OptionsBuilder()</span><br><span class="line">                .include(StringConnectTest.class.getSimpleName())</span><br><span class="line">                .result(&quot;result.json&quot;)</span><br><span class="line">                .resultFormat(ResultFormatType.JSON).build();</span><br><span class="line">        new Runner(opt).run();</span><br><span class="line">    &#125;</span><br><span class="line">//include接受一个字符串表达式，如只测试方法名字包含“testObjectKey“的方法</span><br><span class="line">include(MyBenchmark.class.getSimpleName()+&quot;.*testObjectKey*&quot;)</span><br><span class="line"></span><br><span class="line">//用4个子进程做性能测试，每个进程预热一次，执行5次迭代</span><br><span class="line">public static void main(String[] args) throws RunnerException &#123;</span><br><span class="line">    Options opt = new OptionsBuilder()</span><br><span class="line">        .include(MyBenchmark.class.getSimpleName())</span><br><span class="line">        .forks(4)</span><br><span class="line">        .warmupIterations(1)</span><br><span class="line">        .measurementIterations(5)</span><br><span class="line">        .build();</span><br><span class="line">    new Runner(opt).run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -448,13 +449,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

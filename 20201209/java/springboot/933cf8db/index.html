@@ -321,7 +321,7 @@
 <li>专一 Flyway 专注于搞数据库迁移、版本控制而并没有其它副作用。</li>
 <li>强大 专为持续交付而设计。让Flyway在应用程序启动时迁移数据库。</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 
 <h1 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h1><p><strong>某个环境使用了 flyway 控制版本之后，就不要再手动增删改表了</strong></p>
 <h2 id="新项目"><a href="#新项目" class="headerlink" title="新项目"></a>新项目</h2><p>如果是新的项目，直接通过Idea选择Spring Initializr创建SpringBoot项目并勾选[Flyway Migration]即可：</p>
@@ -330,7 +330,7 @@
 <ul>
 <li>首先先配置好数据库相关配置，这里为了演示方便使用了H2(实际项目更多使用的是MySQL)</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  datasource:</span><br><span class="line">    driver-class-name: org.h2.Driver</span><br><span class="line">    # h2  数据库 持久化到磁盘C:&#x2F;h2 mysql模式</span><br><span class="line">    url: jdbc:h2:file:C:&#x2F;h2&#x2F;test;MODE&#x3D;MySQL;DATABASE_TO_LOWER&#x3D;TRUE</span><br><span class="line">    username: root</span><br><span class="line">    password: root123</span><br><span class="line">  h2:</span><br><span class="line">    console:</span><br><span class="line">      enabled: true</span><br><span class="line">      settings:</span><br><span class="line">        trace: true</span><br><span class="line">        web-allow-others: true</span><br><span class="line">      path: &#x2F;h2-console</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  datasource:</span><br><span class="line">    driver-class-name: org.h2.Driver</span><br><span class="line">    # h2  数据库 持久化到磁盘C:/h2 mysql模式</span><br><span class="line">    url: jdbc:h2:file:C:/h2/test;MODE=MySQL;DATABASE_TO_LOWER=TRUE</span><br><span class="line">    username: root</span><br><span class="line">    password: root123</span><br><span class="line">  h2:</span><br><span class="line">    console:</span><br><span class="line">      enabled: true</span><br><span class="line">      settings:</span><br><span class="line">        trace: true</span><br><span class="line">        web-allow-others: true</span><br><span class="line">      path: /h2-console</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>数据库相关配置这边就不多解释了</p>
@@ -338,13 +338,13 @@
 <ul>
 <li>接着需要在application.yml中对flyway进行一些配置：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line"></span><br><span class="line">  # flyway 配置</span><br><span class="line">  flyway:</span><br><span class="line">    # 启用或禁用 flyway 正式环境才开启</span><br><span class="line">    enabled: true</span><br><span class="line">    # 禁用数据库清理 flyway 的 clean 命令会删除指定 schema 下的所有 table, 生产务必禁掉</span><br><span class="line">    clean-disabled: true</span><br><span class="line">    # SQL 脚本的目录,多个路径使用逗号分隔 默认值 classpath:db&#x2F;migration</span><br><span class="line">    locations: classpath:db&#x2F;migration</span><br><span class="line">    #  metadata 版本控制信息表 默认 flyway_schema_history,建议后缀指定为当前项目名称</span><br><span class="line">    table: flyway_schema_history_demo</span><br><span class="line">    # 如果没有 flyway_schema_history 这个 metadata 表， 在执行 flyway migrate 命令之前, 必须先执行 flyway baseline 命令</span><br><span class="line">    # 设置为 true 后 flyway 将在需要 baseline 的时候, 自动执行一次 baseline。 针对非空数据库是否默认调用基线版本,为空的话默认会调用基线版本</span><br><span class="line">    baseline-on-migrate: true</span><br><span class="line">    # 指定 baseline 的版本号,默认值为 1, 低于该版本号的 SQL 文件, migrate 时会被忽略</span><br><span class="line">    baseline-version: 1</span><br><span class="line">    # 字符编码 默认 UTF-8</span><br><span class="line">    encoding: UTF-8</span><br><span class="line">    # 是否允许不按顺序迁移 开发建议 true  生产建议 false</span><br><span class="line">    out-of-order: false</span><br><span class="line">    # 需要 flyway 管控的 schema list,这里我们配置为flyway  缺省的话, 使用spring.datasource.url 配置的那个 schema,</span><br><span class="line">    # 可以指定多个schema, 但仅会在第一个schema下建立 metadata 表, 也仅在第一个schema应用migration sql 脚本.</span><br><span class="line">    # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true</span><br><span class="line">    schemas: flyway</span><br><span class="line">    # 执行迁移时是否自动调用验证   当你的 版本不符合逻辑 比如 你先执行了 DML 而没有 对应的DDL 会抛出异常</span><br><span class="line">    validate-on-migrate: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line"></span><br><span class="line">  # flyway 配置</span><br><span class="line">  flyway:</span><br><span class="line">    # 启用或禁用 flyway 正式环境才开启</span><br><span class="line">    enabled: true</span><br><span class="line">    # 禁用数据库清理 flyway 的 clean 命令会删除指定 schema 下的所有 table, 生产务必禁掉</span><br><span class="line">    clean-disabled: true</span><br><span class="line">    # SQL 脚本的目录,多个路径使用逗号分隔 默认值 classpath:db/migration</span><br><span class="line">    locations: classpath:db/migration</span><br><span class="line">    #  metadata 版本控制信息表 默认 flyway_schema_history,建议后缀指定为当前项目名称</span><br><span class="line">    table: flyway_schema_history_demo</span><br><span class="line">    # 如果没有 flyway_schema_history 这个 metadata 表， 在执行 flyway migrate 命令之前, 必须先执行 flyway baseline 命令</span><br><span class="line">    # 设置为 true 后 flyway 将在需要 baseline 的时候, 自动执行一次 baseline。 针对非空数据库是否默认调用基线版本,为空的话默认会调用基线版本</span><br><span class="line">    baseline-on-migrate: true</span><br><span class="line">    # 指定 baseline 的版本号,默认值为 1, 低于该版本号的 SQL 文件, migrate 时会被忽略</span><br><span class="line">    baseline-version: 1</span><br><span class="line">    # 字符编码 默认 UTF-8</span><br><span class="line">    encoding: UTF-8</span><br><span class="line">    # 是否允许不按顺序迁移 开发建议 true  生产建议 false</span><br><span class="line">    out-of-order: false</span><br><span class="line">    # 需要 flyway 管控的 schema list,这里我们配置为flyway  缺省的话, 使用spring.datasource.url 配置的那个 schema,</span><br><span class="line">    # 可以指定多个schema, 但仅会在第一个schema下建立 metadata 表, 也仅在第一个schema应用migration sql 脚本.</span><br><span class="line">    # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true</span><br><span class="line">    schemas: flyway</span><br><span class="line">    # 执行迁移时是否自动调用验证   当你的 版本不符合逻辑 比如 你先执行了 DML 而没有 对应的DDL 会抛出异常</span><br><span class="line">    validate-on-migrate: true</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>编写SQL初始化脚本</li>
 </ul>
 <p>在db/migration文件夹下新建V1.0.1__init.sql文件(必须以Vxx__开头，后面根据自己的规则编写即可)：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 示例</span><br><span class="line">DROP TABLE IF EXISTS users;</span><br><span class="line"></span><br><span class="line">CREATE TABLE users</span><br><span class="line">(</span><br><span class="line">    id BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT &#39;主键ID&#39;,</span><br><span class="line">    name VARCHAR(30) NULL DEFAULT NULL COMMENT &#39;姓名&#39;,</span><br><span class="line">    age INT(11) NULL DEFAULT NULL COMMENT &#39;年龄&#39;,</span><br><span class="line">    email VARCHAR(50) NULL DEFAULT NULL COMMENT &#39;邮箱&#39;,</span><br><span class="line">    create_time DATETIME NULL DEFAULT NULL COMMENT &#39;创建日期&#39;,</span><br><span class="line">    PRIMARY KEY (id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">INSERT INTO users (id, &#96;name&#96;, age, email, create_time) VALUES</span><br><span class="line">(1, &#39;Jone&#39;, 18, &#39;jone@163.com&#39;, &#39;2020-02-09 08:20:00&#39;),</span><br><span class="line">(2, &#39;Jack&#39;, 20, &#39;jack@163.com&#39;, &#39;2020-02-10 11:00:00&#39;),</span><br><span class="line">(3, &#39;Tom&#39;, 28, &#39;tom@163.com&#39;, &#39;2020-03-11 06:10:00&#39;),</span><br><span class="line">(4, &#39;Sandy&#39;, 21, &#39;sandy@163.com&#39;, &#39;2020-04-12 05:30:00&#39;),</span><br><span class="line">(5, &#39;Billie&#39;, 24, &#39;billie@163.com&#39;, &#39;2020-05-13 03:40:00&#39;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 示例</span><br><span class="line">DROP TABLE IF EXISTS users;</span><br><span class="line"></span><br><span class="line">CREATE TABLE users</span><br><span class="line">(</span><br><span class="line">	id BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT &#x27;主键ID&#x27;,</span><br><span class="line">	name VARCHAR(30) NULL DEFAULT NULL COMMENT &#x27;姓名&#x27;,</span><br><span class="line">	age INT(11) NULL DEFAULT NULL COMMENT &#x27;年龄&#x27;,</span><br><span class="line">	email VARCHAR(50) NULL DEFAULT NULL COMMENT &#x27;邮箱&#x27;,</span><br><span class="line">	create_time DATETIME NULL DEFAULT NULL COMMENT &#x27;创建日期&#x27;,</span><br><span class="line">	PRIMARY KEY (id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">INSERT INTO users (id, `name`, age, email, create_time) VALUES</span><br><span class="line">(1, &#x27;Jone&#x27;, 18, &#x27;jone@163.com&#x27;, &#x27;2020-02-09 08:20:00&#x27;),</span><br><span class="line">(2, &#x27;Jack&#x27;, 20, &#x27;jack@163.com&#x27;, &#x27;2020-02-10 11:00:00&#x27;),</span><br><span class="line">(3, &#x27;Tom&#x27;, 28, &#x27;tom@163.com&#x27;, &#x27;2020-03-11 06:10:00&#x27;),</span><br><span class="line">(4, &#x27;Sandy&#x27;, 21, &#x27;sandy@163.com&#x27;, &#x27;2020-04-12 05:30:00&#x27;),</span><br><span class="line">(5, &#x27;Billie&#x27;, 24, &#x27;billie@163.com&#x27;, &#x27;2020-05-13 03:40:00&#x27;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>启动项目</li>
@@ -362,11 +362,11 @@
 <li><p>用于版本升级, 每个版本有唯一的版本号并只能执行一次。以大写的”V”开头，后面跟上”0~9”数字的组合,数字之间可以用“.”或者下划线”_”分割开，然后再以两个下划线分割，其后跟文件名称，最后以.sql结尾。比如，V2.1.5__create_user_ddl.sql、V4.1_2__add_user_dml.sql。</p>
 </li>
 <li><p>可重复运行的SQL，以大写的“R”开头，后面再以两个下划线分割，其后跟文件名称，最后以.sql结尾。比如，R__truncate_user_dml.sql。Flyway检测到该类型SQL 脚本的 checksum 有变动, Flyway 就会重新应用该脚本. 它并不用于版本更新</p>
-</li>
-</ul>
 <blockquote>
 <p>V开头的SQL执行优先级要比R开头的SQL优先级高。</p>
 </blockquote>
+</li>
+</ul>
 <blockquote>
 <p>另外还有一种：以Ux__开头的SQL，Undo用于撤销具有相同版本的版本化迁移带来的影响。但是该回滚过于粗暴，一般不推荐使用(另外这也是收费版本才支持的)</p>
 </blockquote>
@@ -381,21 +381,25 @@
 <ul>
 <li>pom.xml加入flyway引用:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.flywaydb&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;flyway-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.flywaydb&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;flyway-core&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>scr/resources下新建db/migration文件夹(注意是先新建db文件夹再新建migration文件夹)</li>
-<li>同上面的新项目一样在application.yml中对flyway进行配置</li>
-<li>在db/migration文件夹中增加一个名为 V1.0.0__init.sql的文件，内容为空，用于占位</li>
-<li>在db/migration文件夹中按照规则新建Vxxx__xxx.sql即可</li>
-</ul>
+<li><p>scr/resources下新建db/migration文件夹(注意是先新建db文件夹再新建migration文件夹)</p>
+</li>
+<li><p>同上面的新项目一样在application.yml中对flyway进行配置</p>
+</li>
+<li><p>在db/migration文件夹中增加一个名为 V1.0.0__init.sql的文件，内容为空，用于占位</p>
+</li>
+<li><p>在db/migration文件夹中按照规则新建Vxxx__xxx.sql即可</p>
 <p>一个好的习惯：先 dump 一份所有环境中当前项目最新版本的表结构，在 resources/db目录中创建一个 base_init.sql 文件，将最新版本的 DDL 以及需要初始化的数据放到这个文件中，这个 sql 文件后期就不要做任何修改</p>
+</li>
+</ul>
 <p>如果需要部署到新的环境，则只需要执行base_init.sql即可，其他版本的交给 flyway 就可以了</p>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>因为flyway针对Vxx__.sql在项目启动后只会执行一次，故开发环境下要不先关闭flyway, 要不sql编写后启动过项目后就不要再变化了，不然会报异常Validate failed，当然如果出现此类异常需要到flyway_schema_history_demo(表名随自己项目的配置)删除对应记录:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELETE IGNORE FROM flyway_schema_history_demo WHERE success &#x3D; 0;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELETE IGNORE FROM flyway_schema_history_demo WHERE success = 0;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>flyway也提供了maven插件便于开发调试使用，有兴趣可以了解下: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.flywaydb&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;flyway-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">&lt;&#x2F;plugin&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.flywaydb&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;flyway-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
 
 <p>与flyway类似的还有<a target="_blank" rel="noopener" href="https://www.liquibase.org/">Liquibase</a>。对应的flyway和Liquibase都有收费版提供更强大的功能。</p>
 
@@ -454,13 +458,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

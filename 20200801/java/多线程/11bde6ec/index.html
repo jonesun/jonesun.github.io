@@ -325,7 +325,7 @@
 <p><a href="/20200817/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/c9ab2479">java多线程8-locks锁</a></p>
 <p><a href="/20200818/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/aa881dfa">java多线程9-BlockingQueue和BlockingDeque-待细化</a></p>
 <p><a href="/20200824/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/b6038c0d">java多线程10-ThreadLocal</a></p>
- <a id="more"></a>
+ <span id="more"></span>
 
 <h1 id="java14并发包结构"><a href="#java14并发包结构" class="headerlink" title="java14并发包结构"></a>java14并发包结构</h1><p>共计 17(atomic) + 10(locks) + 61 = 88个类</p>
 <h2 id="juc-atomic-原子类"><a href="#juc-atomic-原子类" class="headerlink" title="juc-atomic 原子类"></a>juc-atomic 原子类</h2><h3 id="1-原子类"><a href="#1-原子类" class="headerlink" title="1. 原子类"></a>1. 原子类</h3><p>AtomicInteger AtomicLong AtomicBoolean</p>
@@ -361,7 +361,7 @@
 <h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>并发：系统能处理多个任务，但同时只能处理一个的任务处理机制</p>
 <p>并行：系统能处理多个任务，且同时还能处理多个的任务处理机制</p>
 <p>高并发：系统能同时并行处理很多请求的任务处理机制</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">你吃饭吃到一半，电话来了，你一直到吃完了以后才去接，这就说明你不支持并发也不支持并行。</span><br><span class="line"></span><br><span class="line">你吃饭吃到一半，电话来了，你停了下来接了电话，接完后继续吃饭，这说明你支持并发。</span><br><span class="line"></span><br><span class="line">你吃饭吃到一半，电话来了，你一边打电话一边吃饭，这说明你支持并行。</span><br><span class="line"></span><br><span class="line">并发的关键是你有处理多个任务的能力，不一定要同时。并行的关键是你有同时处理多个任务的能力。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">你吃饭吃到一半，电话来了，你一直到吃完了以后才去接，这就说明你不支持并发也不支持并行。</span><br><span class="line"></span><br><span class="line">你吃饭吃到一半，电话来了，你停了下来接了电话，接完后继续吃饭，这说明你支持并发。</span><br><span class="line"></span><br><span class="line">你吃饭吃到一半，电话来了，你一边打电话一边吃饭，这说明你支持并行。</span><br><span class="line"></span><br><span class="line">并发的关键是你有处理多个任务的能力，不一定要同时。并行的关键是你有同时处理多个任务的能力。</span><br></pre></td></tr></table></figure>
 
 <p>JUC: java.util.concurrent简称</p>
 <p>自旋锁：由于大部分时候，锁被占用的时间很短，共享变量的锁定时间也很短，所有没有必要挂起线程，<br>用户态和内核态的来回上下文切换严重影响性能。自旋的概念就是让线程执行一个忙循环，可以理解为就<br>是啥也不干，防止从用户态转入内核态，自旋锁可以通过设置-XX:+UseSpining来开启，自旋的默认次数<br>是10次，可以使用-XX:PreBlockSpin设置。</p>
@@ -492,13 +492,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

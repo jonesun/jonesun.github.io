@@ -327,13 +327,15 @@
   使用了MQ后系统A将消息写入消息队列，非必要的业务逻辑以异步的方式运行，加快响应速度。
 - 削峰:
   传统模式下并发量大的时候，所有的请求直接连接到数据库，会造成数据库连接异常从而引起系统崩溃！
-  使用了MQ后系统A慢慢的按照数据库能处理的并发量，从消息队列中慢慢拉取消息，减少后端的压力。在生产中，这个短暂的高峰期积压是允许的。</code></pre>
+  使用了MQ后系统A慢慢的按照数据库能处理的并发量，从消息队列中慢慢拉取消息，减少后端的压力。在生产中，这个短暂的高峰期积压是允许的。
+</code></pre>
 <p><strong>不要挖坑</strong> 不管是引入MQ技术，还是其他技术，有利也有弊：</p>
 <pre><code>- 系统可用性降低: 引入MQ之后一旦MQ不可用之后(提供MQ的服务挂掉了)，那凡是关联使用的系统都会受到影响，因此，系统可用性降低
-- 系统复杂性增加: 要多考虑很多方面的问题，比如一致性问题、如何保证消息不被重复消费，如何保证保证消息可靠传输等等，会使得系统的复杂性增大(可能会引入一些潜在的bug)</code></pre>
+- 系统复杂性增加: 要多考虑很多方面的问题，比如一致性问题、如何保证消息不被重复消费，如何保证保证消息可靠传输等等，会使得系统的复杂性增大(可能会引入一些潜在的bug)
+</code></pre>
 <p>个人建议，要看实际项目的需求，业务量不是特别大的项目，不建议为了使用而使用。<br>当然如果项目中有以上的场景需求，或者使用传统模式时遇到了瓶颈时，大胆的引入吧(上面说的弊端也是有很多解决方案的，如可以搭建MQ集群来保持MQ的高可用性)！</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wusier/p/14689805.html">消息中间件的应用场景</a></p>
- <a id="more"></a>
+ <span id="more"></span>
 
 <h1 id="使用哪种方案"><a href="#使用哪种方案" class="headerlink" title="使用哪种方案"></a>使用哪种方案</h1><p>目前常见和使用广泛的MQ有ActiveMQ、RabbitMQ、RocketMQ、Kakfa，至于使用哪个方案，还是要看使用场景的(公司规模、使用的语言、数据量等)</p>
 <h2 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h2><p><a target="_blank" rel="noopener" href="http://activemq.apache.org/">ActiveMQ</a></p>
@@ -354,7 +356,8 @@
 <h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><p>当然如果项目使用了阿里云的全家桶，可以试试阿里出品的 <a target="_blank" rel="noopener" href="http://rocketmq.apache.org/">RocketMQ</a> (当然在2016年底已经贡献给了Apache，成为了Apache的一个顶级项目)<br>RocketMQ中文资料丰富，也得到了阿里各个系统的验证，对于一般的项目来说，直接拿来就可以用。<br>而且针对rocketMQ,大型软件公司也可以抽出人手对rocketMQ进行定制化开发，毕竟国内有能力改JAVA源码的人，还是相当多的。</p>
 <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>最后补充一个<a target="_blank" rel="noopener" href="https://redis.io/">Redis</a>，虽然它是一个Key-Value数据库存储系统，但它本身支持MQ功能，所以完全可以当做一个轻量级的队列服务来使用。<br>对于RabbitMQ和Redis的入队和出队操作，各执行100万次，每10万次记录一次执行时间。测试数据分为128Bytes、512Bytes、1K和10K四个不同大小的数据。<br>实验表明：</p>
 <pre><code>- 入队时，当数据比较小时Redis的性能要高于RabbitMQ，而如果数据大小超过了10K，Redis则慢的无法忍受；
-- 出队时，无论数据大小，Redis都表现出非常好的性能，而RabbitMQ的出队性能则远低于Redis。</code></pre>
+- 出队时，无论数据大小，Redis都表现出非常好的性能，而RabbitMQ的出队性能则远低于Redis。
+</code></pre>
 <p>当项目中已经引入了Redis且数据量和并发量(其实一般公司的项目，并不会太大)不是非常大的话，也可以直接利用Redis的MQ功能来作为消息队列的中间件</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实各个方案都有其优点和使用场景：</p>
 <ul>
@@ -443,13 +446,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">537k</span>
+    <span title="站点总字数">529k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:08</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
